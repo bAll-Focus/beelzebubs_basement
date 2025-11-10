@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqf5h62cdh8r8"]
+[gd_scene load_steps=3 format=3 uid="uid://cqf5h62cdh8r8"]
 
 [ext_resource type="Script" uid="uid://kwfv8cceovgb" path="res://main.gd" id="1_ig7tw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ig7tw")
@@ -18,7 +20,14 @@ tracker = &"left_hand"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.986422, 0)
+[node name="Basement" type="Node3D" parent="."]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="Basement"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(0.7527597, 0.23304541, 0.6156644, 0, -0.9352403, 0.35401344, 0.6582954, -0.26648706, -0.7040112, 5.848714, 5.686602, -5.491973)
+shadow_enabled = true
