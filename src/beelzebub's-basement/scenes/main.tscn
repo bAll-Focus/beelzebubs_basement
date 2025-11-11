@@ -1,46 +1,84 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqf5h62cdh8r8"]
+[gd_scene load_steps=12 format=3 uid="uid://cqf5h62cdh8r8"]
 
 [ext_resource type="Script" uid="uid://kwfv8cceovgb" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://3gjkc6qju2n3" path="res://textures/hands/LeftHandHumanoid.gltf" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bymg1qpy1tu2w" path="res://textures/hands/RightHandHumanoid.gltf" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_tefeu"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
-sky_top_color = Color(0.4227756, 0.686872, 0.854668, 1)
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("ProceduralSkyMaterial_o5qli")
 
-[sub_resource type="Sky" id="Sky_0xm2m"]
-sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
-
-[sub_resource type="Environment" id="Environment_h2yge"]
+[sub_resource type="Environment" id="Environment_sugp2"]
 background_mode = 2
-sky = SubResource("Sky_0xm2m")
+sky = SubResource("Sky_0wfyh")
+tonemap_mode = 2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o6xl0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jyhfs"]
+size = Vector3(10, 0.1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbgi4"]
+albedo_color = Color(0.1331963, 0.13319644, 0.13319635, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tefeu"]
+material = SubResource("StandardMaterial3D_tbgi4")
+size = Vector3(10, 0.1, 10)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_o5qli")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sugp2")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("4_tefeu")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/PlayerBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_o6xl0")
+
+[node name="LeftXRNode3D" type="XRNode3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
-tracker = &"left_hand"
+tracker = &"/user/hand_tracker/left"
+show_when_tracked = true
 
-[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+[node name="LeftHandHumanoid2" parent="XROrigin3D/LeftXRNode3D" instance=ExtResource("3_jyhfs")]
+
+[node name="Skeleton3D" type="Skeleton3D" parent="XROrigin3D/LeftXRNode3D/LeftHandHumanoid2"]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/LeftXRNode3D/LeftHandHumanoid2/Skeleton3D"]
+
+[node name="RightXRNode3D" type="XRNode3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
-tracker = &"right_hand"
+tracker = &"/user/hand_tracker/right"
+show_when_tracked = true
 
-[node name="Basement" type="Node3D" parent="."]
+[node name="RightHandHumanoid2" parent="XROrigin3D/RightXRNode3D" instance=ExtResource("4_tbgi4")]
 
-[node name="Floor" type="MeshInstance3D" parent="Basement"]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -0.5, 0)
-mesh = SubResource("BoxMesh_ig7tw")
+[node name="Skeleton3D" type="Skeleton3D" parent="XROrigin3D/RightXRNode3D/RightHandHumanoid2"]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/RightXRNode3D/RightHandHumanoid2/Skeleton3D"]
+hand_tracker = &"/user/hand_tracker/right"
 
 [node name="Lights" type="Node3D" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
-transform = Transform3D(0.7527597, 0.23304541, 0.6156644, 0, -0.9352403, 0.35401344, 0.6582954, -0.26648706, -0.7040112, 5.848714, 5.686602, -5.491973)
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_h2yge")
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_jyhfs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_tefeu")
