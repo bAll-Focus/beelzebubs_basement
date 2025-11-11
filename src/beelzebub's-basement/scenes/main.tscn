@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cqf5h62cdh8r8"]
 
-[ext_resource type="Script" uid="uid://kwfv8cceovgb" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://kwfv8cceovgb" path="res://scripts/main.gd" id="1_o5qli"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 
@@ -15,7 +15,7 @@ background_mode = 2
 sky = SubResource("Sky_0xm2m")
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_ig7tw")
+script = ExtResource("1_o5qli")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 

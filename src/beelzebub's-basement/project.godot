@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Beelzebub's Basement"
-run/main_scene="uid://cqf5h62cdh8r8"
+run/main_scene="uid://cpe1us6ujbjlv"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+NetworkManager="*res://scripts/network/network_manager.gd"
 
 [dotnet]
 
