@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cqf5h62cdh8r8"]
+[gd_scene load_steps=26 format=3 uid="uid://cqf5h62cdh8r8"]
 
 [ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="1_ig7tw"]
 [ext_resource type="Material" uid="uid://byvjlgw8s1sde" path="res://Materials/wall_material.tres" id="2_0xm2m"]
@@ -49,6 +49,35 @@ size = Vector3(1, 2, 0.6)
 top_radius = 1.5
 bottom_radius = 1.5
 height = 0.001
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1bvp3"]
+resource_local_to_scene = true
+size = Vector3(2, 2, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_272bh"]
+resource_local_to_scene = true
+size = Vector3(2, 2, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kek77"]
+size = Vector3(2, 2, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4c57u"]
+size = Vector3(2, 2, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_efxa6"]
+size = Vector3(1.405, 0.916, 0.698)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dg77c"]
+size = Vector3(1.405, 0.916, 0.698)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ycdy4"]
+size = Vector3(3.7, 2.5, 0.943)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w48qg"]
+size = Vector3(1.6, 0.86, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vivmo"]
+size = Vector3(1.6, 0.86, 0.8)
 
 [node name="Main" type="Node"]
 
@@ -160,3 +189,54 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1778395)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pentagram on floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5314586, -0.29778433)
 mesh = SubResource("CylinderMesh_0xm2m")
+
+[node name="Mathylla 1" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mathylla 1"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 2.994)
+shape = SubResource("BoxShape3D_1bvp3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mathylla 1"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5609422, 0.46594578, 2.9944625)
+mesh = SubResource("BoxMesh_272bh")
+
+[node name="Mathylla 2" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mathylla 2"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 0.991)
+shape = SubResource("BoxShape3D_kek77")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mathylla 2"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 0.9909853)
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Frysbox" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Frysbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.555, -0.066, 2.1495764)
+shape = SubResource("BoxShape3D_efxa6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Frysbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.555, -0.066, 2.15)
+mesh = SubResource("BoxMesh_dg77c")
+
+[node name="Trappa till friheten" type="StaticBody3D" parent="."]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Trappa till friheten"]
+transform = Transform3D(-1.0753001e-07, 0, 1, 0, 2.46, 0, -2.46, 0, -4.371139e-08, -2.1077335, -0.5260503, 3.0063972)
+polygon = PackedVector2Array(0, 0, 1.2, 1, 1.5, 1, 1.5, 0)
+depth = 0.91
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trappa till friheten"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.5357015, 0.73903716, 1.1684839)
+shape = SubResource("BoxShape3D_ycdy4")
+
+[node name="Bänk?Skåp" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bänk?Skåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.059, -0.099, -0.41)
+shape = SubResource("BoxShape3D_w48qg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bänk?Skåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0590434, -0.09868395, -0.41032273)
+mesh = SubResource("BoxMesh_vivmo")
