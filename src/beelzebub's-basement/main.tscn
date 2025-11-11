@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqf5h62cdh8r8"]
+[gd_scene load_steps=17 format=3 uid="uid://cqf5h62cdh8r8"]
 
 [ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="1_ig7tw"]
 [ext_resource type="Material" uid="uid://byvjlgw8s1sde" path="res://Materials/wall_material.tres" id="2_0xm2m"]
@@ -24,10 +24,36 @@ size = Vector3(6, 0.2, 8)
 material = ExtResource("1_ig7tw")
 size = Vector3(6, 1, 8)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
+size = Vector3(2, 0.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
+material = SubResource("StandardMaterial3D_1bvp3")
+size = Vector3(2, 0.6, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7mycd"]
+size = Vector3(2, 2, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_272bh"]
+size = Vector3(1.3393555, 1.9266357, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5vw27"]
+size = Vector3(0.7967529, 1.9477539, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kek77"]
+size = Vector3(1, 2, 0.6)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0xm2m"]
+top_radius = 1.5
+bottom_radius = 1.5
+height = 0.001
+
 [node name="Main" type="Node"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.1942344, -0.9809551, 0, 0.9809551, -0.1942344, 0, 1.5, 3.5)
+transform = Transform3D(1, 0, 0, 0, 0.11146895, 0.9937679, 0, -0.9937679, 0.11146895, 0, 1.5, 3.8886693)
 light_color = Color(1, 0.9372549, 0.8509804, 1)
 light_energy = 0.5
 shadow_enabled = true
@@ -96,3 +122,41 @@ shape = SubResource("BoxShape3D_0xm2m")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ceiling"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41512966, 1.04779)
 mesh = SubResource("BoxMesh_h2yge")
+
+[node name="Tvättvrå" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tvättvrå"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4322469, 0, -1.3517778)
+shape = SubResource("BoxShape3D_h2yge")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tvättvrå"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9738512, -0.25847256, -2.6609092)
+mesh = SubResource("BoxMesh_lquwl")
+
+[node name="Klädskåp" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Klädskåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.820182, 0.46015096, -3.506481)
+mesh = SubResource("BoxMesh_7mycd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Klädskåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4333284, 0.46331787, -2.0756636)
+shape = SubResource("BoxShape3D_272bh")
+
+[node name="Torkskåp" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torkskåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21249747, 0.47387695, -2.5535884)
+shape = SubResource("BoxShape3D_5vw27")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Torkskåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4345026, 0.45821905, -3.7600658)
+mesh = SubResource("BoxMesh_kek77")
+
+[node name="Pentagram on floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1778395)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pentagram on floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5314586, -0.29778433)
+mesh = SubResource("CylinderMesh_0xm2m")
