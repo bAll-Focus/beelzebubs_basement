@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0e4wkdx78r6w"
-path.s3tc="res://.godot/imported/concrete_floor_02_diff_4k.jpg-4394c977f19487fcc919470e06555002.s3tc.ctex"
-path.etc2="res://.godot/imported/concrete_floor_02_diff_4k.jpg-4394c977f19487fcc919470e06555002.etc2.ctex"
+path.s3tc="res://.godot/imported/concrete_floor_02_diff_4k.jpg-558d69c3f4ffd2418ef3c763f2f7e9bc.s3tc.ctex"
+path.etc2="res://.godot/imported/concrete_floor_02_diff_4k.jpg-558d69c3f4ffd2418ef3c763f2f7e9bc.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/concrete_floor_02/concrete_floor_02_diff_4k.jpg"
-dest_files=["res://.godot/imported/concrete_floor_02_diff_4k.jpg-4394c977f19487fcc919470e06555002.s3tc.ctex", "res://.godot/imported/concrete_floor_02_diff_4k.jpg-4394c977f19487fcc919470e06555002.etc2.ctex"]
+source_file="res://textures/concrete_floor_02/concrete_floor_02_diff_4k.jpg"
+dest_files=["res://.godot/imported/concrete_floor_02_diff_4k.jpg-558d69c3f4ffd2418ef3c763f2f7e9bc.s3tc.ctex", "res://.godot/imported/concrete_floor_02_diff_4k.jpg-558d69c3f4ffd2418ef3c763f2f7e9bc.etc2.ctex"]
 
 [params]
 
