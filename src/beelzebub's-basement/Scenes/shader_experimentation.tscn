@@ -1,13 +1,64 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnh6fy0ahv27m"]
+[gd_scene load_steps=6 format=3 uid="uid://cnh6fy0ahv27m"]
 
-[ext_resource type="PackedScene" uid="uid://v5gqwx5dyo6x" path="res://Models/candle.glb" id="1_14xw5"]
-[ext_resource type="Script" uid="uid://c260wevuef5gu" path="res://Scripts/candle.gd" id="2_swfux"]
+[ext_resource type="PackedScene" uid="uid://dmqov64j1lith" path="res://Scenes/candle.tscn" id="1_14xw5"]
+[ext_resource type="Script" uid="uid://bjlv5jjpjjg0l" path="res://Scenes/candle.gd" id="2_swfux"]
+[ext_resource type="PackedScene" uid="uid://v5gqwx5dyo6x" path="res://Models/candle.glb" id="3_drabv"]
+[ext_resource type="Material" uid="uid://m1raygcig17w" path="res://Materials/test_material.tres" id="5_mpad8"]
+
+[sub_resource type="GDScript" id="GDScript_wuk74"]
+script/source = "extends Node3D
+var xr_interface: XRInterface
+func _ready():
+	xr_interface = XRServer.find_interface(\"OpenXR\")
+	if xr_interface and xr_interface.is_initialized():
+		print(\"OpenXR initialized successfully\")
+
+		# Turn off v-sync!
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+		var current_size = DisplayServer.window_get_size();
+		var scaling = 0.01
+		DisplayServer.window_set_size(Vector2(current_size.x * scaling, current_size.y * scaling));
+
+		# Change our main viewport to output to the HMD
+		var vp = get_viewport()
+		vp.use_xr = true
+		var xr = XRServer.primary_interface
+		xr.render_target_size_multiplier = 0.25
+	else:
+		print(\"OpenXR not initialized, please check if your headset is connected\")
+"
 
 [node name="ShaderExperimentation" type="Node3D"]
+script = SubResource("GDScript_wuk74")
 
-[node name="candle" parent="." instance=ExtResource("1_14xw5")]
-transform = Transform3D(-0.028996736, 0, -0.095703654, 0, 0.1, 0, 0.095703654, 0, -0.028996736, 0.039022744, -0.2461412, -0.09071392)
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="candle2" parent="." instance=ExtResource("3_drabv")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.22405708, -0.9605591, -3.8042629)
 script = ExtResource("2_swfux")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.33365822)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="Righthand" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="candle" parent="XROrigin3D/Righthand" instance=ExtResource("1_14xw5")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+script = ExtResource("2_swfux")
+
+[node name="Lefthand" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="XROrigin3D/Lefthand"]
+transform = Transform3D(0.14250518, 0.090916276, -0.10689484, -0.07272912, 0.17814104, 0.05455497, 0.12001145, 0, 0.15999141, 0, 0, 0)
+material_override = ExtResource("5_mpad8")

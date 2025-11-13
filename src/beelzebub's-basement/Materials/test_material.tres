@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://m1raygcig17w"]
+
+[ext_resource type="Shader" uid="uid://bcahr5qafa6f1" path="res://Shaders/ps1_shader_single.gdshader" id="1_x1c4d"]
+[ext_resource type="Texture2D" uid="uid://dmplmebcf5uxk" path="res://Textures/checkerboard.png" id="2_x1c4d"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_x1c4d")
+shader_parameter/my_texture = ExtResource("2_x1c4d")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/vertex_snap = true
+shader_parameter/do_affine_mapping = true

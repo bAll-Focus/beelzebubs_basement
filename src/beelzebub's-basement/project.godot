@@ -15,17 +15,43 @@ run/main_scene="uid://cqf5h62cdh8r8"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/mode=3
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [dotnet]
 
 project/assembly_name="Beelzebub-s Basement"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 
+[shader_globals]
+
+dither={
+"type": "bool",
+"value": false
+}
+dither_spread={
+"type": "float",
+"value": 1.0
+}
+dither_gamma={
+"type": "float",
+"value": 1.0
+}
+
 [xr]
 
 openxr/enabled=true
+openxr/default_action_map="uid://dbeqhs66u7yw"
+openxr/foveation_level=0
 shaders/enabled=true
