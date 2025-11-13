@@ -1,7 +1,7 @@
 extends Node
 
 const SERVER_PORT: int = 8080
-const GAME_SCENE = "res://scenes/main.tscn"
+const GAME_SCENE = "res://scenes/player.tscn"
 
 func create_server():
 	var enet_network_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()

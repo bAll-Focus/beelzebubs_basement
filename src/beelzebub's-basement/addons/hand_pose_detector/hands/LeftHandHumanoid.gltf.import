@@ -3,24 +3,24 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://3gjkc6qju2n3"
-path="res://.godot/imported/LeftHandHumanoid.gltf-406ee526652c185ef7c24c2ad6383d32.scn"
+uid="uid://cjcehqrfoxav3"
+path="res://.godot/imported/LeftHandHumanoid.gltf-ad60a3b416a0e40b4db49f7b2b5b2621.scn"
 
 [deps]
 
-source_file="res://textures/hands/LeftHandHumanoid.gltf"
-dest_files=["res://.godot/imported/LeftHandHumanoid.gltf-406ee526652c185ef7c24c2ad6383d32.scn"]
+source_file="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf"
+dest_files=["res://.godot/imported/LeftHandHumanoid.gltf-ad60a3b416a0e40b4db49f7b2b5b2621.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
-nodes/apply_root_scale=false
+nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
-nodes/use_name_suffixes=false
-nodes/use_node_type_suffixes=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -37,6 +37,13 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
-gltf/naming_version=2
+_subresources={
+"nodes": {
+"PATH:LeftHandHumanoid/Skeleton3D": {
+"rest_pose/external_animation_library": null,
+"retarget/bone_map": null
+}
+}
+}
+gltf/naming_version=1
 gltf/embedded_image_handling=1

@@ -3,24 +3,24 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bymg1qpy1tu2w"
-path="res://.godot/imported/RightHandHumanoid.gltf-46d03b096a1208293210def577ef4287.scn"
+uid="uid://dabmoo0spa6vg"
+path="res://.godot/imported/RightHandHumanoid.gltf-f95c309fdbd4512d77d0adba339d9024.scn"
 
 [deps]
 
-source_file="res://textures/hands/RightHandHumanoid.gltf"
-dest_files=["res://.godot/imported/RightHandHumanoid.gltf-46d03b096a1208293210def577ef4287.scn"]
+source_file="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf"
+dest_files=["res://.godot/imported/RightHandHumanoid.gltf-f95c309fdbd4512d77d0adba339d9024.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
-nodes/apply_root_scale=false
+nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
-nodes/use_name_suffixes=false
-nodes/use_node_type_suffixes=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -38,5 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-gltf/naming_version=2
+gltf/naming_version=1
 gltf/embedded_image_handling=1

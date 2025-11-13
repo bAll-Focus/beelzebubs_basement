@@ -1,12 +1,30 @@
 [gd_scene load_steps=3 format=3 uid="uid://cpe1us6ujbjlv"]
 
-[ext_resource type="Script" uid="uid://dom2i2agec561" path="res://scripts/menu.gd" id="1_vjb58"]
 [ext_resource type="Texture2D" uid="uid://dktlnadsx8rvg" path="res://textures/basement.jpg" id="2_con2f"]
+
+[sub_resource type="GDScript" id="GDScript_yqeox"]
+script/source = "extends Control
+
+func _on_host_game_pressed() -> void:
+	NetworkManager.create_server()
+	NetworkManager.load_game_scene()
+
+func _on_join_game_pressed() -> void:
+	NetworkManager.load_game_scene()
+	NetworkManager.create_client()
+
+func _on_sent_test_message_pressed() -> void:
+	_send_test_message.rpc(\"Hi there, we are now connected!\")
+
+@rpc(\"any_peer\", \"call_remote\")	
+func _send_test_message(message: String) -> void:
+	print(\"Message [%s] recieved on peer [%s], from peer [%s].\" % [message, get_tree().get_multiplayer().get_unique_id(), get_tree().get_multiplayer().get_remote_sender_id()])
+"
 
 [node name="Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_vjb58")
+script = SubResource("GDScript_yqeox")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
