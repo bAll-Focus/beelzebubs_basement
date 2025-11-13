@@ -1,8 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnh6fy0ahv27m"]
+[gd_scene load_steps=6 format=3 uid="uid://cnh6fy0ahv27m"]
 
 [ext_resource type="PackedScene" uid="uid://dmqov64j1lith" path="res://Scenes/candle.tscn" id="1_14xw5"]
-[ext_resource type="Script" uid="uid://4vhewcswcyp" path="res://Scenes/canvas_layer.gd" id="1_mpad8"]
-[ext_resource type="Shader" uid="uid://cf7vt05u1m0t2" path="res://Shaders/shader_experimentation.gdshader" id="2_qqebx"]
 [ext_resource type="Script" uid="uid://bjlv5jjpjjg0l" path="res://Scenes/candle.gd" id="2_swfux"]
 [ext_resource type="PackedScene" uid="uid://v5gqwx5dyo6x" path="res://Models/candle.glb" id="3_drabv"]
 [ext_resource type="Material" uid="uid://m1raygcig17w" path="res://Materials/test_material.tres" id="5_mpad8"]
@@ -30,20 +28,8 @@ func _ready():
 		print(\"OpenXR not initialized, please check if your headset is connected\")
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qg3qk"]
-shader = ExtResource("2_qqebx")
-shader_parameter/pixel_size = 8
-
 [node name="ShaderExperimentation" type="Node3D"]
 script = SubResource("GDScript_wuk74")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource("1_mpad8")
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_qg3qk")
-offset_right = 639.0
-offset_bottom = 360.0
 
 [node name="candle2" parent="." instance=ExtResource("3_drabv")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.22405708, -0.9605591, -3.8042629)
