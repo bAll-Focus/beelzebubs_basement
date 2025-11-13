@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnh6fy0ahv27m"]
+
+[ext_resource type="PackedScene" uid="uid://v5gqwx5dyo6x" path="res://Models/candle.glb" id="1_14xw5"]
+[ext_resource type="Script" uid="uid://c260wevuef5gu" path="res://Scripts/candle.gd" id="2_swfux"]
+
+[node name="ShaderExperimentation" type="Node3D"]
+
+[node name="candle" parent="." instance=ExtResource("1_14xw5")]
+transform = Transform3D(-0.028996736, 0, -0.095703654, 0, 0.1, 0, 0.095703654, 0, -0.028996736, 0.039022744, -0.2461412, -0.09071392)
+script = ExtResource("2_swfux")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.33365822)
