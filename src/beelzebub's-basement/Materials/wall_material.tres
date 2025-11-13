@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://byvjlgw8s1sde"]
+
+[ext_resource type="Texture2D" uid="uid://dhxrsmgrsusl0" path="res://Textures/grunge_wall_1-4K/4K-wall_random_1-diffuse.jpg" id="1_pkaka"]
+[ext_resource type="Texture2D" uid="uid://b0b5oihtnu1eg" path="res://Textures/grunge_wall_1-4K/4K-wall_random_1-ao.jpg" id="2_sqhd2"]
+[ext_resource type="Texture2D" uid="uid://cyr8ecjnwsmn0" path="res://Textures/grunge_wall_1-4K/4K-wall_random_1-normal.jpg" id="3_p7boi"]
+[ext_resource type="Texture2D" uid="uid://d3n67p2n4m78r" path="res://Textures/grunge_wall_1-4K/4K-wall_random_1-specular.jpg" id="4_0cxu2"]
+
+[resource]
+albedo_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+albedo_texture = ExtResource("1_pkaka")
+metallic = 1.0
+metallic_texture = ExtResource("4_0cxu2")
+normal_enabled = true
+normal_texture = ExtResource("3_p7boi")
+ao_enabled = true
+ao_texture = ExtResource("2_sqhd2")
+heightmap_enabled = true
+heightmap_scale = 1.0
+heightmap_texture = ExtResource("3_p7boi")
