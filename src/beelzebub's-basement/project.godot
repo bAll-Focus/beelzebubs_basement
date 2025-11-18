@@ -45,12 +45,22 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_etc2_astc=true
 
 [shader_globals]
 
+dither={
+"type": "bool",
+"value": false
+}
+dither_spread={
+"type": "float",
+"value": 1.0
+}
+dither_gamma={
+"type": "float",
+"value": 1.0
 META_ENVIRONMENT_DEPTH_AVAILABLE={
 "type": "bool",
 "value": false
@@ -95,6 +105,8 @@ META_ENVIRONMENT_DEPTH_TO_CAMERA_PROJECTION_RIGHT={
 [xr]
 
 openxr/enabled=true
+openxr/default_action_map="uid://dbeqhs66u7yw"
+openxr/foveation_level=0
 openxr/extensions/hand_tracking=true
 openxr/extensions/hand_interaction_profile=true
 shaders/enabled=true

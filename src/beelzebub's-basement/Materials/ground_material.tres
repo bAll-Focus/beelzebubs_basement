@@ -19,3 +19,4 @@ heightmap_scale = 1.0
 heightmap_texture = ExtResource("3_7qayp")
 refraction_enabled = true
 refraction_texture = ExtResource("1_8s23l")
+uv1_scale = Vector3(0.005, 0.005, 0.005)
