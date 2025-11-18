@@ -1,9 +1,15 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=6 format=3 uid="uid://cnh6fy0ahv27m"]
+=======
+[gd_scene load_steps=10 format=3 uid="uid://cnh6fy0ahv27m"]
+>>>>>>> Stashed changes
 
 [ext_resource type="PackedScene" uid="uid://dmqov64j1lith" path="res://Scenes/candle.tscn" id="1_14xw5"]
 [ext_resource type="Script" uid="uid://bjlv5jjpjjg0l" path="res://Scenes/candle.gd" id="2_swfux"]
-[ext_resource type="PackedScene" uid="uid://v5gqwx5dyo6x" path="res://Models/candle.glb" id="3_drabv"]
-[ext_resource type="Material" uid="uid://m1raygcig17w" path="res://Materials/test_material.tres" id="5_mpad8"]
+[ext_resource type="Material" uid="uid://dx1hk7k4tsfh2" path="res://Materials/ps1/test/test_material_borked.tres" id="3_qqebx"]
+[ext_resource type="Material" uid="uid://m1raygcig17w" path="res://Materials/ps1/test/test_material.tres" id="5_mpad8"]
+[ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="6_qg3qk"]
+[ext_resource type="Script" uid="uid://bqxthc3qbnr0n" path="res://Scripts/PostProcessing/PS1OverlayShader.gd" id="6_qqebx"]
 
 [sub_resource type="GDScript" id="GDScript_wuk74"]
 script/source = "extends Node3D
@@ -12,47 +18,137 @@ func _ready():
 	xr_interface = XRServer.find_interface(\"OpenXR\")
 	if xr_interface and xr_interface.is_initialized():
 		print(\"OpenXR initialized successfully\")
-
 		# Turn off v-sync!
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		var current_size = DisplayServer.window_get_size();
 		var scaling = 0.01
 		DisplayServer.window_set_size(Vector2(current_size.x * scaling, current_size.y * scaling));
-
 		# Change our main viewport to output to the HMD
 		var vp = get_viewport()
 		vp.use_xr = true
-		#var xr = XRServer.primary_interface
-		#xr.render_target_size_multiplier = 0.25
+		
 	else:
 		print(\"OpenXR not initialized, please check if your headset is connected\")
+		
+func _process(_delta):
+	pass
 "
 
+<<<<<<< Updated upstream
 [node name="ShaderExperimentation" type="Node3D"]
 script = SubResource("GDScript_wuk74")
 
 [node name="candle2" parent="." instance=ExtResource("3_drabv")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.22405708, -0.9605591, -3.8042629)
-script = ExtResource("2_swfux")
+=======
+[sub_resource type="CompositorEffect" id="CompositorEffect_qqebx"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("6_qqebx")
+x_size = null
+y_size = null
+shader_code = "// Determine the size of each pixel block      
+// Larger values yield stronger pixelation
+const ivec2 pixel_step = ivec2(4, 4);
+const float dither_gamma = 10;
+
+ivec2 base_uv = (uv / pixel_step) * pixel_step;
+
+int ps1_dither_matrix[16] = {
+	    -4, 0, -3, 1,
+	    2, -2, 3, -1,
+	    -3, 1, -4, 0,
+	    3, -1, 2, -2
+};
+color = imageLoad(color_image, base_uv);
+ivec2 base_block = ivec2(floor(uv / pixel_step));
+int idx = (base_block.x % 4) + (base_block.y % 4) * 4;
+float noise = float(ps1_dither_matrix[idx]);
+
+vec3 c = color.rgb; 
+c = pow(c, vec3(1.0 / dither_gamma));
+c = round(c * 255.0 + noise);
+c = clamp(c, vec3(0.0), vec3(255.0));
+c = clamp(c / 8.0, vec3(0.0), vec3(31.0));
+c /= 31.0;
+
+c = pow(c, vec3(dither_gamma));
+color = vec4(c.r, c.g, c.b, 1);
+
+
+
+
+"
+metadata/_custom_type_script = "uid://bqxthc3qbnr0n"
+
+[sub_resource type="Compositor" id="Compositor_qg3qk"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_qqebx")])
+
+[node name="ShaderExperimentation" type="Node3D"]
+script = SubResource("GDScript_wuk74")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9129197, 0.4081393, 0, -0.4081393, 0.9129197, 0, 0, 0)
+
+[node name="candle2" parent="." instance=ExtResource("1_14xw5")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.081983715, 0, -0.553472)
+
+[node name="candle3" parent="." instance=ExtResource("1_14xw5")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.13359036, 0, -0.39607963)
+
+[node name="candle4" parent="." instance=ExtResource("1_14xw5")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.01928167, 0, -0.39607963)
+
+[node name="candle5" parent="." instance=ExtResource("1_14xw5")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.18923864, 0, -0.39607963)
+visible = false
+>>>>>>> Stashed changes
+script = ExtResource("2_swfux")
+
+[node name="Borked Box" type="CSGBox3D" parent="."]
+transform = Transform3D(0.0712526, 0.04545814, -0.053447414, -0.036364563, 0.08907052, 0.027277485, 0.060005724, -1.4901161e-09, 0.079995714, 0.009899795, -0.12849091, -0.5324321)
+material = ExtResource("3_qqebx")
+script = ExtResource("2_swfux")
+
+[node name="Borked Box2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.0712526, 0.04545814, -0.053447414, -0.036364563, 0.08907052, 0.027277485, 0.060005724, -1.4901161e-09, 0.079995714, 0.48438844, -0.12849091, -0.5324321)
+material = ExtResource("5_mpad8")
+script = ExtResource("2_swfux")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046485394, 0)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+compositor = SubResource("Compositor_qg3qk")
+current = true
 
 [node name="Righthand" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109431535, 0, -0.90473723)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109431535, 0, -0.553472)
 tracker = &"right_hand"
 
 [node name="candle" parent="XROrigin3D/Righthand" instance=ExtResource("1_14xw5")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
-script = ExtResource("2_swfux")
 
 [node name="Lefthand" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19684103, 0, -0.90473723)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19684103, 0, -0.23747882)
 tracker = &"left_hand"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="XROrigin3D/Lefthand"]
-transform = Transform3D(0.14250518, 0.090916276, -0.10689484, -0.07272912, 0.17814104, 0.05455497, 0.12001145, 0, 0.15999141, 0, 0, 0)
+transform = Transform3D(0.0712526, 0.04545814, -0.053447414, -0.036364563, 0.08907052, 0.027277485, 0.060005724, -1.4901161e-09, 0.079995714, 0, 0, 0)
 material_override = ExtResource("5_mpad8")
+script = ExtResource("2_swfux")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.767619, 0)
+material_override = ExtResource("3_qqebx")
+radial_segments = 48
+rings = 24
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07055664, -0.32516098, -0.68279266)
+material_override = ExtResource("6_qg3qk")
+size = Vector3(2.6762695, 2.585022, 0.001)

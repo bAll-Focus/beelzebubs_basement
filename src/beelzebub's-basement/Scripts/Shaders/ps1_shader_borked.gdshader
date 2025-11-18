@@ -5,6 +5,7 @@ group_uniforms Basic;
 uniform sampler2D my_texture : source_color, filter_nearest, repeat_disable;
 uniform vec3 tint : source_color = vec3(1);
 uniform bool vertex_snap = true;
+uniform float displacement_strength_scale = 1.0;
 group_uniforms;
 
 group_uniforms Dithering;
@@ -20,6 +21,7 @@ group_uniforms;
 varying vec4 clip_position;
 
 void vertex() {
+	VERTEX *= displacement_strength_scale*sin(10.0*(VERTEX.x + VERTEX.y/2.0 + VERTEX.z*3.0 + TIME)) + 1.0-displacement_strength_scale;
 	mat4 model_matrix = MODEL_MATRIX;
 	vec4 world_space_pos = model_matrix * vec4(VERTEX, 1);
 	vec4 view_pos = VIEW_MATRIX * world_space_pos;

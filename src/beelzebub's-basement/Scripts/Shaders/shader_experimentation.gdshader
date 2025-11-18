@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+
 uniform int pixel_size : hint_range(1, 64) = 8;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 

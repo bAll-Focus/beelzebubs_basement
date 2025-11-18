@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ceu7x23djhq6b"]
 
-[ext_resource type="Shader" uid="uid://bcahr5qafa6f1" path="res://Shaders/ps1_shader_single.gdshader" id="1_akdmv"]
+[ext_resource type="Shader" uid="uid://bcahr5qafa6f1" path="res://Scripts/Shaders/ps1_shader.gdshader" id="1_akdmv"]
 [ext_resource type="Texture2D" uid="uid://dn6rf0v81f421" path="res://Models/candle_Candle_tex.png" id="2_3qn1u"]
 
 [resource]

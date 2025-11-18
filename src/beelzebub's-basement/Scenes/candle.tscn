@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://dmqov64j1lith"]
 
-[ext_resource type="Material" uid="uid://ceu7x23djhq6b" path="res://Materials/candle_material.tres" id="1_enbgb"]
+[ext_resource type="Material" uid="uid://ceu7x23djhq6b" path="res://Materials/ps1/candle_material.tres" id="1_enbgb"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vhqlm"]
 _surfaces = [{

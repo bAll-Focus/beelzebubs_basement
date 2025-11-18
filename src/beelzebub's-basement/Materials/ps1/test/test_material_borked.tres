@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dx1hk7k4tsfh2"]
+
+[ext_resource type="Shader" uid="uid://c8u1aq3tds601" path="res://Scripts/Shaders/ps1_shader_borked.gdshader" id="1_kknbw"]
+[ext_resource type="Texture2D" uid="uid://dmplmebcf5uxk" path="res://Textures/checkerboard.png" id="2_lwril"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_kknbw")
+shader_parameter/my_texture = ExtResource("2_lwril")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/vertex_snap = true
+shader_parameter/displacement_strength_scale = 0.04
+shader_parameter/do_affine_mapping = true
