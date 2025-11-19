@@ -1,7 +1,7 @@
 [gd_scene load_steps=41 format=3 uid="uid://cqf5h62cdh8r8"]
 
 [ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="1_gidub"]
-[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://scripts/start_xr.gd" id="1_wy1pe"]
+[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://Scripts/start_xr.gd" id="1_wy1pe"]
 [ext_resource type="Material" uid="uid://byvjlgw8s1sde" path="res://Materials/wall_material.tres" id="2_3vl5l"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_fqfvj"]
 [ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="3_3idnv"]
@@ -168,6 +168,7 @@ tracker = &"/user/hand_pose_controller/right"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7064366, 3.6526375)
 
 [node name="Building" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5217693, 0)
 
 [node name="Ground" type="StaticBody3D" parent="Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -233,6 +234,97 @@ shape = SubResource("BoxShape3D_0xm2m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41512966, 1.04779)
 mesh = SubResource("BoxMesh_h2yge")
 
+[node name="Furnishings" type="Node3D" parent="Building"]
+
+[node name="Tvättvrå" type="StaticBody3D" parent="Building/Furnishings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Tvättvrå"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4322469, 0, -1.3517778)
+shape = SubResource("BoxShape3D_h2yge")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Tvättvrå"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9738512, -0.25847256, -2.6609092)
+mesh = SubResource("BoxMesh_lquwl")
+
+[node name="Klädskåp" type="StaticBody3D" parent="Building/Furnishings"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Klädskåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.820182, 0.46015096, -3.506481)
+mesh = SubResource("BoxMesh_7mycd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Klädskåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4333284, 0.46331787, -2.0756636)
+shape = SubResource("BoxShape3D_272bh")
+
+[node name="Torkskåp" type="StaticBody3D" parent="Building/Furnishings"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Torkskåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21249747, 0.47387695, -2.5535884)
+shape = SubResource("BoxShape3D_5vw27")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Torkskåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4345026, 0.45821905, -3.7600658)
+mesh = SubResource("BoxMesh_kek77")
+
+[node name="Pentagram on floor" type="StaticBody3D" parent="Building/Furnishings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1778395)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Pentagram on floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5314586, -0.29778433)
+mesh = SubResource("CylinderMesh_0xm2m")
+
+[node name="Mathylla 1" type="StaticBody3D" parent="Building/Furnishings"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Mathylla 1"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 2.994)
+shape = SubResource("BoxShape3D_1bvp3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Mathylla 1"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5609422, 0.46594578, 2.9944625)
+mesh = SubResource("BoxMesh_272bh")
+
+[node name="Mathylla 2" type="StaticBody3D" parent="Building/Furnishings"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Mathylla 2"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 0.991)
+shape = SubResource("BoxShape3D_kek77")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Mathylla 2"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 0.9909853)
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Frysbox" type="StaticBody3D" parent="Building/Furnishings"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Frysbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.555, -0.066, 2.1495764)
+shape = SubResource("BoxShape3D_efxa6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Frysbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.555, -0.066, 2.15)
+mesh = SubResource("BoxMesh_dg77c")
+
+[node name="Trappa till friheten" type="StaticBody3D" parent="Building/Furnishings"]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Building/Furnishings/Trappa till friheten"]
+transform = Transform3D(-1.0753001e-07, 0, 1, 0, 2.46, 0, -2.46, 0, -4.371139e-08, -2.1077335, -0.5260503, 3.0063972)
+polygon = PackedVector2Array(0, 0, 1.2, 1, 1.5, 1, 1.5, 0)
+depth = 0.91
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Trappa till friheten"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.5357015, 0.73903716, 1.1684839)
+shape = SubResource("BoxShape3D_ycdy4")
+
+[node name="Bänk?Skåp" type="StaticBody3D" parent="Building/Furnishings"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Bänk?Skåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.059, -0.099, -0.41)
+shape = SubResource("BoxShape3D_w48qg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Bänk?Skåp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0590434, -0.09868395, -0.41032273)
+mesh = SubResource("BoxMesh_vivmo")
+
 [node name="Lights" type="Node3D" parent="."]
 
 [node name="DirectionalLight Room" type="DirectionalLight3D" parent="Lights"]
@@ -247,97 +339,6 @@ transform = Transform3D(1, 0, 0, 0, -0.70833975, -0.70587164, 0, 0.70587164, -0.
 light_color = Color(1, 1, 0.8784314, 1)
 light_energy = 0.1
 sky_mode = 1
-
-[node name="Furnishings" type="Node3D" parent="."]
-
-[node name="Tvättvrå" type="StaticBody3D" parent="Furnishings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Tvättvrå"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4322469, 0, -1.3517778)
-shape = SubResource("BoxShape3D_h2yge")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Tvättvrå"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9738512, -0.25847256, -2.6609092)
-mesh = SubResource("BoxMesh_lquwl")
-
-[node name="Klädskåp" type="StaticBody3D" parent="Furnishings"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Klädskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.820182, 0.46015096, -3.506481)
-mesh = SubResource("BoxMesh_7mycd")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Klädskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4333284, 0.46331787, -2.0756636)
-shape = SubResource("BoxShape3D_272bh")
-
-[node name="Torkskåp" type="StaticBody3D" parent="Furnishings"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Torkskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21249747, 0.47387695, -2.5535884)
-shape = SubResource("BoxShape3D_5vw27")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Torkskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4345026, 0.45821905, -3.7600658)
-mesh = SubResource("BoxMesh_kek77")
-
-[node name="Pentagram on floor" type="StaticBody3D" parent="Furnishings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1778395)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Pentagram on floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5314586, -0.29778433)
-mesh = SubResource("CylinderMesh_0xm2m")
-
-[node name="Mathylla 1" type="StaticBody3D" parent="Furnishings"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Mathylla 1"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 2.994)
-shape = SubResource("BoxShape3D_1bvp3")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Mathylla 1"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5609422, 0.46594578, 2.9944625)
-mesh = SubResource("BoxMesh_272bh")
-
-[node name="Mathylla 2" type="StaticBody3D" parent="Furnishings"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Mathylla 2"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 0.991)
-shape = SubResource("BoxShape3D_kek77")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Mathylla 2"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.561, 0.466, 0.9909853)
-mesh = SubResource("BoxMesh_4c57u")
-
-[node name="Frysbox" type="StaticBody3D" parent="Furnishings"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Frysbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.555, -0.066, 2.1495764)
-shape = SubResource("BoxShape3D_efxa6")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Frysbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.555, -0.066, 2.15)
-mesh = SubResource("BoxMesh_dg77c")
-
-[node name="Trappa till friheten" type="StaticBody3D" parent="Furnishings"]
-
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Furnishings/Trappa till friheten"]
-transform = Transform3D(-1.0753001e-07, 0, 1, 0, 2.46, 0, -2.46, 0, -4.371139e-08, -2.1077335, -0.5260503, 3.0063972)
-polygon = PackedVector2Array(0, 0, 1.2, 1, 1.5, 1, 1.5, 0)
-depth = 0.91
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Trappa till friheten"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.5357015, 0.73903716, 1.1684839)
-shape = SubResource("BoxShape3D_ycdy4")
-
-[node name="Bänk?Skåp" type="StaticBody3D" parent="Furnishings"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Bänk?Skåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.059, -0.099, -0.41)
-shape = SubResource("BoxShape3D_w48qg")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Bänk?Skåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0590434, -0.09868395, -0.41032273)
-mesh = SubResource("BoxMesh_vivmo")
 
 [editable path="PlayerControll/LeftTrackedHand/LeftHandHumanoid2"]
 [editable path="PlayerControll/RightTrackedHand/RightHandHumanoid2"]
