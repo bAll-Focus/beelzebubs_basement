@@ -61,6 +61,7 @@ dither_spread={
 dither_gamma={
 "type": "float",
 "value": 1.0
+}
 META_ENVIRONMENT_DEPTH_AVAILABLE={
 "type": "bool",
 "value": false

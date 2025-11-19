@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=6 format=3 uid="uid://cnh6fy0ahv27m"]
-=======
 [gd_scene load_steps=10 format=3 uid="uid://cnh6fy0ahv27m"]
->>>>>>> Stashed changes
 
 [ext_resource type="PackedScene" uid="uid://dmqov64j1lith" path="res://Scenes/candle.tscn" id="1_14xw5"]
 [ext_resource type="Script" uid="uid://bjlv5jjpjjg0l" path="res://Scenes/candle.gd" id="2_swfux"]
@@ -34,13 +30,6 @@ func _process(_delta):
 	pass
 "
 
-<<<<<<< Updated upstream
-[node name="ShaderExperimentation" type="Node3D"]
-script = SubResource("GDScript_wuk74")
-
-[node name="candle2" parent="." instance=ExtResource("3_drabv")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.22405708, -0.9605591, -3.8042629)
-=======
 [sub_resource type="CompositorEffect" id="CompositorEffect_qqebx"]
 resource_local_to_scene = false
 resource_name = ""
@@ -106,7 +95,6 @@ transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.01928167, 0, -0.39
 [node name="candle5" parent="." instance=ExtResource("1_14xw5")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.18923864, 0, -0.39607963)
 visible = false
->>>>>>> Stashed changes
 script = ExtResource("2_swfux")
 
 [node name="Borked Box" type="CSGBox3D" parent="."]
