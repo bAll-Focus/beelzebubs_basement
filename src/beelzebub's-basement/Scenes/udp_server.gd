@@ -5,6 +5,7 @@ var server = UDPServer.new()
 var peers = []
 @export var update_tick_hz = 60.0
 var update_time
+@export var character: Node3D
 
 func _initialize():
 	update_time = 1.0/update_tick_hz
@@ -22,7 +23,9 @@ func _process(_delta):
 		peer.put_packet(packet)
 		# Keep a reference so we can keep contacting the remote peer.
 		peers.append(peer)
-		
+
+
+
 func _physics_process(_delta):
 	if peers.size() > 0:
 		for i in range(0, peers.size()):

@@ -14,5 +14,7 @@ func _physics_process(_delta):
 			udp.put_packet("The answer is... 42!".to_utf8_buffer())
 		if udp.get_available_packet_count() > 0:
 			for i in udp.get_available_packet_count():
-				udp.get_packet()
+				print("Connected: %s on server" % udp.get_packet().get_string_from_utf8())
 			connected = true
+		if connected:
+			udp.put_packet("YAAAAA".to_utf8_buffer())

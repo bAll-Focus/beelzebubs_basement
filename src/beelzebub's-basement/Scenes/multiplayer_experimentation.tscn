@@ -25,3 +25,5 @@ script = ExtResource("2_37rvk")
 
 [node name="CameraServer" type="Node" parent="Node"]
 script = ExtResource("5_hdafp")
+
+[node name="Bertil" type="Node3D" parent="."]
