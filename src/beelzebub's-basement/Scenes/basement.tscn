@@ -176,6 +176,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4333284, 0.46331787, -2.075
 shape = SubResource("BoxShape3D_272bh")
 
 [node name="Torkskåp" type="StaticBody3D" parent="Building/Furnishings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010360956, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Torkskåp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21249747, 0.47387695, -2.5535884)
