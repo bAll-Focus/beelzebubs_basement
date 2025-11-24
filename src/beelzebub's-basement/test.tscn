@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://hoo8esttjkoe"]
+
+[ext_resource type="PackedScene" uid="uid://qhasuqgpp5y4" path="res://Models/flygoat.glb" id="1_37kl0"]
+[ext_resource type="Script" uid="uid://br86dcf4f8lyi" path="res://test_ball.gd" id="2_8uh7m"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8uh7m"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6uqi0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ppyta"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykrsh"]
+albedo_color = Color(0, 0.39607844, 0.827451, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g14j6"]
+material = SubResource("StandardMaterial3D_ykrsh")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Ba\'al" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6083932, -4.6340995)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Ba\'al"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ba\'al/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7038219, 1.0103128, 2.4310462)
+shape = SubResource("SphereShape3D_8uh7m")
+debug_color = Color(0.84692776, 0, 0.6061981, 1)
+
+[node name="flygoat" parent="Ba\'al/CharacterBody3D" instance=ExtResource("1_37kl0")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.7154802, 0.41183722, 2.362629)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ba\'al"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2862165, 0, 0)
+
+[node name="DetectionArea" type="Area3D" parent="Ba\'al"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="DACollisionShape" type="CollisionShape3D" parent="Ba\'al/DetectionArea"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.704, 1.01, 2.431)
+shape = SubResource("SphereShape3D_6uqi0")
+debug_color = Color(0, 0.6156863, 0.7176471, 1)
+
+[node name="TestBall" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.1470695, 0.3701036)
+script = ExtResource("2_8uh7m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestBall"]
+shape = SubResource("SphereShape3D_ppyta")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestBall"]
+mesh = SubResource("SphereMesh_g14j6")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.8181497, 0, 0.57500523, 0, 1, 0, -0.57500523, 0, 0.8181497, 1.0206115, 1.2633588, 0.90590155)
