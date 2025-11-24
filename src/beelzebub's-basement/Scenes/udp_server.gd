@@ -30,6 +30,7 @@ func _physics_process(_delta):
 	if peers.size() > 0:
 		for i in range(0, peers.size()):
 			peers[i].put_packet((str(_delta)).to_utf8_buffer())
+			peers[i].get_available_packet_count()
 			pass
 
 func _send_object_update():

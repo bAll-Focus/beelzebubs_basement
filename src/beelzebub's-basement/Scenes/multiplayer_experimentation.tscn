@@ -1,29 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://o2snbwyyvk7h"]
+[gd_scene load_steps=4 format=3 uid="uid://o2snbwyyvk7h"]
 
-[ext_resource type="Script" uid="uid://gpxgms3rk1al" path="res://Scenes/udp_server.gd" id="1_uopvh"]
-[ext_resource type="Script" uid="uid://btikrsl0o2oaq" path="res://Scenes/udp_client.gd" id="2_37rvk"]
-[ext_resource type="Script" uid="uid://bm4tlcwh61nn7" path="res://Scenes/network_manager.gd" id="2_abdnm"]
+[ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scenes/high_level_network_manager.gd" id="2_37rvk"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="2_gth0k"]
-[ext_resource type="Script" uid="uid://d0yfpsrx17kov" path="res://Scripts/udp_node.gd" id="5_hdafp"]
+[ext_resource type="Script" uid="uid://5cmt6rsonw2y" path="res://Scenes/multiplayer_spawner.gd" id="3_xmlkn"]
 
 [node name="MultiplayerExperimentation" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 compositor = ExtResource("2_gth0k")
 
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("s_node", "c_node", "camera_s_node")]
-script = ExtResource("2_abdnm")
-s_node = NodePath("UDPServer")
-c_node = NodePath("UDPClient")
-camera_s_node = NodePath("CameraServer")
-
-[node name="UDPServer" type="Node" parent="Node"]
-script = ExtResource("1_uopvh")
-
-[node name="UDPClient" type="Node" parent="Node"]
+[node name="Node" type="Node" parent="."]
 script = ExtResource("2_37rvk")
 
-[node name="CameraServer" type="Node" parent="Node"]
-script = ExtResource("5_hdafp")
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Node"]
+spawn_path = NodePath(".")
+script = ExtResource("3_xmlkn")
 
 [node name="Bertil" type="Node3D" parent="."]
