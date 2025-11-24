@@ -2,16 +2,30 @@ import numpy as np
 from PIL import Image, ImageDraw
 import tkinter as tk
 import cv2
+import socket
+
+# internet set-up
+UDP_IP = "127.0.0.1"
+UDP_PORT = 5005
+MESSAGE = b"Hello, World!"
+
+print("UDP target IP: %s" % UDP_IP)
+print("UDP target port: %s" % UDP_PORT)
+print("message: %s" % MESSAGE)
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 
 # turn on cam
 webcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 img_draw = Image.new("RGB", (1000, 1000)) 
+circle_crop = img_draw
 
 root = tk.Tk()
 canvas = tk.Canvas()
 canvas.pack()
 
-cubic_rate = 0.1
+cubic_rate = 0.2
 
 count = 0
 count_limit = 1000
@@ -25,12 +39,11 @@ while (1):
         continue
 
     _, imageFrame = webcam.read()
-
     # # black color
     # res_black = cv2.bitwise_and(imageFrame, imageFrame, mask=black_mask)
     im_gray = cv2.cvtColor(imageFrame, cv2.COLOR_BGR2GRAY)
 
-    im_bw = cv2.threshold(im_gray, 100, 255, cv2.THRESH_BINARY)[1]
+    im_bw = cv2.threshold(im_gray, 60, 255, cv2.THRESH_BINARY)[1]
 
 
     img_gray = cv2.medianBlur(im_gray,5)
@@ -59,16 +72,26 @@ while (1):
             # Check if it is a cube-ish
             if(w/h < 1 + cubic_rate and w/h > 1 - cubic_rate):
                 if(y > 20 and x > 20 and y + h + 20 < height and x + w + 20 < width):
+                    canvas.create_oval(100,100-h,110,110-h,outline ="red",fill ="white",width =2)
+                    msg = "x:" + str(x) + " y:" + str(y) + " z:" + str(h)
+                    b_msg = msg.encode("utf-8")
+                    sock.sendto(b_msg, (UDP_IP, UDP_PORT))
                     crop = img_gray[y-20:y+h+20, x-20:x+w+20]  
-                    circles2 = cv2.HoughCircles(crop, cv2.HOUGH_GRADIENT, 1.8, 100, minRadius=1, maxRadius=1000)
-                    if circles2 is not None: 
-                        circles2 = np.uint16(np.around(circles2))
-                        for i in circles2[0,:]:
-                            canvas.create_oval(100,300-h,110,310-h,outline ="black",fill ="white",width =2)
+                    resized_crop = cv2.resize(crop, (500, 500))
+                    # circles2 = cv2.HoughCircles(resized_crop, cv2.HOUGH_GRADIENT, 1.4, 50, param1=30,param2=80,  minRadius=1, maxRadius=1000)
+                    # if circles2 is not None: 
+                    #     circles2 = np.uint16(np.around(circles2))
+                    #     for i in circles2[0,:]:
+                    #         circle_crop = resized_crop
+                    #         # draw the outer circle
+                    #         cv2.circle(resized_crop,(i[0],i[1]),i[2],(0,255,0),2)
+                    #         # draw the center of the circle
+                    #         cv2.circle(resized_crop,(i[0],i[1]),2,(0,0,255),3)
+                    #         canvas.create_oval(100,100-h,110,110-h,outline ="black",fill ="white",width =2)
     root.update()
 
     #circles = cv2.HoughCircles(img_circle, cv2.HOUGH_GRADIENT, 1.4, 100, minRadius=1, maxRadius=1000)
-    # circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 1.8, 500, minRadius=1, maxRadius=100)
+    #circles = cv2.HoughCircles(im_gray, cv2.HOUGH_GRADIENT, 2.0, 100, minRadius=1, maxRadius=100)
     # #cv2.HoughCircles(gray, circles, cv2.HOUGH_GRADIENT,2,10,param1=50,param2=30,minRadius=0,maxRadius=0)
  
     # if circles is not None:
@@ -80,6 +103,7 @@ while (1):
     #         cv2.circle(imageFrame,(i[0],i[1]),2,(0,0,255),3)
 
     cv2.imshow('detected circles',imageFrame)
+    #cv2.imshow('crop', circle_crop)
     cv2.imshow('gray', img)
    
 

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfuewiu2np8yx"]
+
+[ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="1_fxttx"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_fxttx"]
+
+[node name="CameraServerNode" type="Node"]
+script = ExtResource("1_fxttx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_fxttx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.2125)
