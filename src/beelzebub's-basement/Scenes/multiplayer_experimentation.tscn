@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://o2snbwyyvk7h"]
+[gd_scene load_steps=5 format=3 uid="uid://o2snbwyyvk7h"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="2_37rvk"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="2_gth0k"]
 [ext_resource type="Script" uid="uid://5cmt6rsonw2y" path="res://Scripts/multiplayer_spawner.gd" id="3_xmlkn"]
+[ext_resource type="PackedScene" uid="uid://c5kajcas17a5l" path="res://Scenes/sceneobjects/potato.tscn" id="4_abdnm"]
 
 [node name="MultiplayerExperimentation" type="Node3D"]
 
@@ -13,7 +14,12 @@ compositor = ExtResource("2_gth0k")
 script = ExtResource("2_37rvk")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Node"]
-spawn_path = NodePath(".")
+_spawnable_scenes = PackedStringArray("uid://c5kajcas17a5l")
+spawn_path = NodePath("../Spawn_path")
+spawn_limit = 999
 script = ExtResource("3_xmlkn")
+potato = ExtResource("4_abdnm")
+
+[node name="Spawn_path" type="Node" parent="Node"]
 
 [node name="Bertil" type="Node3D" parent="."]

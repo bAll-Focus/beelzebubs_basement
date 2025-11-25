@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfxrxbkpibaof"]
+
+[ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
+[ext_resource type="PackedScene" uid="uid://b0pkagf8tj7t6" path="res://Scenes/multiplayer_basement.tscn" id="1_syryq"]
+[ext_resource type="Script" uid="uid://gor780jiujbd" path="res://Scripts/role_manager.gd" id="2_yb5jp"]
+[ext_resource type="Script" uid="uid://5cmt6rsonw2y" path="res://Scripts/multiplayer_spawner.gd" id="3_syryq"]
+[ext_resource type="PackedScene" uid="uid://c5kajcas17a5l" path="res://Scenes/sceneobjects/potato.tscn" id="4_wnf6l"]
+[ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="6_wnf6l"]
+
+[node name="MultiplayerIntegration" type="Node3D"]
+
+[node name="Static Scene" type="Node" parent="."]
+
+[node name="MultiplayerBasement" parent="Static Scene" instance=ExtResource("1_syryq")]
+
+[node name="Dynamic Scene" type="Node" parent="."]
+
+[node name="Dynamic_objects" type="Node" parent="Dynamic Scene"]
+
+[node name="Spawners" type="Node" parent="Dynamic Scene"]
+
+[node name="Spawner" type="MultiplayerSpawner" parent="Dynamic Scene/Spawners"]
+_spawnable_scenes = PackedStringArray("uid://c5kajcas17a5l")
+spawn_path = NodePath("../../Dynamic_objects")
+spawn_limit = 1024
+script = ExtResource("3_syryq")
+potato = ExtResource("4_wnf6l")
+
+[node name="Network Manager" type="Node" parent="."]
+script = ExtResource("1_p5c6l")
+
+[node name="RoleManager" type="Node" parent="Network Manager"]
+script = ExtResource("2_yb5jp")
+
+[node name="SpawnManager" type="Node" parent="Network Manager"]
+
+[node name="Dummy_player_control" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8498745, 3.5436614)
+
+[node name="Camera3D" type="Camera3D" parent="Dummy_player_control"]
+compositor = ExtResource("6_wnf6l")
