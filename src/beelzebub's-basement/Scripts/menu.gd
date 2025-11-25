@@ -11,8 +11,10 @@ func _ready() -> void:
 
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene("res://Scenes/basement.tscn")
-
+	set_visible(false)
+	$"../../ProgressBar".set_visible(true)
+	$"../../../Ba'al".set_visible(true)
+	$"../../../TestBall".set_visible(true)
 
 func _on_credits_button_pressed() -> void:
 	pass # Replace with function body.

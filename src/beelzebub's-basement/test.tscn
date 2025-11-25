@@ -1,11 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://hoo8esttjkoe"]
+[gd_scene load_steps=10 format=3 uid="uid://hoo8esttjkoe"]
 
+[ext_resource type="Script" uid="uid://debvn0wq0th70" path="res://ba'al.gd" id="1_6uqi0"]
 [ext_resource type="PackedScene" uid="uid://qhasuqgpp5y4" path="res://Models/flygoat.glb" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://br86dcf4f8lyi" path="res://test_ball.gd" id="2_8uh7m"]
+[ext_resource type="PackedScene" uid="uid://bpodp2301mnk8" path="res://Scenes/menu_design.tscn" id="4_ppyta"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_8uh7m"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8uh7m"]
+height = 1.1
+radius = 0.2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_6uqi0"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6uqi0"]
+height = 1.0
+radius = 0.3
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ppyta"]
 
@@ -18,32 +24,32 @@ material = SubResource("StandardMaterial3D_ykrsh")
 [node name="Node3D" type="Node3D"]
 
 [node name="Ba\'al" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6083932, -4.6340995)
+script = ExtResource("1_6uqi0")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="Ba\'al"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ba\'al/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7038219, 1.0103128, 2.4310462)
-shape = SubResource("SphereShape3D_8uh7m")
+transform = Transform3D(1, 0, 0, 0, 0.6087614, -0.7933533, 0, 0.7933533, 0.6087614, 0, 0.5280512, 0)
+shape = SubResource("CylinderShape3D_8uh7m")
 debug_color = Color(0.84692776, 0, 0.6061981, 1)
 
 [node name="flygoat" parent="Ba\'al/CharacterBody3D" instance=ExtResource("1_37kl0")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.7154802, 0.41183722, 2.362629)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ba\'al"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2862165, 0, 0)
 
 [node name="DetectionArea" type="Area3D" parent="Ba\'al"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5816822, 0)
 collision_layer = 0
-collision_mask = 0
 
 [node name="DACollisionShape" type="CollisionShape3D" parent="Ba\'al/DetectionArea"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.704, 1.01, 2.431)
-shape = SubResource("SphereShape3D_6uqi0")
+transform = Transform3D(1.5, 0, 0, 0, 0.91314214, -1.19003, 0, 1.19003, 0.91314214, 0, 0, 0)
+shape = SubResource("CylinderShape3D_6uqi0")
 debug_color = Color(0, 0.6156863, 0.7176471, 1)
 
 [node name="TestBall" type="CharacterBody3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.1470695, 0.3701036)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.45237327, 1.2468559)
 script = ExtResource("2_8uh7m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestBall"]
@@ -53,4 +59,19 @@ shape = SubResource("SphereShape3D_ppyta")
 mesh = SubResource("SphereMesh_g14j6")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.8181497, 0, 0.57500523, 0, 1, 0, -0.57500523, 0, 0.8181497, 1.0206115, 1.2633588, 0.90590155)
+transform = Transform3D(0.81814975, 0, 0.5750053, 0, 1, 0, -0.5750053, 0, 0.81814975, 1.8141927, 1.0683013, 1.6705849)
+
+[node name="ProgressBar" type="ProgressBar" parent="Camera3D"]
+offset_left = 352.0
+offset_top = 33.0
+offset_right = 827.0
+offset_bottom = 60.0
+step = 1.0
+show_percentage = false
+
+[node name="CanvasLayer" parent="Camera3D" instance=ExtResource("4_ppyta")]
+offset = Vector2(120, 50)
+scale = Vector2(1.5, 1.5)
+transform = Transform2D(1.5, 0, 0, 1.5, 120, 50)
+
+[connection signal="body_entered" from="Ba\'al/DetectionArea" to="Ba\'al" method="_on_detection_area_body_entered"]
