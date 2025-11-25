@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0b5oihtnu1eg"
-path.s3tc="res://.godot/imported/4K-wall_random_1-ao.jpg-9db6dbf24be3784eff7e14ff892ea134.s3tc.ctex"
-path.etc2="res://.godot/imported/4K-wall_random_1-ao.jpg-9db6dbf24be3784eff7e14ff892ea134.etc2.ctex"
+path.s3tc="res://.godot/imported/4K-wall_random_1-ao.jpg-08b13ac33725b622f24f368fbd71d00f.s3tc.ctex"
+path.etc2="res://.godot/imported/4K-wall_random_1-ao.jpg-08b13ac33725b622f24f368fbd71d00f.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/grunge_wall_1-4K/4K-wall_random_1-ao.jpg"
-dest_files=["res://.godot/imported/4K-wall_random_1-ao.jpg-9db6dbf24be3784eff7e14ff892ea134.s3tc.ctex", "res://.godot/imported/4K-wall_random_1-ao.jpg-9db6dbf24be3784eff7e14ff892ea134.etc2.ctex"]
+source_file="res://textures/grunge_wall_1-4K/4K-wall_random_1-ao.jpg"
+dest_files=["res://.godot/imported/4K-wall_random_1-ao.jpg-08b13ac33725b622f24f368fbd71d00f.s3tc.ctex", "res://.godot/imported/4K-wall_random_1-ao.jpg-08b13ac33725b622f24f368fbd71d00f.etc2.ctex"]
 
 [params]
 
