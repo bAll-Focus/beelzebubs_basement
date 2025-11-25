@@ -4,7 +4,7 @@ const IP_ADDRESS : String = "localhost"
 const PORT : int = 42069
 var peer : ENetMultiplayerPeer
 
-@export var network_player: PackedScene
+@export var role_manager: RoleManager
 var server_mode: bool = false
 
 func start_server() -> void:
@@ -12,6 +12,7 @@ func start_server() -> void:
 	peer.create_server(PORT, 1)
 	multiplayer.multiplayer_peer = peer
 	server_mode = true
+	role_manager.initialize_roles(true)
 	print(multiplayer.is_server());
 
 func start_client() -> void:
@@ -19,6 +20,7 @@ func start_client() -> void:
 	peer.create_client(IP_ADDRESS, PORT)
 	multiplayer.multiplayer_peer = peer
 	server_mode = false
+	role_manager.initialize_roles(false)
 	print(multiplayer.is_server());
 
 func _ready() -> void:

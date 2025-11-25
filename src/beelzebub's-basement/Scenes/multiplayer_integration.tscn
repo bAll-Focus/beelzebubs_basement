@@ -26,16 +26,24 @@ spawn_limit = 1024
 script = ExtResource("3_syryq")
 potato = ExtResource("4_wnf6l")
 
-[node name="Network Manager" type="Node" parent="."]
+[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager")]
 script = ExtResource("1_p5c6l")
+role_manager = NodePath("RoleManager")
 
-[node name="RoleManager" type="Node" parent="Network Manager"]
+[node name="RoleManager" type="Node" parent="Network Manager" node_paths=PackedStringArray("VR_player", "victim_pos_marker", "thrower_pos_marker")]
 script = ExtResource("2_yb5jp")
+VR_player = NodePath("../../Camera3D")
+victim_pos_marker = NodePath("../../victim_pos_marker")
+thrower_pos_marker = NodePath("../../thrower_pos_marker")
 
 [node name="SpawnManager" type="Node" parent="Network Manager"]
 
-[node name="Dummy_player_control" type="Node3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8498745, 3.5436614)
-
-[node name="Camera3D" type="Camera3D" parent="Dummy_player_control"]
 compositor = ExtResource("6_wnf6l")
+
+[node name="victim_pos_marker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38996542, 0.86910164)
+
+[node name="thrower_pos_marker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366107, 3.3278902)
