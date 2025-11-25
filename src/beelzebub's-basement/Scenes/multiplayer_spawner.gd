@@ -1,14 +1,23 @@
 extends MultiplayerSpawner
 
 @export var network_player: PackedScene
+@export var potato: PackedScene
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(spawn_player)
-	
-	
+	await get_tree().create_timer(2.0).timeout
+	if multiplayer.is_server(): 
+		print(multiplayer.is_server()) 
+		spawn_potato(0)
+
+
 func spawn_player (_id:int) -> void:
 	if !multiplayer.is_server(): return
-	print("SOMEONE CONNECTED!!!")
 	#var player: Node = network_player.instantiate()
 	#player.name = str(id)
 	#get_node(spawn_path).call_deferred("add_child", player)
+
+
+func spawn_potato (_id:int) -> void:
+	if !multiplayer.is_server(): return
+	print("Spawning potato");

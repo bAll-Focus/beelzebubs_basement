@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
 XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
+HighLevelNetworkManager="*res://Scenes/high_level_network_manager.gd"
 
 [dotnet]
 
@@ -50,18 +51,6 @@ textures/vram_compression/import_etc2_astc=true
 
 [shader_globals]
 
-dither={
-"type": "bool",
-"value": false
-}
-dither_spread={
-"type": "float",
-"value": 1.0
-}
-dither_gamma={
-"type": "float",
-"value": 1.0
-}
 META_ENVIRONMENT_DEPTH_AVAILABLE={
 "type": "bool",
 "value": false

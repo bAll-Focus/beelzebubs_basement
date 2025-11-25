@@ -5,23 +5,26 @@ const PORT : int = 42069
 var peer : ENetMultiplayerPeer
 
 @export var network_player: PackedScene
-var je_suis_server: bool = false
+var server_mode: bool = false
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_server(PORT, 1)
 	multiplayer.multiplayer_peer = peer
+	server_mode = false
 
 func start_client() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(IP_ADDRESS, PORT)
 	multiplayer.multiplayer_peer = peer
+	server_mode = false
 
 func _ready() -> void:
+	server_mode = false
 	for argument in OS.get_cmdline_args():
 		if argument.contains("SERVER"):
-			je_suis_server = true
-	if je_suis_server:
+			server_mode = true
+	if server_mode:
 		start_server()
 		print("AM SERVER")
 	else:
