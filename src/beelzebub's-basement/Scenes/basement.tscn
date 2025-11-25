@@ -174,10 +174,10 @@ hand_tracker_name = "/user/hand_tracker/right"
 hand_pose_set = SubResource("Resource_d2wvv")
 
 [node name="HandPoseController" parent="PlayerControll/RightTrackedHand/HandPoseDetector" instance=ExtResource("8_5j8jl")]
-hand_tracker_name = "/user/hand_tracker/right"
 controller_tracker_name = "/user/hand_pose_controller/right"
 controller_pose_type = 0
 controller_action_map = SubResource("Resource_oprun")
+hand_tracker_name = "/user/hand_tracker/right"
 
 [node name="LeftController" type="XRController3D" parent="PlayerControll"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
