@@ -22,7 +22,7 @@
 
 [sub_resource type="Resource" id="Resource_d2wvv"]
 script = ExtResource("7_nvrgk")
-poses = Array[ExtResource("5_dvfvt")]([ExtResource("6_dqwih")])
+poses = Array[ExtResource("5_dvfvt")]([ExtResource("6_dqwih"), ExtResource("10_dvfvt"), ExtResource("11_dqwih"), ExtResource("12_nvrgk")])
 metadata/_custom_type_script = "uid://bye1dl8t10v61"
 
 [sub_resource type="Resource" id="Resource_f1ej7"]
@@ -174,6 +174,7 @@ hand_tracker_name = "/user/hand_tracker/right"
 hand_pose_set = SubResource("Resource_d2wvv")
 
 [node name="HandPoseController" parent="PlayerControll/RightTrackedHand/HandPoseDetector" instance=ExtResource("8_5j8jl")]
+hand_tracker_name = "/user/hand_tracker/right"
 controller_tracker_name = "/user/hand_pose_controller/right"
 controller_pose_type = 0
 controller_action_map = SubResource("Resource_oprun")
