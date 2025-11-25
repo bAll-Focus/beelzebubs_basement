@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwu1vsuoe2u3r"]
+[gd_scene load_steps=15 format=3 uid="uid://cytnfbgpxcbiw"]
 
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="3_dqkch"]

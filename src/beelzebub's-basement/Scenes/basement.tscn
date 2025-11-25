@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cqf5h62cdh8r8"]
+[gd_scene load_steps=48 format=3 uid="uid://cqf5h62cdh8r8"]
 
 [ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="1_gidub"]
 [ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://scripts/start_xr.gd" id="1_wy1pe"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://sy66yqr1xila" path="res://addons/hand_pose_detector/poses/thumbs_up.tres" id="11_dqwih"]
 [ext_resource type="PackedScene" uid="uid://dabmoo0spa6vg" path="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf" id="11_flc8l"]
 [ext_resource type="Resource" uid="uid://dgl2b6ftbpnrx" path="res://addons/hand_pose_detector/poses/peace_sign.tres" id="12_nvrgk"]
+[ext_resource type="PackedScene" uid="uid://c5ldiblddq4yn" path="res://scenes/spell_detector.tscn" id="15_dqwih"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o6xl0"]
 
@@ -181,9 +182,13 @@ controller_action_map = SubResource("Resource_oprun")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"/user/hand_pose_controller/left"
 
+[node name="SpellDetector" parent="PlayerControll/LeftController" instance=ExtResource("15_dqwih")]
+
 [node name="RightController" type="XRController3D" parent="PlayerControll"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"/user/hand_pose_controller/right"
+
+[node name="SpellDetector" parent="PlayerControll/RightController" instance=ExtResource("15_dqwih")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7064366, 3.6526375)
