@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://o2snbwyyvk7h"]
 
-[ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scenes/high_level_network_manager.gd" id="2_37rvk"]
+[ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="2_37rvk"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="2_gth0k"]
-[ext_resource type="Script" uid="uid://5cmt6rsonw2y" path="res://Scenes/multiplayer_spawner.gd" id="3_xmlkn"]
+[ext_resource type="Script" uid="uid://5cmt6rsonw2y" path="res://Scripts/multiplayer_spawner.gd" id="3_xmlkn"]
 
 [node name="MultiplayerExperimentation" type="Node3D"]
 

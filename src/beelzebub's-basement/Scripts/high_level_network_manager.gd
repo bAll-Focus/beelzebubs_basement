@@ -11,13 +11,15 @@ func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_server(PORT, 1)
 	multiplayer.multiplayer_peer = peer
-	server_mode = false
+	server_mode = true
+	print(multiplayer.is_server());
 
 func start_client() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(IP_ADDRESS, PORT)
 	multiplayer.multiplayer_peer = peer
 	server_mode = false
+	print(multiplayer.is_server());
 
 func _ready() -> void:
 	server_mode = false
@@ -31,4 +33,5 @@ func _ready() -> void:
 		await get_tree().create_timer(2.0).timeout
 		start_client()
 		print("AM CLIENT")
+		
 	

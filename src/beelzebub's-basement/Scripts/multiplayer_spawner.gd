@@ -5,10 +5,7 @@ extends MultiplayerSpawner
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(spawn_player)
-	await get_tree().create_timer(2.0).timeout
-	if multiplayer.is_server(): 
-		print(multiplayer.is_server()) 
-		spawn_potato(0)
+	await get_tree().create_timer(5.0).timeout
 
 
 func spawn_player (_id:int) -> void:
@@ -18,6 +15,10 @@ func spawn_player (_id:int) -> void:
 	#get_node(spawn_path).call_deferred("add_child", player)
 
 
-func spawn_potato (_id:int) -> void:
+func spawn_potato (_id:int, position:Vector3, rotation:Quaternion) -> void:
 	if !multiplayer.is_server(): return
 	print("Spawning potato");
+	
+	var potato_instance:Node = potato.instantiate()
+	get_node(spawn_path).call_deferred("add_child", potato_instance)
+	
