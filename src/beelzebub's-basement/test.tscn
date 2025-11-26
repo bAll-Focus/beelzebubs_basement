@@ -76,5 +76,8 @@ scale = Vector2(1.5, 1.5)
 transform = Transform2D(1.5, 0, 0, 1.5, 120, 50)
 
 [node name="Pause Menu" parent="Camera3D" instance=ExtResource("5_ykrsh")]
+offset = Vector2(220, 120)
+scale = Vector2(1.2, 1.2)
+transform = Transform2D(1.2, 0, 0, 1.2, 220, 120)
 
 [connection signal="body_entered" from="Ba\'al/DetectionArea" to="Ba\'al" method="_on_detection_area_body_entered"]

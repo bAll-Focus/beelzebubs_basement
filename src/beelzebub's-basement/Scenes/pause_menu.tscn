@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cb5d03b3ahwmk"]
+[gd_scene load_steps=2 format=3 uid="uid://cb5d03b3ahwmk"]
+
+[ext_resource type="Script" uid="uid://bxs2k8p4c7j51" path="res://Scenes/control.gd" id="1_emv3i"]
 
 [node name="Pause Menu" type="CanvasLayer"]
 
@@ -7,6 +9,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_emv3i")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 custom_minimum_size = Vector2(640, 360)
@@ -33,12 +36,15 @@ theme_override_font_sizes/font_size = 24
 text = "Ba'al's Basement"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="Control/ColorRect/MarginContainer/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="Control/ColorRect/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 text = "Restart"
 
-[node name="Button2" type="Button" parent="Control/ColorRect/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="Control/ColorRect/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 text = "Quit"
+
+[connection signal="pressed" from="Control/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="Control" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Control/ColorRect/MarginContainer/VBoxContainer/QuitButton" to="Control" method="_on_quit_button_pressed"]
