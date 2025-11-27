@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://66yjc8gdupcd"]
+
+[ext_resource type="Script" uid="uid://cmumdnyq8i07x" path="res://Scenes/credits.gd" id="1_r18jl"]
+
+[node name="Pause Menu" type="CanvasLayer"]
+script = ExtResource("1_r18jl")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 220
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.10980392, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Ba'al's Basement"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font_size={26}][color=crimson]CREDITS[/color][/font_size]
+[font_size={20}][color=dark_orange]Kristin Eriksson[/color]
+[color=gold]Rej Karlander[/color]
+[color=yellow_green]Marcus Erlandsson[/color]
+[color=light_sky_blue]Jennifer Köhler[/color]
+[color=medium_purple]Kei Duke-Bergman[/color][/center]
+[/font_size]"
+fit_content = true
+
+[node name="BackButton" type="Button" parent="Control/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(20, 30)
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="Control/ColorRect/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

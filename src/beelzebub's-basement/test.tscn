@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://hoo8esttjkoe"]
+[gd_scene load_steps=12 format=3 uid="uid://hoo8esttjkoe"]
 
 [ext_resource type="Script" uid="uid://debvn0wq0th70" path="res://ba'al.gd" id="1_6uqi0"]
 [ext_resource type="PackedScene" uid="uid://qhasuqgpp5y4" path="res://Models/flygoat.glb" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://br86dcf4f8lyi" path="res://test_ball.gd" id="2_8uh7m"]
 [ext_resource type="PackedScene" uid="uid://bpodp2301mnk8" path="res://Scenes/menu_design.tscn" id="4_ppyta"]
 [ext_resource type="PackedScene" uid="uid://cb5d03b3ahwmk" path="res://Scenes/pause_menu.tscn" id="5_ykrsh"]
+[ext_resource type="PackedScene" uid="uid://66yjc8gdupcd" path="res://Scenes/credits.tscn" id="6_g14j6"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8uh7m"]
 height = 1.1
@@ -76,6 +77,11 @@ scale = Vector2(1.5, 1.5)
 transform = Transform2D(1.5, 0, 0, 1.5, 120, 50)
 
 [node name="Pause Menu" parent="Camera3D" instance=ExtResource("5_ykrsh")]
+offset = Vector2(220, 120)
+scale = Vector2(1.2, 1.2)
+transform = Transform2D(1.2, 0, 0, 1.2, 220, 120)
+
+[node name="Credits Menu" parent="Camera3D" instance=ExtResource("6_g14j6")]
 offset = Vector2(220, 120)
 scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 220, 120)

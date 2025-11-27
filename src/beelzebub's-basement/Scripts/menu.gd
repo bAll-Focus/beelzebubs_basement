@@ -17,7 +17,7 @@ func _on_start_button_pressed() -> void:
 	$"../../../TestBall".set_visible(true)
 
 func _on_credits_button_pressed() -> void:
-	pass # Replace with function body.
+	$"../../Credits Menu".set_visible(true)
 
 
 func _on_quit_button_pressed() -> void:

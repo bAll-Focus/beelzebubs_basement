@@ -12,6 +12,7 @@ func _ready() -> void:
 	$"../TestBall".set_visible(false)
 	set_visible(false)
 	$"../Camera3D/Pause Menu".set_visible(false)
+	$"../Camera3D/Credits Menu".set_visible(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
