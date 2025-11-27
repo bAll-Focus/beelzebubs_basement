@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5ldiblddq4yn"]
+
+[ext_resource type="Script" uid="uid://tk0k7xvpv7ec" path="res://Scripts/XR/spell_detector.gd" id="1_fhytx"]
+
+[node name="SpellDetector" type="Node3D"]
+script = ExtResource("1_fhytx")
