@@ -3,16 +3,17 @@ extends Node3D
 @export var health:int
 const MAX_HEALTH = 100
 var loop_counter = 0
+var ball
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	health = MAX_HEALTH
 	$"../Camera3D/ProgressBar".value = MAX_HEALTH
 	$"../Camera3D/ProgressBar".set_visible(false)
-	$"../TestBall".set_visible(false)
 	set_visible(false)
 	$"../Camera3D/Pause Menu".set_visible(false)
 	$"../Camera3D/Credits Menu".set_visible(false)
+	ball = $"../../Ball"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -24,16 +25,12 @@ func _process(delta: float) -> void:
 
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
-	if(body.name == "TestBall"):
+	if(body.name == "Ball"):
 		health -= 10
 		$"../Camera3D/ProgressBar".value -= 10
 		if(health <= 0):
 			set_visible(false)
 			$"../Camera3D/Pause Menu".set_visible(true)
-		$"../TestBall".set_visible(false)
-		$"../TestBall".velocity = Vector3(0, 0, 0)
-		$"../TestBall".position = $"../TestBall".init_position
-		$"../TestBall".set_visible(true)
 
 func restart() -> void:
 	$"../Camera3D/Pause Menu".set_visible(false)

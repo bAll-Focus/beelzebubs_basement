@@ -47,8 +47,9 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	ball.position.x = 0
-	ball.position.y = -0.25
-	ball.position.z = -2.0
+	ball.position.y = -0.3
+	ball.position.z = -0.65
 	ball.linear_velocity = Vector3.ZERO 
 	ball.angular_velocity = Vector3.ZERO  
+	ball.apply_impulse(Vector3(0,5,-5))
 	pass # Replace with function body.

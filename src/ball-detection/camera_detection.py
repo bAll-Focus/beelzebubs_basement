@@ -22,9 +22,7 @@ if __name__ == '__main__':
     #sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 
     # turn on cam
-    webcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-    img_draw = Image.new("RGB", (1000, 1000)) 
-    circle_crop = img_draw
+    webcam = cv2.VideoCapture(0, cv2.CAP_DSHOW) 
 
     cubic_rate = 0.3
 
@@ -40,6 +38,9 @@ if __name__ == '__main__':
     added_balls = 0
 
     found_ball = False
+
+    _, imageFrame = webcam.read()
+    cam_height, cam_width = imageFrame.shape[:2]
 
     #ball = canvas.create_oval(100, 0, 130, 30, outline="red", fill="white", width=4)
 
@@ -102,22 +103,24 @@ if __name__ == '__main__':
                         #canvas.coords(ball, 100 - h, y * 2, 130 - h, y * 2 + 30)
 
                         
-                        
+                        ball_x = x + w/2
+                        ball_y = y + h/2
                         #crop = img_gray[y-20:y+h+20, x-20:x+w+20]  
                         #resized_crop = cv2.resize(crop, (500, 500))
                         if(active_ball):
-                            
-                            active_ball_coords.append([x,-y])
+                            active_ball_coords.append([ball_x,-ball_y])
                             added_balls += 1
                             if(active_ball_count == active_ball_limit + 1):
-                                coord = calculate_vector(unactive_ball_coords[-3],[x,-y])
-                                msg = "x:" + str(coord[0]) + " y:" + str(coord[1])
+                                distance = ball_x-(cam_width/2)
+                                msg = distance
+                                #coord = calculate_vector(unactive_ball_coords[-3],[x,-y])
+                                #msg = "x:" + str(coord[0]) + " y:" + str(coord[1])
                                 b_msg = msg.encode("utf-8")
                                 sock.sendto(b_msg, (UDP_IP, UDP_PORT))
-                                print(msg)
+                                #print(distance)
 
                         elif(active_ball_count > 0):
-                            unactive_ball_coords.append([x,-y])
+                            unactive_ball_coords.append([ball_x,-ball_y])
                         # circles2 = cv2.HoughCircles(resized_crop, cv2.HOUGH_GRADIENT, 1.4, 50, param1=30,param2=80,  minRadius=1, maxRadius=1000)
                         # if circles2 is not None: 
                         #     circles2 = np.uint16(np.around(circles2))
