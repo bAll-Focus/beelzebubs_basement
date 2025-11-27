@@ -1,14 +1,55 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfuewiu2np8yx"]
+[gd_scene load_steps=7 format=3 uid="uid://dfuewiu2np8yx"]
 
 [ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="1_fxttx"]
+[ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="2_6l8ll"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_fxttx"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fxttx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jpcg6"]
+size = Vector3(6, 1, 8)
 
 [node name="CameraServerNode" type="Node"]
 script = ExtResource("1_fxttx")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_fxttx")
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.2125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005589485, 0.49336684, -0.41990185)
+compositor = ExtResource("2_6l8ll")
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("SphereMesh_fxttx")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+shape = SubResource("SphereShape3D_fxttx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.94907534, -0.28143087, -0.14160737, 0.2843399, 0.5716011, 0.7696902, -0.13567168, -0.7707587, 0.6225145, 0.20060849, 1.6412892, -1.6412635)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36682796, -2.5451639)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034713745, -0.03458023, 0.01183033)
+mesh = SubResource("BoxMesh_jpcg6")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

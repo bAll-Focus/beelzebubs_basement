@@ -1,4 +1,4 @@
-class_name ServerNode
+class_name CameraServerNode
 extends Node
 
 var server = UDPServer.new()
@@ -8,7 +8,7 @@ var ball
 
 func _ready():
 	server.listen(5005)
-	ball = get_node("MeshInstance3D")
+	ball = get_node("Ball")
 
 func _process(delta):
 	server.poll() # Important!
@@ -22,7 +22,7 @@ func _process(delta):
 		# Keep a reference so we can keep contacting the remote peer.
 		peers.append(peer)
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if(peers.size() > 0):
 		for i in range(0, peers.size()):
 			var is_available = peers[i].get_available_packet_count()
@@ -32,11 +32,23 @@ func _physics_process(_delta):
 				var coords = packet.split(" ")
 				for coord in coords:	
 					var data = coord.split(":")
+					var force_vector = Vector3(0,0,-10)
 					match data[0]:
-						"x": ball.position.x = int(data[1])/100
-						"y": ball.position.y = int(data[1])/100
+						"x": force_vector.x = int(data[1])/2
+						"y": force_vector.y = int(data[1])/2
 						"z": pass
+					print(force_vector)
+					ball.apply_impulse(force_vector)
 				
 
-	for i in range(0, peers.size()):
+	for i in range(0, peers.size()): 
 		pass # Do something with the connected peers.
+
+
+func _on_timer_timeout():
+	ball.position.x = 0
+	ball.position.y = -0.25
+	ball.position.z = -2.0
+	ball.linear_velocity = Vector3.ZERO 
+	ball.angular_velocity = Vector3.ZERO  
+	pass # Replace with function body.
