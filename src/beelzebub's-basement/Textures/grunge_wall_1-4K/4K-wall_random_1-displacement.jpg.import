@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2ck76wfj5b46"
-path="res://.godot/imported/4K-wall_random_1-displacement.jpg-ea5b0c38fe1c30509f938e7ff2c48a01.ctex"
+path="res://.godot/imported/4K-wall_random_1-displacement.jpg-4378cb6dcd37441404376a3277412c3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/grunge_wall_1-4K/4K-wall_random_1-displacement.jpg"
-dest_files=["res://.godot/imported/4K-wall_random_1-displacement.jpg-ea5b0c38fe1c30509f938e7ff2c48a01.ctex"]
+source_file="res://Textures/grunge_wall_1-4K/4K-wall_random_1-displacement.jpg"
+dest_files=["res://.godot/imported/4K-wall_random_1-displacement.jpg-4378cb6dcd37441404376a3277412c3e.ctex"]
 
 [params]
 
