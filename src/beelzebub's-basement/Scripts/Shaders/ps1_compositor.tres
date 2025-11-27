@@ -14,8 +14,10 @@ x_size = null
 y_size = null
 shader_code = "// Determine the size of each pixel block      
 // Larger values yield stronger pixelation
-const ivec2 pixel_step = ivec2(4, 4);
+const int pixel_size = 4;
+const ivec2 pixel_step = ivec2(pixel_size, pixel_size);
 const float dither_gamma = 10;
+
 
 ivec2 base_uv = (uv / pixel_step) * pixel_step;
 
@@ -27,7 +29,7 @@ int ps1_dither_matrix[16] = {
 };
 color = imageLoad(color_image, base_uv);
 ivec2 base_block = ivec2(floor(uv / pixel_step));
-int idx = (base_block.x % 4) + (base_block.y % 4) * 4;
+int idx = (base_block.x % 4) + (base_block.y % 4) * pixel_size;
 float noise = float(ps1_dither_matrix[idx]);
 
 vec3 c = color.rgb; 

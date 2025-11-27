@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://dx1hk7k4tsfh2" path="res://Materials/ps1/test/test_material_borked.tres" id="3_qqebx"]
 [ext_resource type="Material" uid="uid://m1raygcig17w" path="res://Materials/ps1/test/test_material.tres" id="5_mpad8"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="5_qqebx"]
-[ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="6_qg3qk"]
+[ext_resource type="PackedScene" uid="uid://b0pkagf8tj7t6" path="res://Scenes/multiplayer_basement.tscn" id="6_qqebx"]
 
 [sub_resource type="GDScript" id="GDScript_wuk74"]
 script/source = "extends Node3D
@@ -40,16 +40,13 @@ script = SubResource("GDScript_wuk74")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9129197, 0.4081393, 0, -0.4081393, 0.9129197, 0, 0, 0)
 
-[node name="candle" parent="." instance=ExtResource("1_qqebx")]
-transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -0.085606575, -0.06265704, -0.16724405)
-
 [node name="Borked Box" type="CSGBox3D" parent="."]
 transform = Transform3D(0.0712526, 0.04545814, -0.053447414, -0.036364563, 0.08907052, 0.027277485, 0.060005724, -1.4901161e-09, 0.079995714, 0.5696959, -0.12849091, -0.4387633)
 material = ExtResource("3_qqebx")
 script = ExtResource("3_qg3qk")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046485394, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.70591784, 2.7488415)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 compositor = ExtResource("5_qqebx")
@@ -60,7 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109431535, 0, -0.553472)
 tracker = &"right_hand"
 
 [node name="candle" parent="XROrigin3D/Righthand" instance=ExtResource("1_qqebx")]
-transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -0.19503811, -0.7685749, -2.3626134)
 
 [node name="Lefthand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19684103, 0, -0.23747882)
@@ -77,11 +74,6 @@ material_override = ExtResource("3_qqebx")
 radial_segments = 48
 rings = 24
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07055664, -0.32516098, -0.68279266)
-material_override = ExtResource("6_qg3qk")
-size = Vector3(2.6762695, 2.585022, 0.001)
-
 [node name="Borked Box2" type="CSGBox3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.10000001, 0, -0.046485394, -0.532)
 material = ExtResource("5_mpad8")
@@ -96,3 +88,5 @@ script = ExtResource("3_qg3qk")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.10000001, -0.16578847, -0.046485394, -0.20144108)
 material = ExtResource("5_mpad8")
 script = ExtResource("3_qg3qk")
+
+[node name="MultiplayerBasement" parent="." instance=ExtResource("6_qqebx")]

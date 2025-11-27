@@ -7,8 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cwwyjkg3sjlfd" path="res://Textures/concrete_floor_02/concrete_floor_02_rough_4k.jpg" id="5_ajjhn"]
 
 [resource]
-albedo_color = Color(0.36078432, 0.36078432, 0.36078432, 1)
-albedo_texture = ExtResource("1_8s23l")
+albedo_color = Color(0.14406255, 0.14406255, 0.14406255, 1)
 roughness_texture = ExtResource("5_ajjhn")
 normal_enabled = true
 normal_texture = ExtResource("4_o38fa")

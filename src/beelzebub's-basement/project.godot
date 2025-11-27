@@ -101,7 +101,7 @@ resolution_y={
 }
 resolution={
 "type": "vec2",
-"value": Vector2(676, 684)
+"value": Vector2(1352, 1368)
 }
 
 [xr]
