@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://cqf5h62cdh8r8"]
+[gd_scene load_steps=45 format=3 uid="uid://cqf5h62cdh8r8"]
 
 [ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://Scripts/XR/start_xr.gd" id="1_agwnb"]
 [ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="1_gidub"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_2spye"]
 [ext_resource type="Material" uid="uid://byvjlgw8s1sde" path="res://Materials/wall_material.tres" id="2_3vl5l"]
+[ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="2_8vu0k"]
 [ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="3_8vu0k"]
 [ext_resource type="PackedScene" uid="uid://df5hynbooj1uj" path="res://addons/hand_pose_detector/hand_pose_detector.tscn" id="4_w7min"]
 [ext_resource type="Script" uid="uid://dv177q16qr3m1" path="res://addons/hand_pose_detector/hand_pose.gd" id="5_jc8bt"]
@@ -121,6 +122,7 @@ script = ExtResource("1_agwnb")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+compositor = ExtResource("2_8vu0k")
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("2_2spye")]
 
@@ -171,6 +173,7 @@ tracker = &"/user/hand_pose_controller/right"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7064366, 3.6526375)
+compositor = ExtResource("2_8vu0k")
 
 [node name="Building" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5217693, 0)

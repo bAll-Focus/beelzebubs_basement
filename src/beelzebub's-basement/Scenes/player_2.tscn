@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://bnj5ina8e4vpb"]
+[gd_scene load_steps=23 format=3 uid="uid://bnj5ina8e4vpb"]
 
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="1_b2c7a"]
+[ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="1_c6poq"]
 [ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="2_x4ukj"]
 [ext_resource type="PackedScene" uid="uid://df5hynbooj1uj" path="res://addons/hand_pose_detector/hand_pose_detector.tscn" id="3_t4bc4"]
 [ext_resource type="Script" uid="uid://dv177q16qr3m1" path="res://addons/hand_pose_detector/hand_pose.gd" id="4_wtgcc"]
@@ -56,6 +57,7 @@ metadata/_custom_type_script = "uid://c2hh8l62cludw"
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+compositor = ExtResource("1_c6poq")
 current = true
 
 [node name="PlayerBody" parent="." instance=ExtResource("1_b2c7a")]
