@@ -50,7 +50,7 @@ shape = SubResource("CylinderShape3D_6uqi0")
 debug_color = Color(0, 0.6156863, 0.7176471, 1)
 
 [node name="TestBall" type="CharacterBody3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.45237327, 1.2468559)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.452, 2.5)
 script = ExtResource("2_8uh7m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestBall"]
@@ -60,7 +60,7 @@ shape = SubResource("SphereShape3D_ppyta")
 mesh = SubResource("SphereMesh_g14j6")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.81814975, 0, 0.5750053, 0, 1, 0, -0.5750053, 0, 0.81814975, 1.8141927, 1.0683013, 1.6705849)
+transform = Transform3D(0.4939419, 0, 0.8694949, 0, 1, 0, -0.8694949, 0, 0.4939419, 2.2621684, 1.0683013, 2.3659713)
 
 [node name="ProgressBar" type="ProgressBar" parent="Camera3D"]
 offset_left = 352.0
