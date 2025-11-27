@@ -1,6 +1,6 @@
 [gd_scene load_steps=44 format=3 uid="uid://cqf5h62cdh8r8"]
 
-[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://Scripts/start_xr.gd" id="1_agwnb"]
+[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://Scripts/XR/start_xr.gd" id="1_agwnb"]
 [ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="1_gidub"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_2spye"]
 [ext_resource type="Material" uid="uid://byvjlgw8s1sde" path="res://Materials/wall_material.tres" id="2_3vl5l"]
