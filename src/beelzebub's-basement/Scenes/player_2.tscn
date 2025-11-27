@@ -52,66 +52,65 @@ script = ExtResource("9_13h5e")
 actions = Array[ExtResource("8_ab820")]([SubResource("Resource_f1ej7"), SubResource("Resource_5j8jl"), SubResource("Resource_c5vcu"), SubResource("Resource_6lwow")])
 metadata/_custom_type_script = "uid://c2hh8l62cludw"
 
-[node name="Player" type="Node3D"]
+[node name="Player_2" type="XROrigin3D"]
 
-[node name="PlayerControll" type="XROrigin3D" parent="."]
-
-[node name="XRCamera3D" type="XRCamera3D" parent="PlayerControll"]
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+current = true
 
-[node name="PlayerBody" parent="PlayerControll" instance=ExtResource("1_b2c7a")]
+[node name="PlayerBody" parent="." instance=ExtResource("1_b2c7a")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControll/PlayerBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_mxbqu")
 
-[node name="LeftTrackedHand" type="XRNode3D" parent="PlayerControll"]
+[node name="LeftTrackedHand" type="XRNode3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"/user/hand_tracker/left"
 
-[node name="LeftHandHumanoid2" parent="PlayerControll/LeftTrackedHand" instance=ExtResource("2_x4ukj")]
+[node name="LeftHandHumanoid2" parent="LeftTrackedHand" instance=ExtResource("2_x4ukj")]
 
-[node name="XRHandModifier3D" type="XRHandModifier3D" parent="PlayerControll/LeftTrackedHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" index="1"]
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="LeftTrackedHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" index="1"]
 
-[node name="HandPoseDetector" parent="PlayerControll/LeftTrackedHand" instance=ExtResource("3_t4bc4")]
+[node name="HandPoseDetector" parent="LeftTrackedHand" instance=ExtResource("3_t4bc4")]
 hand_pose_set = SubResource("Resource_0l2yj")
 
-[node name="HandPoseController" parent="PlayerControll/LeftTrackedHand/HandPoseDetector" instance=ExtResource("7_3ooxp")]
+[node name="HandPoseController" parent="LeftTrackedHand/HandPoseDetector" instance=ExtResource("7_3ooxp")]
 controller_pose_type = 0
 controller_action_map = SubResource("Resource_x8cua")
 
-[node name="RightTrackedHand" type="XRNode3D" parent="PlayerControll"]
+[node name="RightTrackedHand" type="XRNode3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"/user/hand_tracker/right"
 
-[node name="RightHandHumanoid2" parent="PlayerControll/RightTrackedHand" instance=ExtResource("10_h8wfx")]
+[node name="RightHandHumanoid2" parent="RightTrackedHand" instance=ExtResource("10_h8wfx")]
 
-[node name="XRHandModifier3D" type="XRHandModifier3D" parent="PlayerControll/RightTrackedHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" index="1"]
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="RightTrackedHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" index="1"]
 hand_tracker = &"/user/hand_tracker/right"
 
-[node name="HandPoseDetector" parent="PlayerControll/RightTrackedHand" instance=ExtResource("3_t4bc4")]
+[node name="HandPoseDetector" parent="RightTrackedHand" instance=ExtResource("3_t4bc4")]
 hand_tracker_name = "/user/hand_tracker/right"
 hand_pose_set = SubResource("Resource_0l2yj")
 
-[node name="HandPoseController" parent="PlayerControll/RightTrackedHand/HandPoseDetector" instance=ExtResource("7_3ooxp")]
+[node name="HandPoseController" parent="RightTrackedHand/HandPoseDetector" instance=ExtResource("7_3ooxp")]
 controller_tracker_name = "/user/hand_pose_controller/right"
 controller_pose_type = 0
 controller_action_map = SubResource("Resource_x8cua")
 hand_tracker_name = "/user/hand_tracker/right"
 
-[node name="LeftController" type="XRController3D" parent="PlayerControll"]
+[node name="LeftController" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"/user/hand_pose_controller/left"
 
-[node name="SpellDetector" parent="PlayerControll/LeftController" instance=ExtResource("14_iet35")]
+[node name="SpellDetector" parent="LeftController" instance=ExtResource("14_iet35")]
 script = null
 
-[node name="RightController" type="XRController3D" parent="PlayerControll"]
+[node name="RightController" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"/user/hand_pose_controller/right"
 
-[node name="SpellDetector" parent="PlayerControll/RightController" instance=ExtResource("14_iet35")]
+[node name="SpellDetector" parent="RightController" instance=ExtResource("14_iet35")]
 script = null
 
-[editable path="PlayerControll/LeftTrackedHand/LeftHandHumanoid2"]
-[editable path="PlayerControll/RightTrackedHand/RightHandHumanoid2"]
+[editable path="LeftTrackedHand/LeftHandHumanoid2"]
+[editable path="RightTrackedHand/RightHandHumanoid2"]
