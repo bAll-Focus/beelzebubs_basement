@@ -20,8 +20,10 @@ func _process(delta: float) -> void:
 	loop_counter += delta
 	if(loop_counter >= 90):
 		loop_counter = -90
-	position.x = sin(loop_counter)
+	position.x = sin(loop_counter)*1.8
 	position.y = cos(4*loop_counter)/6
+	rotation.y = cos(loop_counter)/2
+	rotation.x = cos(loop_counter*2)/4
 
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:

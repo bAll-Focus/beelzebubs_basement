@@ -295,7 +295,7 @@ shape = SubResource("CylinderShape3D_8uh7m")
 debug_color = Color(0.84692776, 0, 0.6061981, 1)
 
 [node name="flygoat" parent="Node3D/Ba\'al/CharacterBody3D" instance=ExtResource("5_cdwn2")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.39090872, -0.08479602, 0, 0.08479602, 0.39090872, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Ba\'al"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2862165, 0, 0)
