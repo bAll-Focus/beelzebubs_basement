@@ -1,0 +1,117 @@
+[gd_scene load_steps=22 format=3 uid="uid://bnj5ina8e4vpb"]
+
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="1_b2c7a"]
+[ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="2_x4ukj"]
+[ext_resource type="PackedScene" uid="uid://df5hynbooj1uj" path="res://addons/hand_pose_detector/hand_pose_detector.tscn" id="3_t4bc4"]
+[ext_resource type="Script" uid="uid://dv177q16qr3m1" path="res://addons/hand_pose_detector/hand_pose.gd" id="4_wtgcc"]
+[ext_resource type="Resource" uid="uid://dhbqusuodrl3r" path="res://addons/hand_pose_detector/poses/fist.tres" id="5_jbo5h"]
+[ext_resource type="Script" uid="uid://bye1dl8t10v61" path="res://addons/hand_pose_detector/hand_pose_set.gd" id="6_60kbs"]
+[ext_resource type="Resource" uid="uid://ceofxcl7q122" path="res://addons/hand_pose_detector/poses/point.tres" id="6_ay52l"]
+[ext_resource type="PackedScene" uid="uid://bh8isvqs258cp" path="res://addons/hand_pose_detector/hand_pose_controller.tscn" id="7_3ooxp"]
+[ext_resource type="Resource" uid="uid://sy66yqr1xila" path="res://addons/hand_pose_detector/poses/thumbs_up.tres" id="7_c6poq"]
+[ext_resource type="Script" uid="uid://bbv4ooupljm5b" path="res://addons/hand_pose_detector/hand_pose_action.gd" id="8_ab820"]
+[ext_resource type="Resource" uid="uid://dgl2b6ftbpnrx" path="res://addons/hand_pose_detector/poses/peace_sign.tres" id="8_gsfwq"]
+[ext_resource type="Script" uid="uid://c2hh8l62cludw" path="res://addons/hand_pose_detector/hand_pose_action_map.gd" id="9_13h5e"]
+[ext_resource type="PackedScene" uid="uid://dabmoo0spa6vg" path="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf" id="10_h8wfx"]
+[ext_resource type="PackedScene" uid="uid://c5ldiblddq4yn" path="res://Scenes/spell_detector.tscn" id="14_iet35"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mxbqu"]
+
+[sub_resource type="Resource" id="Resource_0l2yj"]
+script = ExtResource("6_60kbs")
+poses = Array[ExtResource("4_wtgcc")]([ExtResource("5_jbo5h"), ExtResource("6_ay52l"), ExtResource("7_c6poq"), ExtResource("8_gsfwq")])
+metadata/_custom_type_script = "uid://bye1dl8t10v61"
+
+[sub_resource type="Resource" id="Resource_f1ej7"]
+script = ExtResource("8_ab820")
+pose = ExtResource("5_jbo5h")
+action_type = 1
+action_name = "grip"
+metadata/_custom_type_script = "uid://bbv4ooupljm5b"
+
+[sub_resource type="Resource" id="Resource_5j8jl"]
+script = ExtResource("8_ab820")
+pose = ExtResource("6_ay52l")
+action_name = "point"
+metadata/_custom_type_script = "uid://bbv4ooupljm5b"
+
+[sub_resource type="Resource" id="Resource_c5vcu"]
+script = ExtResource("8_ab820")
+pose = ExtResource("7_c6poq")
+action_name = "thumbs_up"
+metadata/_custom_type_script = "uid://bbv4ooupljm5b"
+
+[sub_resource type="Resource" id="Resource_6lwow"]
+script = ExtResource("8_ab820")
+pose = ExtResource("8_gsfwq")
+action_name = "peace_sign"
+metadata/_custom_type_script = "uid://bbv4ooupljm5b"
+
+[sub_resource type="Resource" id="Resource_x8cua"]
+script = ExtResource("9_13h5e")
+actions = Array[ExtResource("8_ab820")]([SubResource("Resource_f1ej7"), SubResource("Resource_5j8jl"), SubResource("Resource_c5vcu"), SubResource("Resource_6lwow")])
+metadata/_custom_type_script = "uid://c2hh8l62cludw"
+
+[node name="Player" type="Node3D"]
+
+[node name="PlayerControll" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="PlayerBody" parent="PlayerControll" instance=ExtResource("1_b2c7a")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControll/PlayerBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_mxbqu")
+
+[node name="LeftTrackedHand" type="XRNode3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"/user/hand_tracker/left"
+
+[node name="LeftHandHumanoid2" parent="PlayerControll/LeftTrackedHand" instance=ExtResource("2_x4ukj")]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="PlayerControll/LeftTrackedHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" index="1"]
+
+[node name="HandPoseDetector" parent="PlayerControll/LeftTrackedHand" instance=ExtResource("3_t4bc4")]
+hand_pose_set = SubResource("Resource_0l2yj")
+
+[node name="HandPoseController" parent="PlayerControll/LeftTrackedHand/HandPoseDetector" instance=ExtResource("7_3ooxp")]
+controller_pose_type = 0
+controller_action_map = SubResource("Resource_x8cua")
+
+[node name="RightTrackedHand" type="XRNode3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"/user/hand_tracker/right"
+
+[node name="RightHandHumanoid2" parent="PlayerControll/RightTrackedHand" instance=ExtResource("10_h8wfx")]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="PlayerControll/RightTrackedHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" index="1"]
+hand_tracker = &"/user/hand_tracker/right"
+
+[node name="HandPoseDetector" parent="PlayerControll/RightTrackedHand" instance=ExtResource("3_t4bc4")]
+hand_tracker_name = "/user/hand_tracker/right"
+hand_pose_set = SubResource("Resource_0l2yj")
+
+[node name="HandPoseController" parent="PlayerControll/RightTrackedHand/HandPoseDetector" instance=ExtResource("7_3ooxp")]
+controller_tracker_name = "/user/hand_pose_controller/right"
+controller_pose_type = 0
+controller_action_map = SubResource("Resource_x8cua")
+hand_tracker_name = "/user/hand_tracker/right"
+
+[node name="LeftController" type="XRController3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"/user/hand_pose_controller/left"
+
+[node name="SpellDetector" parent="PlayerControll/LeftController" instance=ExtResource("14_iet35")]
+script = null
+
+[node name="RightController" type="XRController3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"/user/hand_pose_controller/right"
+
+[node name="SpellDetector" parent="PlayerControll/RightController" instance=ExtResource("14_iet35")]
+script = null
+
+[editable path="PlayerControll/LeftTrackedHand/LeftHandHumanoid2"]
+[editable path="PlayerControll/RightTrackedHand/RightHandHumanoid2"]
