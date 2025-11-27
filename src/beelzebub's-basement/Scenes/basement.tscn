@@ -29,24 +29,6 @@ action_type = 1
 action_name = "grip"
 metadata/_custom_type_script = "uid://bbv4ooupljm5b"
 
-[sub_resource type="Resource" id="Resource_5j8jl"]
-script = ExtResource("9_c5vcu")
-pose = ExtResource("10_dvfvt")
-action_name = "point"
-metadata/_custom_type_script = "uid://bbv4ooupljm5b"
-
-[sub_resource type="Resource" id="Resource_c5vcu"]
-script = ExtResource("9_c5vcu")
-pose = ExtResource("11_dqwih")
-action_name = "thumbs_up"
-metadata/_custom_type_script = "uid://bbv4ooupljm5b"
-
-[sub_resource type="Resource" id="Resource_6lwow"]
-script = ExtResource("9_c5vcu")
-pose = ExtResource("12_nvrgk")
-action_name = "peace_sign"
-metadata/_custom_type_script = "uid://bbv4ooupljm5b"
-
 [sub_resource type="Resource" id="Resource_msrje"]
 script = ExtResource("10_ohp6k")
 actions = Array[ExtResource("9_c0wnw")]([SubResource("Resource_f1ej7")])
@@ -204,9 +186,6 @@ shape = SubResource("BoxShape3D_7dm0k")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034713745, -0.03458023, 0.01183033)
 mesh = SubResource("BoxMesh_ig7tw")
-
-[node name="Wall XPos" type="StaticBody3D" parent="Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.127275, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Wall XPos"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23484802, 0.71737385, 0)
