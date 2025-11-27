@@ -1,0 +1,119 @@
+[gd_scene load_steps=7 format=3 uid="uid://bpodp2301mnk8"]
+
+[ext_resource type="Texture2D" uid="uid://cyxddk2q47nyv" path="res://Textures/ba'al.png" id="1_c5isf"]
+[ext_resource type="Script" uid="uid://dgn8l4uqfiiy2" path="res://Scripts/menu.gd" id="1_p1sj6"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p1sj6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8l8rb"]
+
+[sub_resource type="FontFile" id="FontFile_dtmh4"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_3e6i6"]
+font = SubResource("FontFile_dtmh4")
+font_size = 30
+font_color = Color(0.39607844, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_p1sj6")
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/ColorRect"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Menu/ColorRect/MarginContainer/VBoxContainer"]
+material = SubResource("CanvasItemMaterial_p1sj6")
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+texture = SubResource("CanvasTexture_8l8rb")
+region_rect = Rect2(600, 120, 0, 0)
+
+[node name="Label" type="Label" parent="Menu/ColorRect/MarginContainer/VBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 0
+offset_top = 4.0
+offset_right = 600.0
+offset_bottom = 27.0
+text = "Ba'al's Basement"
+label_settings = SubResource("LabelSettings_3e6i6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 260)
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(260, 260)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(260, 260)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_c5isf")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 74
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Start"
+
+[node name="CreditsButton" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/StartButton" to="Menu" method="_on_start_button_pressed"]
+[connection signal="pressed" from="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/CreditsButton" to="Menu" method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Menu" method="_on_quit_button_pressed"]

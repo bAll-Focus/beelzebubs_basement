@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://mb3o3qkbxhnr"]
+
+[ext_resource type="PackedScene" uid="uid://bpodp2301mnk8" path="res://Scenes/menu_design.tscn" id="3_a43kq"]
+[ext_resource type="Material" uid="uid://byvjlgw8s1sde" path="res://Materials/wall_material.tres" id="4_626he"]
+[ext_resource type="Script" uid="uid://g804oxt8yhjd" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.gd" id="12_7vuks"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.024748802, 0)
+
+[node name="XRToolsViewport2DIn3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4523545, 0)
+script = ExtResource("12_7vuks")
+screen_size = Vector2(640, 360)
+scene = ExtResource("3_a43kq")
+viewport_size = Vector2(640, 360)
+material = ExtResource("4_626he")
+transparent = 0
+alpha_scissor_threshold = 0.25
+unshaded = false
+filter = true
+scene_properties_keys = PackedStringArray()
+metadata/_custom_type_script = "uid://g804oxt8yhjd"
+
+[node name="CanvasLayer" parent="XRToolsViewport2DIn3D" instance=ExtResource("3_a43kq")]

@@ -1,0 +1,111 @@
+[gd_scene load_steps=18 format=3 uid="uid://nkve2kgkp8hc"]
+
+[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://Scripts/start_xr.gd" id="1_xhkl4"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_lko03"]
+[ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="3_aqj3k"]
+[ext_resource type="PackedScene" uid="uid://df5hynbooj1uj" path="res://addons/hand_pose_detector/hand_pose_detector.tscn" id="4_xsw40"]
+[ext_resource type="Script" uid="uid://dv177q16qr3m1" path="res://addons/hand_pose_detector/hand_pose.gd" id="5_lkkxu"]
+[ext_resource type="Resource" uid="uid://dhbqusuodrl3r" path="res://addons/hand_pose_detector/poses/fist.tres" id="6_me0nv"]
+[ext_resource type="Script" uid="uid://bye1dl8t10v61" path="res://addons/hand_pose_detector/hand_pose_set.gd" id="7_mmytc"]
+[ext_resource type="PackedScene" uid="uid://bh8isvqs258cp" path="res://addons/hand_pose_detector/hand_pose_controller.tscn" id="8_3oc25"]
+[ext_resource type="Script" uid="uid://bbv4ooupljm5b" path="res://addons/hand_pose_detector/hand_pose_action.gd" id="9_cl15c"]
+[ext_resource type="Script" uid="uid://c2hh8l62cludw" path="res://addons/hand_pose_detector/hand_pose_action_map.gd" id="10_44d3k"]
+[ext_resource type="PackedScene" uid="uid://dabmoo0spa6vg" path="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf" id="11_gv7f2"]
+[ext_resource type="Script" uid="uid://g804oxt8yhjd" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.gd" id="12_aqj3k"]
+[ext_resource type="Script" uid="uid://cqewb7ac6wope" path="res://addons/godot-xr-tools/functions/function_pointer.gd" id="12_xsw40"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vmr3t"]
+
+[sub_resource type="Resource" id="Resource_lq5q4"]
+script = ExtResource("7_mmytc")
+poses = Array[ExtResource("5_lkkxu")]([ExtResource("6_me0nv")])
+metadata/_custom_type_script = "uid://bye1dl8t10v61"
+
+[sub_resource type="Resource" id="Resource_f1ej7"]
+script = ExtResource("9_cl15c")
+pose = ExtResource("6_me0nv")
+action_type = 1
+action_name = "grip"
+metadata/_custom_type_script = "uid://bbv4ooupljm5b"
+
+[sub_resource type="Resource" id="Resource_c8pv2"]
+script = ExtResource("10_44d3k")
+actions = Array[ExtResource("9_cl15c")]([SubResource("Resource_f1ej7")])
+metadata/_custom_type_script = "uid://c2hh8l62cludw"
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_xhkl4")
+
+[node name="PlayerControll" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="PlayerBody" parent="PlayerControll" instance=ExtResource("2_lko03")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControll/PlayerBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_vmr3t")
+
+[node name="LeftTrackedHand" type="XRNode3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"/user/hand_tracker/left"
+
+[node name="LeftHandHumanoid2" parent="PlayerControll/LeftTrackedHand" instance=ExtResource("3_aqj3k")]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="PlayerControll/LeftTrackedHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" index="1"]
+
+[node name="HandPoseDetector" parent="PlayerControll/LeftTrackedHand" instance=ExtResource("4_xsw40")]
+hand_pose_set = SubResource("Resource_lq5q4")
+
+[node name="HandPoseController" parent="PlayerControll/LeftTrackedHand/HandPoseDetector" instance=ExtResource("8_3oc25")]
+controller_pose_type = 0
+controller_action_map = SubResource("Resource_c8pv2")
+
+[node name="RightTrackedHand" type="XRNode3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"/user/hand_tracker/right"
+
+[node name="RightHandHumanoid2" parent="PlayerControll/RightTrackedHand" instance=ExtResource("11_gv7f2")]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="PlayerControll/RightTrackedHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" index="1"]
+hand_tracker = &"/user/hand_tracker/right"
+
+[node name="HandPoseDetector" parent="PlayerControll/RightTrackedHand" instance=ExtResource("4_xsw40")]
+hand_tracker_name = "/user/hand_tracker/right"
+hand_pose_set = SubResource("Resource_lq5q4")
+
+[node name="HandPoseController" parent="PlayerControll/RightTrackedHand/HandPoseDetector" instance=ExtResource("8_3oc25")]
+controller_tracker_name = "/user/hand_pose_controller/right"
+controller_pose_type = 0
+controller_action_map = SubResource("Resource_c8pv2")
+
+[node name="LeftController" type="XRController3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"/user/hand_pose_controller/left"
+
+[node name="XRToolsFunctionPointer" type="Node3D" parent="PlayerControll/LeftController"]
+script = ExtResource("12_xsw40")
+metadata/_custom_type_script = "uid://cqewb7ac6wope"
+
+[node name="RightController" type="XRController3D" parent="PlayerControll"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"/user/hand_pose_controller/right"
+
+[node name="XRToolsFunctionPointer" type="Node3D" parent="PlayerControll/RightController"]
+script = ExtResource("12_xsw40")
+metadata/_custom_type_script = "uid://cqewb7ac6wope"
+
+[node name="XRToolsViewport2DIn3D" type="Node3D" parent="."]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -1.6823765, 1, -1)
+script = ExtResource("12_aqj3k")
+screen_size = Vector2(640, 360)
+viewport_size = Vector2(640, 360)
+alpha_scissor_threshold = 0.25
+unshaded = false
+filter = true
+scene_properties_keys = PackedStringArray()
+metadata/_custom_type_script = "uid://g804oxt8yhjd"
+
+[editable path="PlayerControll/LeftTrackedHand/LeftHandHumanoid2"]
+[editable path="PlayerControll/RightTrackedHand/RightHandHumanoid2"]

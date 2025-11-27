@@ -131,8 +131,8 @@ func is_xr_class(name : String) -> bool:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Do not initialise if in the editor
-	if Engine.is_editor_hint():
-		return
+	#if Engine.is_editor_hint():
+	#	return
 
 	# Read the initial world-scale
 	_world_scale = XRServer.world_scale
