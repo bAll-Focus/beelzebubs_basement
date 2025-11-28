@@ -106,7 +106,7 @@ compositor = ExtResource("2_6l8ll")
 fov = 45.0
 
 [node name="Ball" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3071807, 1.1998117)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -116,7 +116,6 @@ shape = SubResource("SphereShape3D_fxttx")
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 
 [node name="Building" type="Node3D" parent="."]
@@ -197,13 +196,13 @@ shape = SubResource("BoxShape3D_h2yge")
 disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Tvättvrå"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9738512, -0.25847256, -2.6609092)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9738512, -0.25847256, -2.7359629)
 mesh = SubResource("BoxMesh_lquwl")
 
 [node name="Klädskåp" type="StaticBody3D" parent="Building/Furnishings"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Klädskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.820182, 0.46015096, -3.506481)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.820182, 0.46015096, -4.040683)
 mesh = SubResource("BoxMesh_7mycd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Building/Furnishings/Klädskåp"]
@@ -220,7 +219,7 @@ shape = SubResource("BoxShape3D_5vw27")
 disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Furnishings/Torkskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4345026, 0.45821905, -3.7600658)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4345026, 0.45821905, -3.8738647)
 mesh = SubResource("BoxMesh_kek77")
 
 [node name="Pentagram on floor" type="StaticBody3D" parent="Building/Furnishings"]
