@@ -9,6 +9,8 @@
 [resource]
 albedo_color = Color(0.14406255, 0.14406255, 0.14406255, 1)
 roughness_texture = ExtResource("5_ajjhn")
+emission_enabled = true
+emission = Color(0.16808245, 0.07418855, 0.046589524, 1)
 normal_enabled = true
 normal_texture = ExtResource("4_o38fa")
 ao_enabled = true

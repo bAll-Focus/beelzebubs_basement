@@ -5,10 +5,25 @@ var server = UDPServer.new()
 var peers = []
 
 var ball
+var timer
+var screen_width = 120 #use this to balance throws towards edges
+
+var throw_ready
 
 func _ready():
 	server.listen(5005)
 	ball = get_node("Ball")
+	timer = get_node("Timer")
+	throw_ready = true
+	
+func throw_ball(x):
+	
+	if(throw_ready):
+		var norm_x = (x/screen_width) * 5
+		ball.apply_impulse(Vector3(norm_x,5,-5))
+		timer.start()
+		throw_ready = false
+	
 
 func _process(delta):
 	server.poll() # Important!
@@ -34,11 +49,13 @@ func _physics_process(delta):
 					var data = coord.split(":")
 					var force_vector = Vector3(0,0,-10)
 					match data[0]:
-						"x": force_vector.x = int(data[1])/2
+						"x": 
+							force_vector.x = int(data[1])/2	
+							throw_ball(force_vector.x)
 						"y": force_vector.y = int(data[1])/2
 						"z": pass
-					print(force_vector)
-					ball.apply_impulse(force_vector)
+					print(force_vector.x)
+					throw_ball(force_vector.x)
 				
 
 	for i in range(0, peers.size()): 
@@ -47,9 +64,10 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	ball.position.x = 0
-	ball.position.y = -0.3
-	ball.position.z = -0.65
+	ball.position.y = -0.35
+	ball.position.z = -1.0
 	ball.linear_velocity = Vector3.ZERO 
 	ball.angular_velocity = Vector3.ZERO  
-	ball.apply_impulse(Vector3(0,5,-5))
+	throw_ready = true
+	ball.rotation = Vector3(0,0,0)
 	pass # Replace with function body.

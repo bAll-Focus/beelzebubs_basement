@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cljbnbg6il38e"]
+
+[ext_resource type="PackedScene" uid="uid://qhasuqgpp5y4" path="res://Models/flygoat.glb" id="1_rg53q"]
+
+[node name="flygoat" instance=ExtResource("1_rg53q")]

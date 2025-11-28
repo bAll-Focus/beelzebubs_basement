@@ -112,7 +112,7 @@ if __name__ == '__main__':
                             added_balls += 1
                             if(active_ball_count == active_ball_limit + 1):
                                 distance = ball_x-(cam_width/2)
-                                msg = distance
+                                msg = "x:" + str(distance)
                                 #coord = calculate_vector(unactive_ball_coords[-3],[x,-y])
                                 #msg = "x:" + str(coord[0]) + " y:" + str(coord[1])
                                 b_msg = msg.encode("utf-8")
