@@ -6,7 +6,8 @@ var peers = []
 
 var ball
 var timer
-var screen_width = 120 #use this to balance throws towards edges
+var screen_width = 100 #use this to balance throws towards edges
+var screen_height = 100
 
 var throw_ready
 
@@ -16,11 +17,12 @@ func _ready():
 	timer = get_node("Timer")
 	throw_ready = true
 	
-func throw_ball(x):
-	
+func throw_ball(coords):
+	var norm_y = ((screen_height - coords.y)/screen_height) * 0.2
+	ball.position.y = 0.5
 	if(throw_ready):
-		var norm_x = (x/screen_width) * 5
-		ball.apply_impulse(Vector3(norm_x,5,-5))
+		var norm_x = (coords.x/screen_width) * 5
+		ball.apply_impulse(Vector3(norm_x,2,-8))
 		timer.start()
 		throw_ready = false
 	
@@ -45,17 +47,16 @@ func _physics_process(delta):
 				var packet = peers[i].get_packet().get_string_from_utf8()
 				#print(packet)
 				var coords = packet.split(" ")
+				var force_vector = Vector3(0,0,-10)
 				for coord in coords:	
 					var data = coord.split(":")
-					var force_vector = Vector3(0,0,-10)
 					match data[0]:
-						"x": 
-							force_vector.x = int(data[1])/2	
-							throw_ball(force_vector.x)
+						"x": force_vector.x = int(data[1])/2
 						"y": force_vector.y = int(data[1])/2
 						"z": pass
-					print(force_vector.x)
-					throw_ball(force_vector.x)
+				print(force_vector)
+				throw_ball(force_vector)
+				
 				
 
 	for i in range(0, peers.size()): 
@@ -64,10 +65,9 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	ball.position.x = 0
-	ball.position.y = 0.03
-	ball.position.z = 1.2
+	ball.position.y = 0.5
+	ball.position.z = 1.318
 	ball.linear_velocity = Vector3.ZERO 
 	ball.angular_velocity = Vector3.ZERO  
 	throw_ready = true
 	ball.rotation = Vector3(0,0,0)
-	pass # Replace with function body.

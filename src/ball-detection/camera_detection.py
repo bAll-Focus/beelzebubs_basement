@@ -24,12 +24,12 @@ if __name__ == '__main__':
     # turn on cam
     webcam = cv2.VideoCapture(0, cv2.CAP_DSHOW) 
 
-    cubic_rate = 0.3
+    cubic_rate = 0.4
 
     no_ball_count = 0
     active_ball_count = 0
     no_ball_limit = 10
-    active_ball_limit = 3
+    active_ball_limit = 2
 
     active_ball = False
 
@@ -112,7 +112,7 @@ if __name__ == '__main__':
                             added_balls += 1
                             if(active_ball_count == active_ball_limit + 1):
                                 distance = ball_x-(cam_width/2)
-                                msg = "x:" + str(distance)
+                                msg = "x:" + str(distance) + " y:" + str(ball_y)
                                 #coord = calculate_vector(unactive_ball_coords[-3],[x,-y])
                                 #msg = "x:" + str(coord[0]) + " y:" + str(coord[1])
                                 b_msg = msg.encode("utf-8")
