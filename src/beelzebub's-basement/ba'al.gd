@@ -1,26 +1,29 @@
 extends Node3D
 
 @export var health:int
+
+@onready var healthbar = $"../Camera3D/Healthbar"
+@onready var pause_menu = $"../Camera3D/Pause Menu"
+@onready var credits_menu = $"../Camera3D/Credits Menu"
+
 const MAX_HEALTH = 100
 var loop_counter = 0
-var ball
 
 var hit_sounds = []
 var audio_player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	health = MAX_HEALTH
-	$"../Camera3D/ProgressBar".value = MAX_HEALTH
-	$"../Camera3D/ProgressBar".set_visible(false)
+	health = 100
+	healthbar._init_health(health)
+	healthbar.set_visible(false)
 	set_visible(false)
-	$"../Camera3D/Pause Menu".set_visible(false)
-	$"../Camera3D/Credits Menu".set_visible(false)
-	ball = $"../../Ball"
-	hit_sounds.append(preload("res://audio/baal_hit_0.wav"))
-	hit_sounds.append(preload("res://audio/baal_hit_1.wav"))
-	hit_sounds.append(preload("res://audio/baal_hit_2.wav"))
-	audio_player = get_node("AudioStreamPlayer3D")
+	pause_menu.set_visible(false)
+	credits_menu.set_visible(false)
+	#hit_sounds.append(preload("res://audio/baal_hit_0.wav"))
+	#hit_sounds.append(preload("res://audio/baal_hit_1.wav"))
+	#hit_sounds.append(preload("res://audio/baal_hit_2.wav"))
+	#audio_player = get_node("AudioStreamPlayer3D")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -34,18 +37,19 @@ func _process(delta: float) -> void:
 
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
-	if(body.name == "Ball"):
-		var val = randi_range(0, 2) 
-		audio_player.stream = hit_sounds[val]
-		audio_player.play()
+	if(body.name == "TestBall"):
+		#var val = randi_range(0, 2) 
+		#audio_player.stream = hit_sounds[val]
+		#audio_player.play()
 		health -= 10
-		$"../Camera3D/ProgressBar".value -= 10
+		healthbar._set_health(health)
 		if(health <= 0):
 			set_visible(false)
-			$"../Camera3D/Pause Menu".set_visible(true)
+			pause_menu.set_visible(true)
 
 func restart() -> void:
-	$"../Camera3D/Pause Menu".set_visible(false)
-	$"../Camera3D/ProgressBar".value = MAX_HEALTH
+	pause_menu.set_visible(false)
 	health = MAX_HEALTH
+	healthbar._init_health(health)
+	healthbar.set_visible(true)
 	set_visible(true)
