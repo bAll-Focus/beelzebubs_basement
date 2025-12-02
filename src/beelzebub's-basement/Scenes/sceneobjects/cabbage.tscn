@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://waafnnfp8rs6"]
+
+[ext_resource type="PackedScene" uid="uid://dwc4yrdjupcsy" path="res://Models/cabbage.glb" id="1_mcl8e"]
+[ext_resource type="Material" uid="uid://bxi6nqhqkjgfn" path="res://Materials/cabbage_material.tres" id="2_vvehl"]
+
+[node name="cabbage" instance=ExtResource("1_mcl8e")]
+
+[node name="Sphere" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_vvehl")

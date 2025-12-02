@@ -14,7 +14,6 @@ func _on_start_button_pressed() -> void:
 	set_visible(false)
 	$"../../ProgressBar".set_visible(true)
 	$"../../../Ba'al".set_visible(true)
-	$"../../../TestBall".set_visible(true)
 
 func _on_credits_button_pressed() -> void:
 	$"../../Credits Menu".set_visible(true)
