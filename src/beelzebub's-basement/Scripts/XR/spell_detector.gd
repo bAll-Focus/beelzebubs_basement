@@ -1,7 +1,7 @@
 extends Node3D
 
 const POSE_ACTIONS : Dictionary = {
-	"fist": "grip",
+	"metal": "metal",
 	"point": "point",
 	"thumbs_up": "thumbs_up",
 	"peace_sign": "peace_sign",
@@ -12,17 +12,17 @@ const SPELLS := {
 		"hand": "right",
 		"sequence": ["peace_sign", "thumbs_up", "point"],
 	},
-	"protect_self": {
+	"slow_demon": {
 		"hand": "right",
-		"sequence": ["point", "fist", "thumbs_up"],
+		"sequence": ["point", "metal", "thumbs_up"],
 	},
-	"empower_throw_holy": {
+	"empower_throw_fire": {
 		"hand": "left",
-		"sequence": ["fist", "point", "peace_sign"],
+		"sequence": ["metal", "point", "peace_sign"],
 	},
 	"empower_throw_ice": {
 		"hand": "left",
-		"sequence": ["thumbs_up", "fist", "peace_sign"],
+		"sequence": ["thumbs_up", "metal", "peace_sign"],
 	},
 }
 
@@ -42,7 +42,7 @@ func _ready() -> void:
 		print("SpellDetector initialized for ", _hand_name, " hand (tracker: ", _parent_controller.tracker, ")")
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not _parent_controller:
 		return
 

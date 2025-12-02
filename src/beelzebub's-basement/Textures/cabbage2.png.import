@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1b0kd0g3062c"
-path.s3tc="res://.godot/imported/cabbage2.png-fb290deec7f946b04ff6ca2255b6f4e0.s3tc.ctex"
-path.etc2="res://.godot/imported/cabbage2.png-fb290deec7f946b04ff6ca2255b6f4e0.etc2.ctex"
+path.s3tc="res://.godot/imported/cabbage2.png-dd8db7713dd392d9d0e4de9b664623a2.s3tc.ctex"
+path.etc2="res://.godot/imported/cabbage2.png-dd8db7713dd392d9d0e4de9b664623a2.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/cabbage2.png"
-dest_files=["res://.godot/imported/cabbage2.png-fb290deec7f946b04ff6ca2255b6f4e0.s3tc.ctex", "res://.godot/imported/cabbage2.png-fb290deec7f946b04ff6ca2255b6f4e0.etc2.ctex"]
+source_file="res://textures/cabbage2.png"
+dest_files=["res://.godot/imported/cabbage2.png-dd8db7713dd392d9d0e4de9b664623a2.s3tc.ctex", "res://.godot/imported/cabbage2.png-dd8db7713dd392d9d0e4de9b664623a2.etc2.ctex"]
 
 [params]
 
