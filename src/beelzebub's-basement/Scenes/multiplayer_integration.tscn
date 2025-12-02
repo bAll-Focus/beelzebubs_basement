@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=9 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://b0pkagf8tj7t6" path="res://scenes/multiplayer_basement.tscn" id="1_syryq"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c5kajcas17a5l" path="res://scenes/sceneobjects/potato.tscn" id="4_wnf6l"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://scripts/Shaders/ps1_compositor.tres" id="6_wnf6l"]
 [ext_resource type="PackedScene" uid="uid://bnj5ina8e4vpb" path="res://scenes/player_2.tscn" id="7_1vuus"]
+[ext_resource type="PackedScene" path="res://scenes/XR/spell_tome.tscn" id="8_dbyyl"]
 
 [node name="MultiplayerIntegration" type="Node3D"]
 
@@ -51,3 +52,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366107, 3.3278902)
 
 [node name="Player_2" parent="." instance=ExtResource("7_1vuus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10540068, 0.021769285, 2.3820982)
+
+[node name="SpellTome" parent="." instance=ExtResource("8_dbyyl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12246686, 1.9942553, 0.90566516)

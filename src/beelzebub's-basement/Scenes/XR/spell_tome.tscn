@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://spell_tome_placeholder"]
+
+[ext_resource type="Script" path="res://scripts/XR/spell_tome.gd" id="1_spell_tome"]
+
+[node name="SpellTome" type="Node3D"]
+script = ExtResource("1_spell_tome")
+pose_spacing = 0.35
+spell_spacing = 0.4
+

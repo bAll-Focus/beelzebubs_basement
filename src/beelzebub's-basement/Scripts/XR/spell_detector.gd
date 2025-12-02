@@ -27,6 +27,7 @@ const SPELLS := {
 }
 
 signal spell_cast(spell_name: String, hand: String)
+signal pose_progress(spell_name: String, pose_index: int, total_poses: int, hand: String)
 
 var _parent_controller : XRController3D
 var _pose_states : Dictionary[String, bool] = {}
@@ -107,8 +108,12 @@ func _check_spells(pose_name: String) -> void:
 				_on_spell_completed(spell_name, required_hand)
 			else:
 				_spell_progress[spell_name] = current_index
+				pose_progress.emit(spell_name, current_index, sequence.size(), required_hand)
 		else:
-			_spell_progress[spell_name] = 1 if pose_name == sequence[0] else 0
+			var new_progress = 1 if pose_name == sequence[0] else 0
+			_spell_progress[spell_name] = new_progress
+			# Always emit to update visual indicators, even when resetting to 0
+			pose_progress.emit(spell_name, new_progress, sequence.size(), required_hand)
 
 
 func _on_spell_completed(spell_name: String, hand: String) -> void:
