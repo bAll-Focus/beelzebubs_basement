@@ -10,7 +10,7 @@ var peer : ENetMultiplayerPeer
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
-	peer.create_server(PORT, 1)
+	peer.create_server(PORT, 5)
 	multiplayer.multiplayer_peer = peer
 	server_mode = true
 	if role_manager:
@@ -24,7 +24,6 @@ func start_client() -> void:
 	server_mode = false
 	if role_manager:
 		role_manager.initialize_roles(false)
-	print(multiplayer.is_server());
 
 func _ready() -> void:
 	server_mode = false
@@ -42,3 +41,6 @@ func _set_node_type() -> void:
 	for argument in OS.get_cmdline_args():
 		if argument.contains("SERVER"):
 			server_mode = true
+			role_manager.use_vr = false
+			return
+	role_manager.use_vr = true
