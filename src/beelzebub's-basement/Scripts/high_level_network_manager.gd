@@ -1,11 +1,12 @@
 extends Node
 
-const IP_ADDRESS : String = "localhost"
-const PORT : int = 42069
+@export var IP_ADDRESS : String = "localhost"
+@export var PORT : int = 42069
 var peer : ENetMultiplayerPeer
 
 @export var role_manager: RoleManager
-var server_mode: bool = false
+@export var server_mode: bool = false
+@export var debug = false
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
@@ -27,9 +28,8 @@ func start_client() -> void:
 
 func _ready() -> void:
 	server_mode = false
-	for argument in OS.get_cmdline_args():
-		if argument.contains("SERVER"):
-			server_mode = true
+	if debug:
+		_set_node_type();
 	if server_mode:
 		start_server()
 		print("AM SERVER")
@@ -37,5 +37,8 @@ func _ready() -> void:
 		await get_tree().create_timer(2.0).timeout
 		start_client()
 		print("AM CLIENT")
-		
-	
+
+func _set_node_type() -> void:
+	for argument in OS.get_cmdline_args():
+		if argument.contains("SERVER"):
+			server_mode = true

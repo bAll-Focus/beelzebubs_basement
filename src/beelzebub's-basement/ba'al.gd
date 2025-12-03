@@ -11,11 +11,13 @@ var audio_player
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	health = MAX_HEALTH
-	$"../Camera3D/ProgressBar".value = MAX_HEALTH
-	$"../Camera3D/ProgressBar".set_visible(false)
+	if $"../Camera3D":
+		$"../Camera3D/ProgressBar".value = MAX_HEALTH
+		$"../Camera3D/ProgressBar".set_visible(false)
 	set_visible(false)
-	$"../Camera3D/Pause Menu".set_visible(false)
-	$"../Camera3D/Credits Menu".set_visible(false)
+	if $"../Camera3D":
+		$"../Camera3D/Pause Menu".set_visible(false)
+		$"../Camera3D/Credits Menu".set_visible(false)
 	ball = $"../../Ball"
 	hit_sounds.append(preload("res://audio/baal_hit_0.wav"))
 	hit_sounds.append(preload("res://audio/baal_hit_1.wav"))
@@ -39,13 +41,16 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		audio_player.stream = hit_sounds[val]
 		audio_player.play()
 		health -= 10
-		$"../Camera3D/ProgressBar".value -= 10
+		if $"../Camera3D":
+			$"../Camera3D/ProgressBar".value -= 10
 		if(health <= 0):
 			set_visible(false)
-			$"../Camera3D/Pause Menu".set_visible(true)
+			if $"../Camera3D":
+				$"../Camera3D/Pause Menu".set_visible(true)
 
 func restart() -> void:
-	$"../Camera3D/Pause Menu".set_visible(false)
-	$"../Camera3D/ProgressBar".value = MAX_HEALTH
+	if $"../Camera3D":
+		$"../Camera3D/Pause Menu".set_visible(false)
+		$"../Camera3D/ProgressBar".value = MAX_HEALTH
 	health = MAX_HEALTH
 	set_visible(true)
