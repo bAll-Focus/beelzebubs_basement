@@ -3,7 +3,7 @@ class_name RoleManager
 
 var connection_active = false;
 var is_server = false;
-@export var use_vr = false;
+var use_vr = false;
 var VR_player = Node3D;
 @export var victim_pos_marker = Node3D;
 @export var thrower_pos_marker = Node3D;
@@ -53,3 +53,10 @@ func set_up_victim () ->void:
 
 func set_up_thrower () ->void:
 	pass
+
+func set_authorities(peer_id):
+	if not multiplayer.is_server():
+		return
+	thrower_body_parts.set_multiplayer_authority(1)
+	victim_body_parts.set_multiplayer_authority(peer_id)
+	print(victim_body_parts.get_multiplayer_authority())

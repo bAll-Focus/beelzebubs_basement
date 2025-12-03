@@ -6,6 +6,8 @@ var head_target
 var hand_l_target
 var hand_r_target
 
+@export var server_side = true
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	await get_tree().create_timer(5.0).timeout
@@ -13,8 +15,6 @@ func _process(_delta: float) -> void:
 		_synch_body($head, head_target)
 		_synch_body($hand_l, hand_l_target)
 		_synch_body($hand_r, hand_r_target)
-	elif multiplayer.is_server():
-		print($hand_l.position)
 		
 func _synch_body(item, target) -> void:
 	if target != null:

@@ -17,7 +17,6 @@ func spawn_player (_id:int) -> void:
 
 func spawn_potato (_id:int, position:Vector3, rotation:Vector3) -> void:
 	if !multiplayer.is_server(): return
-	print("Spawning potato");
 
 	var potato_instance:Node3D = potato.instantiate()
 	potato_instance.position = position
