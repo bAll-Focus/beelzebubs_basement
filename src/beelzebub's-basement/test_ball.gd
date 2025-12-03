@@ -5,12 +5,26 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var attacked = false
 var init_position = position
+var damageIndex = 0
+const DAMAGES = [3, 10, 20]
+var damage = DAMAGES[damageIndex]
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	#if not is_on_floor():
-	#	velocity += get_gravity() * delta
+	# Check current damage
+	if Input.is_action_just_pressed("one"):
+		damageIndex = 0
+		damage = DAMAGES[damageIndex]
+		print(damage)
+	if Input.is_action_just_pressed("two"):
+		damageIndex = 1
+		damage = DAMAGES[damageIndex]
+		print(damage)
+	if Input.is_action_just_pressed("three"):
+		damageIndex = 2
+		damage = DAMAGES[damageIndex]
+		print(damage)
+	
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():

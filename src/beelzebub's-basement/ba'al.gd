@@ -5,16 +5,22 @@ extends Node3D
 @onready var healthbar = $"../Camera3D/Healthbar"
 @onready var pause_menu = $"../Camera3D/Pause Menu"
 @onready var credits_menu = $"../Camera3D/Credits Menu"
+@onready var timerBurn = $Timer
+@onready var timerSlow = $Timer2
 
 const MAX_HEALTH = 100
+const BURN_DEFAULT = 5
 var loop_counter = 0
+var damage
+var speedEffect = 1
+var burnCount
 
 var hit_sounds = []
 var audio_player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	health = 100
+	health = MAX_HEALTH
 	healthbar._init_health(health)
 	healthbar.set_visible(false)
 	set_visible(false)
@@ -27,9 +33,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	loop_counter += delta
+	
+	loop_counter += delta*speedEffect
+	
 	if(loop_counter >= 90):
 		loop_counter = -90
+	
 	position.x = sin(loop_counter)*1.8
 	position.y = cos(4*loop_counter)/6
 	rotation.y = cos(loop_counter)/2
@@ -41,8 +50,21 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		#var val = randi_range(0, 2) 
 		#audio_player.stream = hit_sounds[val]
 		#audio_player.play()
-		health -= 10
+		damage = $"../TestBall".damage
+		
+		health -= damage
 		healthbar._set_health(health)
+		
+		if($"../TestBall".damageIndex == 1):
+			speedEffect = 0.5
+			timerSlow.start()
+			timerBurn.stop()
+		
+		if $"../TestBall".damageIndex == 2:
+			speedEffect = 1
+			burnCount = BURN_DEFAULT
+			timerBurn.start()
+		
 		if(health <= 0):
 			set_visible(false)
 			pause_menu.set_visible(true)
@@ -53,3 +75,21 @@ func restart() -> void:
 	healthbar._init_health(health)
 	healthbar.set_visible(true)
 	set_visible(true)
+	speedEffect = 1
+
+func _on_timer_timeout() -> void:
+	health -= 3
+	healthbar._set_health(health)
+	
+	if(health <= 0):
+			set_visible(false)
+			pause_menu.set_visible(true)
+	
+	if burnCount > 1:
+		burnCount -= 1
+		print(burnCount)
+		timerBurn.start()
+
+
+func _on_timer_2_timeout() -> void:
+	speedEffect = 1
