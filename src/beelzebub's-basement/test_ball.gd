@@ -15,15 +15,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("one"):
 		damageIndex = 0
 		damage = DAMAGES[damageIndex]
-		print(damage)
 	if Input.is_action_just_pressed("two"):
 		damageIndex = 1
 		damage = DAMAGES[damageIndex]
-		print(damage)
 	if Input.is_action_just_pressed("three"):
 		damageIndex = 2
 		damage = DAMAGES[damageIndex]
-		print(damage)
 	
 
 	# Handle jump.

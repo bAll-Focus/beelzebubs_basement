@@ -12,6 +12,7 @@ const MAX_HEALTH = 100
 const BURN_DEFAULT = 5
 var loop_counter = 0
 var damage
+var index
 var speedEffect = 1
 var burnCount
 
@@ -51,16 +52,18 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		#audio_player.stream = hit_sounds[val]
 		#audio_player.play()
 		damage = $"../TestBall".damage
+		index = $"../TestBall".damageIndex
 		
 		health -= damage
 		healthbar._set_health(health)
+		healthbar._set_colour(index)
 		
-		if($"../TestBall".damageIndex == 1):
+		if index == 1:
 			speedEffect = 0.5
 			timerSlow.start()
 			timerBurn.stop()
 		
-		if $"../TestBall".damageIndex == 2:
+		if index == 2:
 			speedEffect = 1
 			burnCount = BURN_DEFAULT
 			timerBurn.start()
