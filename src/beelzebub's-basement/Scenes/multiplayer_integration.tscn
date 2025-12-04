@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=16 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
@@ -11,6 +11,7 @@
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="6_wnf6l"]
 [ext_resource type="PackedScene" uid="uid://bcwppegdoj2lb" path="res://Scenes/ba'al.tscn" id="8_72egd"]
 [ext_resource type="PackedScene" uid="uid://cvsgxwbdup6nj" path="res://Scenes/ball_detection.tscn" id="8_j01qd"]
+[ext_resource type="Script" uid="uid://co7lf7ekfjxi3" path="res://Scripts/magic_manager.gd" id="10_j01qd"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnf6l"]
 properties/0/path = NodePath("head:position")
@@ -135,9 +136,10 @@ replication_config = SubResource("SceneReplicationConfig_j01qd")
 [node name="Ba\'al2" parent="Dynamic Scene" instance=ExtResource("8_72egd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36648083, -2.8132806)
 
-[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager")]
+[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager")]
 script = ExtResource("1_p5c6l")
 role_manager = NodePath("RoleManager")
+magic_manager = NodePath("MagicManager")
 debug = true
 
 [node name="RoleManager" type="Node" parent="Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
@@ -148,6 +150,9 @@ victim_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Victim body pa
 thrower_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Thrower body parts")
 
 [node name="SpawnManager" type="Node" parent="Network Manager"]
+
+[node name="MagicManager" type="Node" parent="Network Manager"]
+script = ExtResource("10_j01qd")
 
 [node name="Position Markers" type="Node" parent="."]
 

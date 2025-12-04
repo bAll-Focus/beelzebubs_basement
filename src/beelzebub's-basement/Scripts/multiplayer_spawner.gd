@@ -14,7 +14,6 @@ func spawn_player (_id:int) -> void:
 	#player.name = str(id)
 	#get_node(spawn_path).call_deferred("add_child", player)
 
-
 func spawn_potato (_id:int, position:Vector3, rotation:Vector3) -> void:
 	if !multiplayer.is_server(): return
 

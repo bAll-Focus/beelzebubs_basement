@@ -41,7 +41,6 @@ func _ready() -> void:
 		_init_spell_progress()
 		print("SpellDetector initialized for ", _hand_name, " hand (tracker: ", _parent_controller.tracker, ")")
 
-
 func _process(_delta: float) -> void:
 	if not _parent_controller:
 		return

@@ -5,6 +5,7 @@ extends Node
 var peer : ENetMultiplayerPeer
 
 @export var role_manager: RoleManager
+@export var magic_manager: MagicManager
 @export var server_mode: bool = false
 @export var debug = false
 @export var use_vr = false
@@ -16,22 +17,22 @@ func _on_peer_connected(peer_id: int):
 	role_manager.set_authorities(peer_id)
 	if(multiplayer.is_server()):
 		waiting_for_player = false
+		role_manager.initialize_roles(true)
+	else:
+		role_manager.initialize_roles(false)
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_server(PORT, 5)
 	multiplayer.multiplayer_peer = peer
 	server_mode = true
-	if role_manager:
-		role_manager.initialize_roles(true)
 
 func start_client() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(IP_ADDRESS, PORT)
 	multiplayer.multiplayer_peer = peer
 	server_mode = false
-	if role_manager:
-		role_manager.initialize_roles(false)
+
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_peer_connected)
