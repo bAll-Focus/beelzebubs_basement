@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c5kajcas17a5l" path="res://Scenes/sceneobjects/potato.tscn" id="4_wnf6l"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="6_wnf6l"]
 [ext_resource type="PackedScene" path="res://Scenes/ba'al.tscn" id="8_72egd"]
-[ext_resource type="PackedScene" path="res://Scenes/ball_detection.tscn" id="8_j01qd"]
+[ext_resource type="PackedScene" uid="uid://dbd8p6x522wor" path="res://Scenes/ball_detection.tscn" id="8_j01qd"]
 [ext_resource type="Script" uid="uid://co7lf7ekfjxi3" path="res://Scripts/magic_manager.gd" id="10_j01qd"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnf6l"]
@@ -72,6 +72,10 @@ properties/3/replication_mode = 1
 [node name="Static Scene" type="Node" parent="."]
 
 [node name="Basement" parent="Static Scene" instance=ExtResource("1_syryq")]
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Static Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2549438, -0.30249542, -3.9776)
+size = Vector3(17.534302, 0.609375, 16.0719)
 
 [node name="Dynamic Scene" type="Node" parent="."]
 

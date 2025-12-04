@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://bbjkaw6xawpll"]
 
-[ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="1_rvxpd"]
+[ext_resource type="Material" uid="uid://cegv7x6pvsjak" path="res://Materials/wall_material_detailed.tres" id="1_rvxpd"]
 [ext_resource type="Material" uid="uid://byvjlgw8s1sde" path="res://Materials/wall_material.tres" id="2_dlmq5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
@@ -143,6 +143,7 @@ shape = SubResource("BoxShape3D_0xm2m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ceiling"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41512966, 1.04779)
+material_override = ExtResource("1_rvxpd")
 mesh = SubResource("BoxMesh_h2yge")
 
 [node name="Furnishings" type="Node3D" parent="."]
