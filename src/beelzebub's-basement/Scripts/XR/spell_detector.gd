@@ -42,7 +42,7 @@ func _ready() -> void:
 		print("SpellDetector initialized for ", _hand_name, " hand (tracker: ", _parent_controller.tracker, ")")
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not _parent_controller:
 		return
 

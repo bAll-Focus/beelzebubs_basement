@@ -19,8 +19,6 @@ func initialize_roles(server:bool) -> void:
 	is_server = server
 	if server:
 		initialize_thrower()
-		victim_body_parts.set_multiplayer_authority(2);
-		thrower_body_parts.set_multiplayer_authority(1);
 	else:
 		initialize_victim()
 
@@ -56,7 +54,8 @@ func set_up_thrower () ->void:
 
 func set_authorities(peer_id):
 	if not multiplayer.is_server():
+		thrower_body_parts.set_multiplayer_authority(1)
+		victim_body_parts.set_multiplayer_authority(multiplayer.get_unique_id())
 		return
 	thrower_body_parts.set_multiplayer_authority(1)
 	victim_body_parts.set_multiplayer_authority(peer_id)
-	print(victim_body_parts.get_multiplayer_authority())

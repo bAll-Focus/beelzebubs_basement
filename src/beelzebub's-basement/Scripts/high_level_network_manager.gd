@@ -11,11 +11,10 @@ var peer : ENetMultiplayerPeer
 
 var waiting_for_player = true;
 
-
 func _on_peer_connected(peer_id: int):
 	print("Client connected with ID ", peer_id)
+	role_manager.set_authorities(peer_id)
 	if(multiplayer.is_server()):
-		role_manager.set_authorities(peer_id)
 		waiting_for_player = false
 
 func start_server() -> void:
