@@ -1,9 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvsgxwbdup6nj"]
+[gd_scene load_steps=7 format=3 uid="uid://dbd8p6x522wor"]
 
 [ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="1_2krsy"]
-[ext_resource type="PackedScene" path="res://Scenes/sceneobjects/cabbage.tscn" id="3_alquj"]
+[ext_resource type="PackedScene" uid="uid://waafnnfp8rs6" path="res://Scenes/sceneobjects/cabbage.tscn" id="3_alquj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fxttx"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k23m1"]
+
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_xmm2u"]
+
+[sub_resource type="Skin" id="Skin_oo5ds"]
 
 [node name="BallDetection" type="Node"]
 script = ExtResource("1_2krsy")
@@ -17,6 +23,11 @@ shape = SubResource("SphereShape3D_fxttx")
 
 [node name="cabbage" parent="Ball" instance=ExtResource("3_alquj")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Ball"]
+process_material = SubResource("ParticleProcessMaterial_k23m1")
+draw_pass_1 = SubResource("PlaceholderMesh_xmm2u")
+draw_skin = SubResource("Skin_oo5ds")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
