@@ -1,6 +1,9 @@
 class_name CameraServerNode
 extends Node
 
+@export var ball_force = Vector3(0,0,0)
+var reset_position = Vector3(0,0,0)
+
 var server = UDPServer.new()
 var peers = []
 
@@ -9,11 +12,13 @@ var timer
 var screen_width = 100 #use this to balance throws towards edges
 var screen_height = 100
 
-var throw_ready
-var throwing_ball = false
+@export var throw_ready = true
+@export var resetting_ball = false
+@export var throwing_ball = false
 var throw_x = 0
 
 var viewport_width
+
 
 func _ready():
 	server.listen(5005)
@@ -21,6 +26,7 @@ func _ready():
 	timer = get_node("Timer")
 	throw_ready = true
 	viewport_width = get_viewport().get_visible_rect().size.x
+	set_multiplayer_authority(1)
 	
 func throw_ball(coords):
 	var norm_y = ((screen_height - coords.y)/screen_height) * 0.2
@@ -32,17 +38,9 @@ func throw_ball(coords):
 		timer.start()
 		throw_ready = false
 		
-func throw_ball_mouse(x):
-	#print("before: ", ball.position.z)
-	#reset_ball()
-	#print("after: ", ball.position.z)
-	
-	
-	if(throw_ready):
-		var norm_x = x * 10
-		ball.apply_impulse(Vector3(norm_x,2,-8))
-		#timer.start()
-		throw_ready = false
+func throw_ball_mouse():
+	ball.apply_impulse(ball_force)
+	throw_ready = false
 	
 
 func _process(delta):
@@ -58,10 +56,13 @@ func _process(delta):
 		peers.append(peer)
 
 func _physics_process(delta):
-	if throwing_ball:
-		throwing_ball = false
+	if resetting_ball:
 		reset_ball()
-		throw_ball_mouse(throw_x)
+		resetting_ball = false
+	if throwing_ball:
+		print("throw!")
+		throw_ball_mouse()
+		throwing_ball = false
 	if(peers.size() > 0):
 		for i in range(0, peers.size()):
 			var is_available = peers[i].get_available_packet_count()
@@ -88,9 +89,13 @@ func _input(event):
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT :
-			var x =  (event.position.x - (viewport_width/2))/viewport_width
-			throwing_ball = true
-			throw_x = x
+			if(throw_ready):
+				var x =  (event.position.x - (viewport_width/2))/viewport_width
+				throwing_ball = true
+				resetting_ball = true
+				throw_x = x
+				var norm_x = x * 10
+				ball_force = Vector3(norm_x,2,-8)
 
 func reset_ball():
 	ball.position.x = 0
@@ -100,7 +105,6 @@ func reset_ball():
 	ball.angular_velocity = Vector3.ZERO  
 	ball.rotation = Vector3(0,0,0)
 	throw_ready = true
-	
 
 func _on_timer_timeout():
 	reset_ball()

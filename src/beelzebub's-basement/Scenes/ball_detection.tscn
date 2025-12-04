@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvsgxwbdup6nj"]
+
+[ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="1_2krsy"]
+[ext_resource type="PackedScene" path="res://Scenes/sceneobjects/cabbage.tscn" id="3_alquj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fxttx"]
+
+[node name="BallDetection" type="Node"]
+script = ExtResource("1_2krsy")
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35452616, -0.71772164)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_fxttx")
+
+[node name="cabbage" parent="Ball" instance=ExtResource("3_alquj")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

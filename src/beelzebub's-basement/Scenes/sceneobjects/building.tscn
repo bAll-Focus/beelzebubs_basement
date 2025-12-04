@@ -148,35 +148,30 @@ mesh = SubResource("BoxMesh_h2yge")
 [node name="Furnishings" type="Node3D" parent="."]
 
 [node name="Tvättvrå" type="StaticBody3D" parent="Furnishings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.974, -0.258, -3.661)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Tvättvrå"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4322469, 0, -1.3517778)
 shape = SubResource("BoxShape3D_h2yge")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Tvättvrå"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9738512, -0.25847256, -2.6609092)
 mesh = SubResource("BoxMesh_lquwl")
 
 [node name="Klädskåp" type="StaticBody3D" parent="Furnishings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.433, 0.46, -3.506)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Klädskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.820182, 0.46015096, -3.506481)
 mesh = SubResource("BoxMesh_7mycd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Klädskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4333284, 0.46331787, -2.0756636)
 shape = SubResource("BoxShape3D_272bh")
 
 [node name="Torkskåp" type="StaticBody3D" parent="Furnishings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.048678875, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.435, 0.458, -3.76)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Furnishings/Torkskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21249747, 0.47387695, -2.5535884)
 shape = SubResource("BoxShape3D_5vw27")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Furnishings/Torkskåp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4345026, 0.45821905, -3.7600658)
 mesh = SubResource("BoxMesh_kek77")
 
 [node name="Pentagram on floor" type="StaticBody3D" parent="Furnishings"]
