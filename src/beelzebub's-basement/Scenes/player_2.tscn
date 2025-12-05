@@ -60,6 +60,7 @@ script = ExtResource("1_3ooxp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 compositor = ExtResource("1_c6poq")
 current = true
+script = ExtResource("2_gsfwq")
 
 [node name="PlayerBody" parent="." instance=ExtResource("1_b2c7a")]
 

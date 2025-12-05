@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://dx1hk7k4tsfh2" path="res://Materials/ps1/test/test_material_borked.tres" id="3_qqebx"]
 [ext_resource type="Material" uid="uid://m1raygcig17w" path="res://Materials/ps1/test/test_material.tres" id="5_mpad8"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="5_qqebx"]
-[ext_resource type="PackedScene" uid="uid://b0pkagf8tj7t6" path="res://Scenes/multiplayer_basement.tscn" id="6_qqebx"]
+[ext_resource type="PackedScene" path="res://Scenes/mp_basement.tscn" id="6_qqebx"]
 
 [sub_resource type="GDScript" id="GDScript_wuk74"]
 script/source = "extends Node3D
@@ -89,4 +89,4 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.10000001, -0.16578847, -0.
 material = ExtResource("5_mpad8")
 script = ExtResource("3_qg3qk")
 
-[node name="MultiplayerBasement" parent="." instance=ExtResource("6_qqebx")]
+[node name="Basement" parent="." instance=ExtResource("6_qqebx")]

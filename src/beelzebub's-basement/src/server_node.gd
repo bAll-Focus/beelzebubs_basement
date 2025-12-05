@@ -1,6 +1,9 @@
 class_name CameraServerNode
 extends Node
 
+@export var ball_force = Vector3(0,0,0)
+var reset_position = Vector3(0,0,0)
+
 var server = UDPServer.new()
 var peers = []
 
@@ -9,40 +12,45 @@ var timer
 var screen_width = 100 #use this to balance throws towards edges
 var screen_height = 100
 
-var throw_ready
+var throw_ready = true
+var resetting_ball = false
 var throwing_ball = false
 var throw_x = 0
 
 var viewport_width
+var time_out = false
+var time_out_timer
+var server_throwing_ball = false
+
 
 func _ready():
 	server.listen(5005)
 	ball = get_node("Ball")
 	timer = get_node("Timer")
+	time_out_timer = get_node("TimeOutTimer")
 	throw_ready = true
 	viewport_width = get_viewport().get_visible_rect().size.x
+	set_multiplayer_authority(1)
 	
-func throw_ball(coords):
+@rpc
+func throw_ball():
+	ball.apply_impulse(ball_force)
+	timer.start()
+	throw_ready = false
+		
+func set_force(coords):
 	var norm_y = ((screen_height - coords.y)/screen_height) * 0.2
 	ball.position.y = 0.5
 	ball.position.z = 1.318
 	if(throw_ready):
 		var norm_x = (coords.x/screen_width) * 5
-		ball.apply_impulse(Vector3(norm_x,2,-8))
-		timer.start()
-		throw_ready = false
-		
-func throw_ball_mouse(x):
-	#print("before: ", ball.position.z)
-	#reset_ball()
-	#print("after: ", ball.position.z)
-	
-	
-	if(throw_ready):
-		var norm_x = x * 10
-		ball.apply_impulse(Vector3(norm_x,2,-8))
-		#timer.start()
-		throw_ready = false
+		ball_force = Vector3(norm_x,3,-8)
+
+@rpc
+func throw_ball_mouse():
+	reset_ball()
+	ball.apply_impulse(ball_force)
+	throw_ready = false
 	
 
 func _process(delta):
@@ -58,10 +66,11 @@ func _process(delta):
 		peers.append(peer)
 
 func _physics_process(delta):
-	if throwing_ball:
+	if throwing_ball and multiplayer.is_server():
+		throw_ball_mouse()
+		throw_ball_mouse.rpc()
 		throwing_ball = false
-		reset_ball()
-		throw_ball_mouse(throw_x)
+		
 	if(peers.size() > 0):
 		for i in range(0, peers.size()):
 			var is_available = peers[i].get_available_packet_count()
@@ -77,7 +86,9 @@ func _physics_process(delta):
 						"y": force_vector.y = int(data[1])/2
 						"z": pass
 				print(force_vector)
-				throw_ball(force_vector)
+				set_force(force_vector)
+				throw_ball()
+				throw_ball.rpc()
 				
 
 
@@ -89,8 +100,12 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT :
 			var x =  (event.position.x - (viewport_width/2))/viewport_width
-			throwing_ball = true
 			throw_x = x
+			var norm_x = x * 10
+			ball_force = Vector3(norm_x,3,-8)
+			throwing_ball = true
+			resetting_ball = true
+			server_throwing_ball = true
 
 func reset_ball():
 	ball.position.x = 0
@@ -100,7 +115,6 @@ func reset_ball():
 	ball.angular_velocity = Vector3.ZERO  
 	ball.rotation = Vector3(0,0,0)
 	throw_ready = true
-	
 
 func _on_timer_timeout():
 	reset_ball()

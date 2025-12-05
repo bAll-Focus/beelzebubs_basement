@@ -7,4 +7,5 @@ func _process(delta: float) -> void:
 		linear_velocity += 2*delta*Vector3.UP
 	elif active:
 		active = false
-		print("Not active")
+		print("Client recognizes their place")
+		print(multiplayer.get_unique_id())

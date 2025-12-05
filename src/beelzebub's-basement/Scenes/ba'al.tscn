@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcwppegdoj2lb"]
+
+[ext_resource type="Script" uid="uid://debvn0wq0th70" path="res://ba'al.gd" id="1_o8qc6"]
+[ext_resource type="PackedScene" uid="uid://qhasuqgpp5y4" path="res://Models/flygoat.glb" id="2_4ecn3"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8uh7m"]
+height = 1.1
+radius = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6uqi0"]
+height = 1.0
+radius = 0.3
+
+[node name="Ba\'al" type="Node3D"]
+script = ExtResource("1_o8qc6")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.81915206, -0.57357645, 0, 0.57357645, 0.81915206, 0, 0.5280512, 0)
+shape = SubResource("CylinderShape3D_8uh7m")
+debug_color = Color(0.84692776, 0, 0.6061981, 1)
+
+[node name="flygoat" parent="CharacterBody3D" instance=ExtResource("2_4ecn3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.39090872, -0.08479602, 0, 0.08479602, 0.39090872, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2862165, 0, 0)
+
+[node name="DetectionArea" type="Area3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0.5816822, 0)
+collision_layer = 0
+
+[node name="DACollisionShape" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(1.5, 0, 0, 0, 1.228728, -0.8603647, 0, 0.8603647, 1.228728, 0, 0, 0)
+shape = SubResource("CylinderShape3D_6uqi0")
+debug_color = Color(0, 0.6156863, 0.7176471, 1)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
