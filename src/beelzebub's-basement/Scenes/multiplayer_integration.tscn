@@ -1,0 +1,183 @@
+[gd_scene load_steps=18 format=3 uid="uid://cfxrxbkpibaof"]
+
+[ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
+[ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
+[ext_resource type="Script" uid="uid://dn7vn1nfba61f" path="res://Scenes/multiplayer_body_tracker.gd" id="2_5k5hp"]
+[ext_resource type="Script" uid="uid://gor780jiujbd" path="res://Scripts/role_manager.gd" id="2_yb5jp"]
+[ext_resource type="Script" path="res://Scenes/move_on_keypress.gd" id="3_om2n4"]
+[ext_resource type="Script" uid="uid://5cmt6rsonw2y" path="res://Scripts/multiplayer_spawner.gd" id="3_syryq"]
+[ext_resource type="Material" uid="uid://bxi6nqhqkjgfn" path="res://Materials/cabbage_material.tres" id="4_25340"]
+[ext_resource type="PackedScene" uid="uid://c5kajcas17a5l" path="res://Scenes/sceneobjects/potato.tscn" id="4_wnf6l"]
+[ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="6_wnf6l"]
+[ext_resource type="PackedScene" uid="uid://bcwppegdoj2lb" path="res://Scenes/ba'al.tscn" id="8_72egd"]
+[ext_resource type="PackedScene" uid="uid://dbd8p6x522wor" path="res://Scenes/ball_detection.tscn" id="8_j01qd"]
+[ext_resource type="Script" uid="uid://co7lf7ekfjxi3" path="res://Scripts/magic_manager.gd" id="10_j01qd"]
+[ext_resource type="Script" uid="uid://c5ny28u187a3b" path="res://Scenes/baal_manager.gd" id="12_luxh4"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnf6l"]
+properties/0/path = NodePath("head:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("head:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("hand_l:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("hand_l:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("hand_r:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("hand_r:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_om2n4"]
+properties/0/path = NodePath("head:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("head:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("hand_l:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("hand_l:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("hand_r:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("hand_r:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_j01qd"]
+properties/0/path = NodePath(".:ball_force")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_72egd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:health")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="MultiplayerIntegration" type="Node3D"]
+
+[node name="Static Scene" type="Node" parent="."]
+
+[node name="Basement" parent="Static Scene" instance=ExtResource("1_syryq")]
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Static Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2549438, -0.30249542, -3.9776)
+size = Vector3(17.534302, 0.609375, 16.0719)
+
+[node name="Dynamic Scene" type="Node" parent="."]
+
+[node name="Dynamic_objects" type="Node" parent="Dynamic Scene"]
+
+[node name="Thrower body parts" type="Node3D" parent="Dynamic Scene/Dynamic_objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39692843, 0.32473063, -2.340984)
+script = ExtResource("2_5k5hp")
+
+[node name="head" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
+
+[node name="hand_l" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
+script = ExtResource("3_om2n4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts/hand_l"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = ExtResource("4_25340")
+
+[node name="hand_r" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts/hand_r"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = ExtResource("4_25340")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
+replication_config = SubResource("SceneReplicationConfig_wnf6l")
+
+[node name="Victim body parts" type="Node3D" parent="Dynamic Scene/Dynamic_objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32473063, -2.340984)
+script = ExtResource("2_5k5hp")
+
+[node name="head" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+
+[node name="hand_l" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+script = ExtResource("3_om2n4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts/hand_l"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="hand_r" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts/hand_r"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+replication_config = SubResource("SceneReplicationConfig_om2n4")
+
+[node name="Spawners" type="Node" parent="Dynamic Scene"]
+
+[node name="Spawner" type="MultiplayerSpawner" parent="Dynamic Scene/Spawners"]
+_spawnable_scenes = PackedStringArray("uid://c5kajcas17a5l")
+spawn_path = NodePath("../../Dynamic_objects")
+spawn_limit = 1024
+script = ExtResource("3_syryq")
+potato = ExtResource("4_wnf6l")
+
+[node name="BallDetection" parent="Dynamic Scene" instance=ExtResource("8_j01qd")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/BallDetection"]
+replication_config = SubResource("SceneReplicationConfig_j01qd")
+
+[node name="TimeOutTimer" type="Timer" parent="Dynamic Scene/BallDetection"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Ba\'al2" parent="Dynamic Scene" instance=ExtResource("8_72egd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36648083, -2.8132806)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Ba\'al2"]
+replication_config = SubResource("SceneReplicationConfig_72egd")
+
+[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager")]
+script = ExtResource("1_p5c6l")
+role_manager = NodePath("RoleManager")
+magic_manager = NodePath("MagicManager")
+debug = true
+
+[node name="RoleManager" type="Node" parent="Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
+script = ExtResource("2_yb5jp")
+victim_pos_marker = NodePath("../../Position Markers/victim_pos_marker")
+thrower_pos_marker = NodePath("../../Position Markers/thrower_pos_marker")
+victim_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Victim body parts")
+thrower_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Thrower body parts")
+
+[node name="SpawnManager" type="Node" parent="Network Manager"]
+
+[node name="MagicManager" type="Node" parent="Network Manager"]
+script = ExtResource("10_j01qd")
+
+[node name="BaalManager" type="Node" parent="Network Manager"]
+script = ExtResource("12_luxh4")
+
+[node name="Position Markers" type="Node" parent="."]
+
+[node name="victim_pos_marker" type="Node3D" parent="Position Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="thrower_pos_marker" type="Node3D" parent="Position Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366107, 0.74231315)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+compositor = ExtResource("6_wnf6l")

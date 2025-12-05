@@ -7,11 +7,7 @@ uniform vec3 tint : source_color = vec3(1);
 uniform bool vertex_snap = true;
 group_uniforms;
 
-group_uniforms Dithering;
-global uniform bool dither = true;
-global uniform float dither_spread = 1.0;
-global uniform float dither_gamma = 1.0;
-group_uniforms;
+global uniform vec2 resolution;
 
 group_uniforms AffineTextureMapping;
 uniform bool do_affine_mapping = false;
@@ -25,7 +21,7 @@ void vertex() {
 	vec4 view_pos = VIEW_MATRIX * world_space_pos;
 	vec4 clip_pos = PROJECTION_MATRIX * view_pos;
 	if (vertex_snap) {
-		clip_pos.xy = round(clip_pos.xy / clip_pos.w * VIEWPORT_SIZE.xy) / VIEWPORT_SIZE.xy * clip_pos.w;
+		clip_pos.xy = round(clip_pos.xy / clip_pos.w * resolution) / resolution * clip_pos.w;
 	}
 	POSITION = clip_pos;
 	clip_position = clip_pos;

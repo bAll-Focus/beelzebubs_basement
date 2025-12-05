@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5kajcas17a5l"]
+
+[ext_resource type="Script" uid="uid://dxq3w72vb1rcg" path="res://Scripts/potato.gd" id="1_d08j7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xmlkn"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ktw8t"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Potato" type="RigidBody3D"]
+script = ExtResource("1_d08j7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_xmlkn")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ktw8t")
