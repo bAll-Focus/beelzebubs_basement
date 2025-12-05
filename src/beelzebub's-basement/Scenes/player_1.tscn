@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://cytnfbgpxcbiw"]
+[gd_scene load_steps=17 format=3 uid="uid://cytnfbgpxcbiw"]
 
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="1_1fs8r"]
+[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://Scripts/XR/start_xr.gd" id="1_s4j3i"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="3_dqkch"]
 [ext_resource type="PackedScene" uid="uid://dabmoo0spa6vg" path="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf" id="4_qlg0r"]
@@ -32,6 +33,7 @@ actions = Array[ExtResource("9_3v2ag")]([SubResource("Resource_f1ej7")])
 metadata/_custom_type_script = "uid://c2hh8l62cludw"
 
 [node name="Player_1" type="XROrigin3D"]
+script = ExtResource("1_s4j3i")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)

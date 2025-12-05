@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://dbd8p6x522wor"]
+
+[ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="1_2krsy"]
+[ext_resource type="Texture2D" uid="uid://hquxij75wpc8" path="res://Textures/Particle_Blue.png" id="2_xmm2u"]
+[ext_resource type="PackedScene" uid="uid://waafnnfp8rs6" path="res://Scenes/sceneobjects/cabbage.tscn" id="3_alquj"]
+
+[sub_resource type="Gradient" id="Gradient_k23m1"]
+offsets = PackedFloat32Array(0, 0.64285713, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 1, 1, 1, 0.1393333, 0, 0.19, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xmm2u"]
+gradient = SubResource("Gradient_k23m1")
+
+[sub_resource type="Curve" id="Curve_xmm2u"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.06427504, 0.9507042), -14.268177, -14.268177, 0, 0, Vector2(0.14798206, 0.9507042), -4.1676617, -4.1676617, 0, 0, Vector2(0.16741404, 0.57042253), 0.0, 0.0, 0, 0, Vector2(0.3109118, 0.93309855), 0.0, 0.0, 0, 0, Vector2(0.40807176, 0.48943663), 0.0, 0.0, 0, 0, Vector2(0.5530643, 0.9507042), 0.0, 0.0, 0, 0, Vector2(0.66816145, 0.48591548), 0.0, 0.0, 0, 0, Vector2(0.7892377, 0.89788735), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="CurveTexture" id="CurveTexture_oo5ds"]
+curve = SubResource("Curve_xmm2u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k23m1"]
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+initial_velocity_min = -0.9
+initial_velocity_max = 0.9
+gravity = Vector3(0, -2, 0)
+scale_min = 0.9
+scale_max = 1.1
+scale_curve = SubResource("CurveTexture_oo5ds")
+color_ramp = SubResource("GradientTexture1D_xmm2u")
+collision_mode = 1
+collision_friction = 0.15
+collision_bounce = 0.32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oo5ds"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_xmm2u")
+texture_filter = 0
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oo5ds"]
+material = SubResource("StandardMaterial3D_oo5ds")
+size = Vector2(0.1, 0.1)
+orientation = 2
+
+[sub_resource type="Skin" id="Skin_oo5ds"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fxttx"]
+
+[node name="BallDetection" type="Node"]
+script = ExtResource("1_2krsy")
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35452616, -0.71772164)
+
+[node name="Particle_trail" type="GPUParticles3D" parent="Ball"]
+layers = 32
+amount = 50
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_k23m1")
+draw_pass_1 = SubResource("PlaneMesh_oo5ds")
+draw_skin = SubResource("Skin_oo5ds")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_fxttx")
+
+[node name="cabbage" parent="Ball" instance=ExtResource("3_alquj")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
