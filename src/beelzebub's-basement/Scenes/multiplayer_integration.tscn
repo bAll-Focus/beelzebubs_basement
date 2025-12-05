@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://waafnnfp8rs6" path="res://Scenes/sceneobjects/cabbage.tscn" id="9_6v7wx"]
 [ext_resource type="Script" uid="uid://co7lf7ekfjxi3" path="res://Scripts/magic_manager.gd" id="10_j01qd"]
 [ext_resource type="Script" uid="uid://c5ny28u187a3b" path="res://Scenes/baal_manager.gd" id="12_luxh4"]
+[ext_resource type="Script" uid="uid://tsiv215yj7wk" path="res://Scenes/hittepåmagi.gd" id="14_r0fya"]
 [ext_resource type="Script" uid="uid://dpcwmo7fhqo03" path="res://progress_bar.gd" id="17_0j58h"]
 [ext_resource type="Script" uid="uid://dgn8l4uqfiiy2" path="res://Scripts/menu.gd" id="19_iw0w0"]
 [ext_resource type="Script" uid="uid://bxs2k8p4c7j51" path="res://Scenes/control.gd" id="19_pf8y3"]
@@ -284,6 +285,7 @@ ball = NodePath("../BallDetection/Ball")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Ba\'al"]
 replication_config = SubResource("SceneReplicationConfig_72egd")
 
+[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager", "baal_manager")]
 [node name="TimerBurn" type="Timer" parent="Dynamic Scene/Ba\'al"]
 one_shot = true
 
@@ -291,10 +293,10 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
-[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager")]
 script = ExtResource("1_p5c6l")
 role_manager = NodePath("RoleManager")
 magic_manager = NodePath("MagicManager")
+baal_manager = NodePath("BaalManager")
 debug = true
 
 [node name="RoleManager" type="Node" parent="Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
@@ -309,16 +311,19 @@ thrower_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Thrower body 
 [node name="MagicManager" type="Node" parent="Network Manager"]
 script = ExtResource("10_j01qd")
 
+[node name="Hittepåmagi" type="Node" parent="Network Manager/MagicManager"]
+script = ExtResource("14_r0fya")
+
 [node name="BaalManager" type="Node" parent="Network Manager"]
 script = ExtResource("12_luxh4")
 
 [node name="Position Markers" type="Node" parent="."]
 
 [node name="victim_pos_marker" type="Node3D" parent="Position Markers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.87960494, -0.7085389)
 
 [node name="thrower_pos_marker" type="Node3D" parent="Position Markers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366107, 0.74231315)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.3)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 compositor = ExtResource("6_wnf6l")

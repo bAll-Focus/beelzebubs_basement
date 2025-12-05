@@ -105,8 +105,8 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 func restart() -> void:
 	pause_menu.set_visible(false)
 	health = MAX_HEALTH
-	healthbar._init_health(health)
-	healthbar.set_visible(true)
+	#healthbar._init_health(health)
+	#healthbar.set_visible(true)
 	set_visible(true)
 	speedEffect = 1
 

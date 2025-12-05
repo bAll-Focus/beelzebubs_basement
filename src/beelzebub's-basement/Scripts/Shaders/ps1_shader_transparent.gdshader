@@ -2,6 +2,7 @@ shader_type spatial;
 render_mode skip_vertex_transform, unshaded, blend_mix, depth_draw_opaque;
 
 group_uniforms Basic;
+uniform float alpha_value : hint_range(0, 1, 0.01);
 uniform sampler2D my_texture : source_color, filter_nearest, repeat_disable;
 uniform vec3 tint : source_color = vec3(1);
 uniform bool vertex_snap = true;
@@ -43,5 +44,5 @@ void fragment() {
     vec3 albedo = tex.rgb * vertex_color * tint;
 
     ALBEDO = albedo;
-    ALPHA = tex.a;       
+    ALPHA = tex.a*alpha_value;       
 }
