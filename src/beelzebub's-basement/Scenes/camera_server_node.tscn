@@ -1,15 +1,15 @@
-[gd_scene load_steps=37 format=3 uid="uid://dfuewiu2np8yx"]
+[gd_scene load_steps=37 format=3 uid="uid://cnkawblsmdlv5"]
 
 [ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="1_fxttx"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="2_6l8ll"]
 [ext_resource type="Material" uid="uid://bgtd3ikhm6r74" path="res://Materials/ground_material.tres" id="3_cdwn2"]
-[ext_resource type="PackedScene" uid="uid://waafnnfp8rs6" path="res://Scenes/sceneobjects/cabbage.tscn" id="3_mudmj"]
+[ext_resource type="PackedScene" path="res://Scenes/sceneobjects/cabbage.tscn" id="3_mudmj"]
 [ext_resource type="Script" uid="uid://debvn0wq0th70" path="res://ba'al.gd" id="4_6l8ll"]
 [ext_resource type="Material" uid="uid://byvjlgw8s1sde" path="res://Materials/wall_material.tres" id="4_iwaxy"]
 [ext_resource type="PackedScene" uid="uid://qhasuqgpp5y4" path="res://Models/flygoat.glb" id="5_cdwn2"]
-[ext_resource type="PackedScene" uid="uid://bpodp2301mnk8" path="res://Scenes/menu_design.tscn" id="6_iwaxy"]
-[ext_resource type="PackedScene" uid="uid://cb5d03b3ahwmk" path="res://Scenes/pause_menu.tscn" id="7_b0cb7"]
-[ext_resource type="PackedScene" uid="uid://66yjc8gdupcd" path="res://Scenes/credits.tscn" id="8_jpcg6"]
+[ext_resource type="PackedScene" path="res://Scenes/menu_design.tscn" id="6_iwaxy"]
+[ext_resource type="PackedScene" path="res://Scenes/pause_menu.tscn" id="7_b0cb7"]
+[ext_resource type="PackedScene" path="res://Scenes/credits.tscn" id="8_jpcg6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fxttx"]
 
