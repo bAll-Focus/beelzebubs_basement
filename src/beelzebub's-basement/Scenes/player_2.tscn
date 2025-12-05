@@ -1,34 +1,33 @@
 [gd_scene load_steps=24 format=3 uid="uid://bnj5ina8e4vpb"]
 
+[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://scripts/XR/start_xr.gd" id="1_3ooxp"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="1_b2c7a"]
-[ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="1_c6poq"]
-[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://Scripts/XR/start_xr.gd" id="2_gsfwq"]
+[ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://scripts/Shaders/ps1_compositor.tres" id="1_c6poq"]
 [ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="2_x4ukj"]
 [ext_resource type="PackedScene" uid="uid://df5hynbooj1uj" path="res://addons/hand_pose_detector/hand_pose_detector.tscn" id="3_t4bc4"]
 [ext_resource type="Script" uid="uid://dv177q16qr3m1" path="res://addons/hand_pose_detector/hand_pose.gd" id="4_wtgcc"]
-[ext_resource type="Resource" uid="uid://dhbqusuodrl3r" path="res://addons/hand_pose_detector/poses/fist.tres" id="5_jbo5h"]
 [ext_resource type="Script" uid="uid://bye1dl8t10v61" path="res://addons/hand_pose_detector/hand_pose_set.gd" id="6_60kbs"]
 [ext_resource type="Resource" uid="uid://ceofxcl7q122" path="res://addons/hand_pose_detector/poses/point.tres" id="6_ay52l"]
 [ext_resource type="PackedScene" uid="uid://bh8isvqs258cp" path="res://addons/hand_pose_detector/hand_pose_controller.tscn" id="7_3ooxp"]
+[ext_resource type="Resource" uid="uid://c5pg3bqcsep5y" path="res://addons/hand_pose_detector/poses/metal.tres" id="7_ab820"]
 [ext_resource type="Resource" uid="uid://sy66yqr1xila" path="res://addons/hand_pose_detector/poses/thumbs_up.tres" id="7_c6poq"]
 [ext_resource type="Script" uid="uid://bbv4ooupljm5b" path="res://addons/hand_pose_detector/hand_pose_action.gd" id="8_ab820"]
 [ext_resource type="Resource" uid="uid://dgl2b6ftbpnrx" path="res://addons/hand_pose_detector/poses/peace_sign.tres" id="8_gsfwq"]
 [ext_resource type="Script" uid="uid://c2hh8l62cludw" path="res://addons/hand_pose_detector/hand_pose_action_map.gd" id="9_13h5e"]
 [ext_resource type="PackedScene" uid="uid://dabmoo0spa6vg" path="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf" id="10_h8wfx"]
-[ext_resource type="PackedScene" uid="uid://c5ldiblddq4yn" path="res://Scenes/spell_detector.tscn" id="14_iet35"]
+[ext_resource type="PackedScene" uid="uid://c5ldiblddq4yn" path="res://scenes/spell_detector.tscn" id="14_iet35"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mxbqu"]
 
 [sub_resource type="Resource" id="Resource_0l2yj"]
 script = ExtResource("6_60kbs")
-poses = Array[ExtResource("4_wtgcc")]([ExtResource("5_jbo5h"), ExtResource("6_ay52l"), ExtResource("7_c6poq"), ExtResource("8_gsfwq")])
+poses = Array[ExtResource("4_wtgcc")]([ExtResource("7_ab820"), ExtResource("6_ay52l"), ExtResource("7_c6poq"), ExtResource("8_gsfwq")])
 metadata/_custom_type_script = "uid://bye1dl8t10v61"
 
 [sub_resource type="Resource" id="Resource_f1ej7"]
 script = ExtResource("8_ab820")
-pose = ExtResource("5_jbo5h")
-action_type = 1
-action_name = "grip"
+pose = ExtResource("7_ab820")
+action_name = "metal"
 metadata/_custom_type_script = "uid://bbv4ooupljm5b"
 
 [sub_resource type="Resource" id="Resource_5j8jl"]
@@ -55,6 +54,7 @@ actions = Array[ExtResource("8_ab820")]([SubResource("Resource_f1ej7"), SubResou
 metadata/_custom_type_script = "uid://c2hh8l62cludw"
 
 [node name="Player_2" type="XROrigin3D"]
+script = ExtResource("1_3ooxp")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -107,14 +107,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"/user/hand_pose_controller/left"
 
 [node name="SpellDetector" parent="LeftController" instance=ExtResource("14_iet35")]
-script = null
 
 [node name="RightController" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"/user/hand_pose_controller/right"
 
 [node name="SpellDetector" parent="RightController" instance=ExtResource("14_iet35")]
-script = null
 
 [editable path="LeftTrackedHand/LeftHandHumanoid2"]
 [editable path="RightTrackedHand/RightHandHumanoid2"]
