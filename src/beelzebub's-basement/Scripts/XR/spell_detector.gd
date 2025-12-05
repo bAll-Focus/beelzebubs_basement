@@ -1,7 +1,7 @@
 extends Node3D
 
 const POSE_ACTIONS : Dictionary = {
-	"fist": "grip",
+	"metal": "metal",
 	"point": "point",
 	"thumbs_up": "thumbs_up",
 	"peace_sign": "peace_sign",
@@ -12,21 +12,22 @@ const SPELLS := {
 		"hand": "right",
 		"sequence": ["peace_sign", "thumbs_up", "point"],
 	},
-	"protect_self": {
+	"slow_demon": {
 		"hand": "right",
-		"sequence": ["point", "fist", "thumbs_up"],
+		"sequence": ["point", "metal", "thumbs_up"],
 	},
-	"empower_throw_holy": {
+	"empower_throw_fire": {
 		"hand": "left",
-		"sequence": ["fist", "point", "peace_sign"],
+		"sequence": ["metal", "point", "peace_sign"],
 	},
 	"empower_throw_ice": {
 		"hand": "left",
-		"sequence": ["thumbs_up", "fist", "peace_sign"],
+		"sequence": ["thumbs_up", "metal", "peace_sign"],
 	},
 }
 
 signal spell_cast(spell_name: String, hand: String)
+signal pose_progress(spell_name: String, pose_index: int, total_poses: int, hand: String)
 
 var _parent_controller : XRController3D
 var _pose_states : Dictionary[String, bool] = {}
@@ -106,8 +107,12 @@ func _check_spells(pose_name: String) -> void:
 				_on_spell_completed(spell_name, required_hand)
 			else:
 				_spell_progress[spell_name] = current_index
+				pose_progress.emit(spell_name, current_index, sequence.size(), required_hand)
 		else:
-			_spell_progress[spell_name] = 1 if pose_name == sequence[0] else 0
+			var new_progress = 1 if pose_name == sequence[0] else 0
+			_spell_progress[spell_name] = new_progress
+			# Always emit to update visual indicators, even when resetting to 0
+			pose_progress.emit(spell_name, new_progress, sequence.size(), required_hand)
 
 
 func _on_spell_completed(spell_name: String, hand: String) -> void:

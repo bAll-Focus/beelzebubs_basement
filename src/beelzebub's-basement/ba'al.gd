@@ -59,4 +59,6 @@ func restart() -> void:
 		var pb = camera.get_node("ProgressBar")
 		pb.value = MAX_HEALTH
 	health = MAX_HEALTH
+	healthbar._init_health(health)
+	healthbar.set_visible(true)
 	set_visible(true)
