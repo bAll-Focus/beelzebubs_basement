@@ -1,10 +1,10 @@
 extends Node3D
+class_name Baal_AI
 
 @export var health:int
 @export var camera:Camera3D
 const MAX_HEALTH = 100
 var loop_counter = 0
-
 
 var hit_sounds = []
 var audio_player
@@ -26,17 +26,20 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	loop_counter += delta
-	if(loop_counter >= 90):
-		loop_counter = -90
-	position.x = sin(loop_counter)*1.8
-	position.y = cos(4*loop_counter)/6
-	rotation.y = cos(loop_counter)/2
-	rotation.x = cos(loop_counter*2)/4
+	if(multiplayer.is_server()):
+		loop_counter += delta
+		if(loop_counter >= 90):
+			loop_counter = -90
+		position.x = sin(loop_counter)*1.8
+		position.y = cos(4*loop_counter)/6
+		rotation.y = cos(loop_counter)/2
+		rotation.x = cos(loop_counter*2)/4
+	if(health <= 0 && visible):
+		set_visible(false)
 
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
-	if(body.name == "Ball"):
+	if(body.name == "Ball" && multiplayer.is_server()):
 		var val = randi_range(0, 2) 
 		audio_player.stream = hit_sounds[val]
 		audio_player.play()

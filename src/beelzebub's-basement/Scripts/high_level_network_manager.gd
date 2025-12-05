@@ -6,6 +6,7 @@ var peer : ENetMultiplayerPeer
 
 @export var role_manager: RoleManager
 @export var magic_manager: MagicManager
+@export var baal_manager: BaalManager
 @export var server_mode: bool = false
 @export var debug = false
 @export var use_vr = false
