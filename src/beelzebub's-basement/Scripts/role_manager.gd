@@ -46,13 +46,13 @@ func initialize_victim() -> void:
 	else:
 		$"../../Camera3D".position = victim_pos_marker.position
 
-func set_up_victim () ->void:
+func set_up_victim () -> void:
 	pass
 
-func set_up_thrower () ->void:
+func set_up_thrower () -> void:
 	pass
 
-func set_authorities(peer_id):
+func set_authorities(peer_id) -> void:
 	if not multiplayer.is_server():
 		thrower_body_parts.set_multiplayer_authority(1)
 		victim_body_parts.set_multiplayer_authority(multiplayer.get_unique_id())

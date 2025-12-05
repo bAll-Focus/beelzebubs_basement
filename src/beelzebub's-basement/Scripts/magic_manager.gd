@@ -3,11 +3,8 @@ class_name MagicManager
 
 enum MagicType {
 	POINTY_POINTY,
-	SHIELDY_BREAKY,
-	GAY
+	SHIELDY_BREAKY
 }
-
-
 
 @rpc("any_peer")
 func do_magic(mt):
