@@ -1,33 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpodp2301mnk8"]
+[gd_scene load_steps=11 format=3 uid="uid://bpodp2301mnk8"]
 
 [ext_resource type="Texture2D" uid="uid://cyxddk2q47nyv" path="res://Textures/ba'al.png" id="1_c5isf"]
 [ext_resource type="Script" uid="uid://dgn8l4uqfiiy2" path="res://Scripts/menu.gd" id="1_p1sj6"]
+[ext_resource type="Texture2D" uid="uid://chu3aqrmpvuk1" path="res://Baal.png" id="2_dtmh4"]
+[ext_resource type="Texture2D" uid="uid://ojcp8mhqppda" path="res://New Piskel (7).png" id="3_8l8rb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p1sj6"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8l8rb"]
 
-[sub_resource type="FontFile" id="FontFile_dtmh4"]
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/30/0/ascent = 0.0
-cache/0/30/0/descent = 0.0
-cache/0/30/0/underline_position = 0.0
-cache/0/30/0/underline_thickness = 0.0
-cache/0/30/0/scale = 1.0
-cache/0/40/0/ascent = 0.0
-cache/0/40/0/descent = 0.0
-cache/0/40/0/underline_position = 0.0
-cache/0/40/0/underline_thickness = 0.0
-cache/0/40/0/scale = 1.0
+[sub_resource type="Theme" id="Theme_dtmh4"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_3e6i6"]
-font = SubResource("FontFile_dtmh4")
-font_size = 30
-font_color = Color(0.39607844, 0, 0, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3e6i6"]
+texture = ExtResource("3_8l8rb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qgvbk"]
+texture = ExtResource("3_8l8rb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k1id2"]
+texture = ExtResource("3_8l8rb")
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -62,16 +53,17 @@ layout_mode = 2
 texture = SubResource("CanvasTexture_8l8rb")
 region_rect = Rect2(600, 120, 0, 0)
 
-[node name="Label" type="Label" parent="Menu/ColorRect/MarginContainer/VBoxContainer/NinePatchRect"]
-custom_minimum_size = Vector2(60, 40)
+[node name="MarginContainer" type="MarginContainer" parent="Menu/ColorRect/MarginContainer/VBoxContainer/NinePatchRect"]
 layout_mode = 0
-offset_top = 4.0
-offset_right = 600.0
-offset_bottom = 27.0
-text = "Ba'al's Basement"
-label_settings = SubResource("LabelSettings_3e6i6")
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_right = 449.0
+offset_bottom = 48.0
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 40
+
+[node name="TextureRect" type="TextureRect" parent="Menu/ColorRect/MarginContainer/VBoxContainer/NinePatchRect/MarginContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+texture = ExtResource("2_dtmh4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/ColorRect/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 260)
@@ -102,16 +94,21 @@ layout_mode = 2
 [node name="StartButton" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme = SubResource("Theme_dtmh4")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3e6i6")
 text = "Start"
+icon_alignment = 1
 
 [node name="CreditsButton" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_qgvbk")
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_k1id2")
 text = "Quit"
 
 [connection signal="pressed" from="Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/StartButton" to="Menu" method="_on_start_button_pressed"]
