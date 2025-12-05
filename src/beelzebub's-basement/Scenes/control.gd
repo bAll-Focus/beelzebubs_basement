@@ -1,5 +1,8 @@
 extends Control
 
+@export var baal:Node3D
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,7 +15,7 @@ func _process(delta: float) -> void:
 
 
 func _on_restart_button_pressed() -> void:
-	$"../../../Ba'al".restart()
+	baal.restart()
 
 
 func _on_quit_button_pressed() -> void:

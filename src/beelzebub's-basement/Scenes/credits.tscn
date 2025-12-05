@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://66yjc8gdupcd"]
+[gd_scene load_steps=2 format=3 uid="uid://caup217jsvmmw"]
 
-[ext_resource type="Script" uid="uid://cmumdnyq8i07x" path="res://Scenes/credits.gd" id="1_r18jl"]
+[ext_resource type="Script" path="res://Scenes/credits.gd" id="1_r18jl"]
 
-[node name="Pause Menu" type="CanvasLayer"]
+[node name="Credits Menu" type="CanvasLayer"]
 script = ExtResource("1_r18jl")
 
 [node name="Control" type="Control" parent="."]
