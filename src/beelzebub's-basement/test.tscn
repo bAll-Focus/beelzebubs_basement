@@ -26,8 +26,10 @@ material = SubResource("StandardMaterial3D_ykrsh")
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Ba\'al" type="Node3D" parent="."]
+[node name="Ba\'al" type="Node3D" parent="." node_paths=PackedStringArray("camera", "ball")]
 script = ExtResource("1_6uqi0")
+camera = NodePath("../Camera3D")
+ball = NodePath("../TestBall")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="Ba\'al"]
 
