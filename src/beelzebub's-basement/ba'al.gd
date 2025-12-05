@@ -3,14 +3,15 @@ class_name Baal_AI
 
 @export var health:int
 
-@onready var healthbar = $"../Camera3D/Healthbar"
-@onready var pause_menu = $"../Camera3D/Pause Menu"
-@onready var credits_menu = $"../Camera3D/Credits Menu"
-@onready var timerBurn = $Timer
-@onready var timerSlow = $Timer2
+@export var healthbar:ProgressBar
+@export var pause_menu:CanvasLayer
+@export var start_menu:CanvasLayer
+@export var credits_menu:CanvasLayer
+@onready var timerBurn = $TimerBurn
+@onready var timerSlow = $TimerSlow
 
 @export var camera:Camera3D
-@export var ball:CharacterBody3D
+@export var ball:RigidBody3D
 
 const MAX_HEALTH = 100
 const BURN_DEFAULT = 5
@@ -27,6 +28,7 @@ var audio_player
 func _ready() -> void:
 	health = MAX_HEALTH
 	#$"../Camera3D/Credits Menu".set_visible(false)
+	start_menu.set_visible(true)
 	healthbar._init_health(health)
 	healthbar.set_visible(false)
 	set_visible(false)
@@ -52,7 +54,7 @@ func _process(delta: float) -> void:
 
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
-	if(body.name == "TestBall"):# && multiplayer.is_server()):
+	if body.name == "Ball" && multiplayer.is_server():
 		#var val = randi_range(0, 2) 
 		#audio_player.stream = hit_sounds[val]
 		#audio_player.play()
@@ -86,15 +88,10 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 			pause_menu.set_visible(true)
 
 func restart() -> void:
-	if camera:
-		var pm = camera.get_node("Pause Menu")
-		pm.set_visible(false)
-		var pb = camera.get_node("ProgressBar")
-		pb.value = MAX_HEALTH
-	#pause_menu.set_visible(false)
-	#health = MAX_HEALTH
-	#healthbar._init_health(health)
-	#aahealthbar.set_visible(true)
+	pause_menu.set_visible(false)
+	health = MAX_HEALTH
+	healthbar._init_health(health)
+	healthbar.set_visible(true)
 	set_visible(true)
 	speedEffect = 1
 

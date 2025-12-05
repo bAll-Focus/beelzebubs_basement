@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=30 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
@@ -16,11 +16,6 @@
 [ext_resource type="PackedScene" path="res://Scenes/sceneobjects/cabbage.tscn" id="9_6v7wx"]
 [ext_resource type="Script" uid="uid://co7lf7ekfjxi3" path="res://Scripts/magic_manager.gd" id="10_j01qd"]
 [ext_resource type="Script" uid="uid://c5ny28u187a3b" path="res://Scenes/baal_manager.gd" id="12_luxh4"]
-[ext_resource type="Script" uid="uid://dpcwmo7fhqo03" path="res://progress_bar.gd" id="17_0j58h"]
-[ext_resource type="Script" uid="uid://dgn8l4uqfiiy2" path="res://Scripts/menu.gd" id="19_iw0w0"]
-[ext_resource type="Script" uid="uid://bxs2k8p4c7j51" path="res://Scenes/control.gd" id="19_pf8y3"]
-[ext_resource type="Texture2D" uid="uid://cyxddk2q47nyv" path="res://Textures/ba'al.png" id="20_pf8y3"]
-[ext_resource type="Script" path="res://Scenes/credits.gd" id="21_pf8y3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnf6l"]
 properties/0/path = NodePath("head:position")
@@ -130,52 +125,6 @@ properties/2/path = NodePath(".:health")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1v5t1"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bngtt"]
-bg_color = Color(0.5228682, 0.031814367, 0.09505046, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv041"]
-bg_color = Color(0.14767182, 0.14767182, 0.14767176, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilck6"]
-bg_color = Color(0.5538976, 0.842284, 0.56015015, 1)
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p1sj6"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_8l8rb"]
-
-[sub_resource type="FontFile" id="FontFile_dtmh4"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/30/0/ascent = 0.0
-cache/0/30/0/descent = 0.0
-cache/0/30/0/underline_position = 0.0
-cache/0/30/0/underline_thickness = 0.0
-cache/0/30/0/scale = 1.0
-cache/0/40/0/ascent = 0.0
-cache/0/40/0/descent = 0.0
-cache/0/40/0/underline_position = 0.0
-cache/0/40/0/underline_thickness = 0.0
-cache/0/40/0/scale = 1.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_3e6i6"]
-font = SubResource("FontFile_dtmh4")
-font_size = 30
-font_color = Color(0.39607844, 0, 0, 1)
-
 [node name="MultiplayerIntegration" type="Node3D"]
 
 [node name="Static Scene" type="Node" parent="."]
@@ -275,21 +224,12 @@ replication_config = SubResource("SceneReplicationConfig_j01qd")
 wait_time = 0.5
 one_shot = true
 
-[node name="Ba\'al" parent="Dynamic Scene" node_paths=PackedStringArray("healthbar", "pause_menu", "start_menu", "credits_menu", "ball") instance=ExtResource("8_72egd")]
+[node name="Ba\'al" parent="Dynamic Scene" node_paths=PackedStringArray("ball") instance=ExtResource("8_72egd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36648083, -2.8132806)
-health = 10
-healthbar = NodePath("../../Camera3D/Healthbar")
-pause_menu = NodePath("../../Camera3D/Pause Menu")
-start_menu = NodePath("../../Camera3D/Start Menu")
-credits_menu = NodePath("../../Camera3D/Credits Menu")
 ball = NodePath("../BallDetection/Ball")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Ba\'al"]
 replication_config = SubResource("SceneReplicationConfig_72egd")
-
-[node name="TimerBurn" type="Timer" parent="Dynamic Scene/Ba\'al"]
-
-[node name="TimerSlow" type="Timer" parent="Dynamic Scene/Ba\'al"]
 
 [node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager")]
 script = ExtResource("1_p5c6l")
@@ -323,228 +263,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366107, 0.74231315)
 [node name="Camera3D" type="Camera3D" parent="."]
 compositor = ExtResource("6_wnf6l")
 
-[node name="Healthbar" type="ProgressBar" parent="Camera3D"]
-z_index = 2
-z_as_relative = false
-offset_left = 352.0
-offset_top = 33.0
-offset_right = 827.0
-offset_bottom = 60.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_1v5t1")
-theme_override_styles/fill = SubResource("StyleBoxFlat_bngtt")
-step = 1.0
-value = 80.0
-show_percentage = false
-script = ExtResource("17_0j58h")
-
-[node name="Damagebar" type="ProgressBar" parent="Camera3D/Healthbar"]
-show_behind_parent = true
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_lv041")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ilck6")
-step = 1.0
-value = 100.0
-show_percentage = false
-
-[node name="Timer" type="Timer" parent="Camera3D/Healthbar"]
-wait_time = 0.6
-one_shot = true
-
-[node name="Pause Menu" type="CanvasLayer" parent="Camera3D"]
-
-[node name="Control" type="Control" parent="Camera3D/Pause Menu" node_paths=PackedStringArray("baal")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("19_pf8y3")
-baal = NodePath("../../../Dynamic Scene/Ba\'al")
-
-[node name="ColorRect" type="ColorRect" parent="Camera3D/Pause Menu/Control"]
-custom_minimum_size = Vector2(640, 360)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Camera3D/Pause Menu/Control/ColorRect"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 220
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/Pause Menu/Control/ColorRect/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.10980392, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-text = "Ba'al's Basement"
-horizontal_alignment = 1
-
-[node name="RestartButton" type="Button" parent="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-text = "Restart"
-
-[node name="QuitButton" type="Button" parent="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-text = "Quit"
-
-[node name="Start Menu" type="CanvasLayer" parent="Camera3D"]
-
-[node name="Menu" type="Control" parent="Camera3D/Start Menu" node_paths=PackedStringArray("healthbar", "baal", "credits")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("19_iw0w0")
-healthbar = NodePath("../../Healthbar")
-baal = NodePath("../../../Dynamic Scene/Ba\'al")
-credits = NodePath("../../Credits Menu")
-
-[node name="ColorRect" type="ColorRect" parent="Camera3D/Start Menu/Menu"]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Camera3D/Start Menu/Menu/ColorRect"]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer"]
-layout_mode = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer"]
-material = SubResource("CanvasItemMaterial_p1sj6")
-custom_minimum_size = Vector2(600, 60)
-layout_mode = 2
-texture = SubResource("CanvasTexture_8l8rb")
-region_rect = Rect2(600, 120, 0, 0)
-
-[node name="Label" type="Label" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/NinePatchRect"]
-custom_minimum_size = Vector2(60, 40)
-layout_mode = 0
-offset_top = 4.0
-offset_right = 600.0
-offset_bottom = 27.0
-text = "Ba'al's Basement"
-label_settings = SubResource("LabelSettings_3e6i6")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 260)
-layout_mode = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(260, 260)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
-custom_minimum_size = Vector2(260, 260)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("20_pf8y3")
-expand_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 74
-theme_override_constants/margin_top = 60
-theme_override_constants/margin_right = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 150)
-layout_mode = 2
-
-[node name="StartButton" type="Button" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "Start"
-
-[node name="CreditsButton" type="Button" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "Credits"
-
-[node name="QuitButton" type="Button" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "Quit"
-
-[node name="Credits Menu" type="CanvasLayer" parent="Camera3D"]
-script = ExtResource("21_pf8y3")
-
-[node name="Control" type="Control" parent="Camera3D/Credits Menu"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ColorRect" type="ColorRect" parent="Camera3D/Credits Menu/Control"]
-custom_minimum_size = Vector2(640, 360)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Camera3D/Credits Menu/Control/ColorRect"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 220
-theme_override_constants/margin_top = 60
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 40
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/Credits Menu/Control/ColorRect/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.10980392, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-text = "Ba'al's Basement"
-horizontal_alignment = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-bbcode_enabled = true
-text = "[center][font_size={26}][color=crimson]CREDITS[/color][/font_size]
-[font_size={20}][color=dark_orange]Kristin Eriksson[/color]
-[color=gold]Rej Karlander[/color]
-[color=yellow_green]Marcus Erlandsson[/color]
-[color=light_sky_blue]Jennifer Köhler[/color]
-[color=medium_purple]Kei Duke-Bergman[/color][/center]
-[/font_size]"
-fit_content = true
-
-[node name="BackButton" type="Button" parent="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(20, 30)
-layout_mode = 2
-text = "Back"
-
 [connection signal="timeout" from="Dynamic Scene/BallDetection/Timer" to="Dynamic Scene/BallDetection" method="_on_timer_timeout"]
-[connection signal="timeout" from="Camera3D/Healthbar/Timer" to="Camera3D/Healthbar" method="_on_timer_timeout"]
-[connection signal="pressed" from="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="Camera3D/Pause Menu/Control" method="_on_restart_button_pressed"]
-[connection signal="pressed" from="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer/QuitButton" to="Camera3D/Pause Menu/Control" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/StartButton" to="Camera3D/Start Menu/Menu" method="_on_start_button_pressed"]
-[connection signal="pressed" from="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/CreditsButton" to="Camera3D/Start Menu/Menu" method="_on_credits_button_pressed"]
-[connection signal="pressed" from="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Camera3D/Start Menu/Menu" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer/BackButton" to="Camera3D/Credits Menu" method="_on_back_button_pressed"]
