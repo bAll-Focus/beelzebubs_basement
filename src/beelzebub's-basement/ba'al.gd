@@ -34,10 +34,11 @@ func _ready() -> void:
 	set_visible(false)
 	pause_menu.set_visible(false)
 	credits_menu.set_visible(false)
-	#hit_sounds.append(preload("res://audio/baal_hit_0.wav"))
-	#hit_sounds.append(preload("res://audio/baal_hit_1.wav"))
-	#hit_sounds.append(preload("res://audio/baal_hit_2.wav"))
-	#audio_player = get_node("AudioStreamPlayer3D")
+	set_multiplayer_authority(1)
+	hit_sounds.append(preload("res://audio/baal_hit_0.wav"))
+	hit_sounds.append(preload("res://audio/baal_hit_1.wav"))
+	hit_sounds.append(preload("res://audio/baal_hit_2.wav"))
+	audio_player = get_node("AudioStreamPlayer3D")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -52,6 +53,22 @@ func _process(delta: float) -> void:
 	if(health <= 0 && visible):
 		set_visible(false)
 
+@rpc
+func update_healthbar(index):
+	healthbar._set_health(health)
+	if(index != -1):
+		healthbar._set_colour(index)
+
+@rpc
+func decrease_client_health(amount):
+	health -= amount
+
+func decrease_health(amount, index):
+	if(multiplayer.is_server()):
+		health -= amount
+		decrease_client_health.rpc(amount) #guess we're doing it this way 
+		update_healthbar(index)
+		update_healthbar.rpc(index)
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
 	if body.name == "Ball" && multiplayer.is_server():
@@ -61,9 +78,7 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		
 		damage = ball.damage
 		index = ball.damageIndex
-		health -= damage
-		healthbar._set_health(health)
-		healthbar._set_colour(index)
+		decrease_health(damage, index)
 		
 		#if camera:
 		#	camera.value -= 10
@@ -96,7 +111,7 @@ func restart() -> void:
 	speedEffect = 1
 
 func _on_timer_timeout() -> void:
-	health -= 3
+	decrease_health(3,-1)
 	healthbar._set_health(health)
 	
 	if(health <= 0):
