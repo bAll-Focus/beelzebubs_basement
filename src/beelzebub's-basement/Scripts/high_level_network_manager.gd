@@ -21,6 +21,9 @@ func _on_peer_connected(peer_id: int):
 		role_manager.initialize_roles(true)
 	else:
 		role_manager.initialize_roles(false)
+		var vr_player = role_manager.VR_player if use_vr else null
+		magic_manager.set_up_magic_tracking(vr_player)
+		
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()

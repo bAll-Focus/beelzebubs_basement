@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcwppegdoj2lb"]
+[gd_scene load_steps=5 format=3 uid="uid://c884h61x6qh2u"]
 
 [ext_resource type="Script" uid="uid://debvn0wq0th70" path="res://ba'al.gd" id="1_o8qc6"]
 [ext_resource type="PackedScene" uid="uid://qhasuqgpp5y4" path="res://Models/flygoat.glb" id="2_4ecn3"]

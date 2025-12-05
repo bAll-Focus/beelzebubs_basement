@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=30 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
@@ -10,11 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://c5kajcas17a5l" path="res://Scenes/sceneobjects/potato.tscn" id="4_wnf6l"]
 [ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="6_wnf6l"]
 [ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="7_6o25v"]
-[ext_resource type="PackedScene" path="res://Scenes/ba'al.tscn" id="8_72egd"]
+[ext_resource type="PackedScene" uid="uid://c884h61x6qh2u" path="res://Scenes/ba'al.tscn" id="8_72egd"]
 [ext_resource type="Texture2D" uid="uid://hquxij75wpc8" path="res://Textures/Particle_Blue.png" id="8_r0fya"]
 [ext_resource type="PackedScene" uid="uid://waafnnfp8rs6" path="res://Scenes/sceneobjects/cabbage.tscn" id="9_6v7wx"]
-[ext_resource type="Script" path="res://Scripts/magic_manager.gd" id="10_j01qd"]
+[ext_resource type="Script" uid="uid://co7lf7ekfjxi3" path="res://Scripts/magic_manager.gd" id="10_j01qd"]
 [ext_resource type="Script" uid="uid://c5ny28u187a3b" path="res://Scenes/baal_manager.gd" id="12_luxh4"]
+[ext_resource type="Script" uid="uid://tsiv215yj7wk" path="res://Scenes/hittepåmagi.gd" id="14_r0fya"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnf6l"]
 properties/0/path = NodePath("head:position")
@@ -228,10 +229,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36648083, -2.8132806)
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Ba\'al2"]
 replication_config = SubResource("SceneReplicationConfig_72egd")
 
-[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager")]
+[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager", "baal_manager")]
 script = ExtResource("1_p5c6l")
 role_manager = NodePath("RoleManager")
 magic_manager = NodePath("MagicManager")
+baal_manager = NodePath("BaalManager")
 debug = true
 
 [node name="RoleManager" type="Node" parent="Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
@@ -246,16 +248,19 @@ thrower_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Thrower body 
 [node name="MagicManager" type="Node" parent="Network Manager"]
 script = ExtResource("10_j01qd")
 
+[node name="Hittepåmagi" type="Node" parent="Network Manager/MagicManager"]
+script = ExtResource("14_r0fya")
+
 [node name="BaalManager" type="Node" parent="Network Manager"]
 script = ExtResource("12_luxh4")
 
 [node name="Position Markers" type="Node" parent="."]
 
 [node name="victim_pos_marker" type="Node3D" parent="Position Markers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.87960494, -0.7085389)
 
 [node name="thrower_pos_marker" type="Node3D" parent="Position Markers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366107, 0.74231315)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.3)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 compositor = ExtResource("6_wnf6l")
