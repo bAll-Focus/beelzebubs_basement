@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://wdl5piip7kxr"]
+
+[ext_resource type="Shader" uid="uid://bcahr5qafa6f1" path="res://Scripts/Shaders/ps1_shader.gdshader" id="1_h8wif"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_h8wif")
+shader_parameter/tint = Color(0.15487596, 0.154876, 0.15487596, 1)
+shader_parameter/vertex_snap = true
+shader_parameter/do_affine_mapping = false

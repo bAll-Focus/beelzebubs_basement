@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://dgn8l4uqfiiy2" path="res://Scripts/menu.gd" id="19_iw0w0"]
 [ext_resource type="Script" uid="uid://bxs2k8p4c7j51" path="res://Scenes/control.gd" id="19_pf8y3"]
 [ext_resource type="Texture2D" uid="uid://cyxddk2q47nyv" path="res://Textures/ba'al.png" id="20_pf8y3"]
-[ext_resource type="Script" path="res://Scenes/credits.gd" id="21_pf8y3"]
+[ext_resource type="Script" uid="uid://cmumdnyq8i07x" path="res://Scenes/credits.gd" id="21_pf8y3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnf6l"]
 properties/0/path = NodePath("head:position")

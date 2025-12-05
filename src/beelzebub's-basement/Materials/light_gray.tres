@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://ccqavdmtwdg0d"]
+
+[ext_resource type="Shader" uid="uid://bcahr5qafa6f1" path="res://Scripts/Shaders/ps1_shader.gdshader" id="1_61t3h"]
+
+[sub_resource type="Gradient" id="Gradient_61t3h"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qxmp2"]
+gradient = SubResource("Gradient_61t3h")
+fill_from = Vector2(0.2008547, 0.012820513)
+fill_to = Vector2(0.4871795, 0.012820513)
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_61t3h")
+shader_parameter/my_texture = SubResource("GradientTexture2D_qxmp2")
+shader_parameter/tint = Color(0.3032326, 0.3032329, 0.30323282, 1)
+shader_parameter/vertex_snap = true
+shader_parameter/do_affine_mapping = false
