@@ -1,12 +1,13 @@
 extends Control
 
 @export var healthbar:ProgressBar
-@export var baal:Node3D
+#@export var baal:Node3D
 @export var credits:CanvasLayer
 
-
+signal start_clicked
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	pass # Replace with function body.
 
 
@@ -17,8 +18,9 @@ func _ready() -> void:
 
 func _on_start_button_pressed() -> void:
 	set_visible(false)
-	healthbar.set_visible(true)
-	baal.set_visible(true)
+	start_clicked.emit()
+	#healthbar.set_visible(true)
+	#baal.set_visible(true)
 
 func _on_credits_button_pressed() -> void:
 	credits.set_visible(true)

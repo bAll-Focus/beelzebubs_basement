@@ -12,8 +12,9 @@ class_name Baal_AI
 
 @export var camera:Camera3D
 @export var ball:RigidBody3D
+@export var is_active = false
 
-const MAX_HEALTH = 100
+@export var max_health = 100
 const BURN_DEFAULT = 5
 var loop_counter = 0
 var damage
@@ -24,34 +25,58 @@ var burnCount
 var hit_sounds = []
 var audio_player
 
+var start_position:Vector3
+var start_rotation:Vector3
+
+signal ran_out_of_health
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	health = MAX_HEALTH
+	start_position = position
+	start_rotation = rotation
+	_initialize_baal()
+	
+func _prepare_baal_for_new_round() -> void:
+	_initialize_baal()
+	if multiplayer.is_server():
+		position = start_position
+		rotation = start_rotation
+
+func _initialize_baal() -> void:
+	health = max_health
 	#$"../Camera3D/Credits Menu".set_visible(false)
-	start_menu.set_visible(true)
+	#start_menu.set_visible(true)
 	healthbar._init_health(health)
-	healthbar.set_visible(false)
 	set_visible(false)
-	pause_menu.set_visible(false)
-	credits_menu.set_visible(false)
 	set_multiplayer_authority(1)
+	hit_sounds = []
 	hit_sounds.append(preload("res://audio/baal_hit_0.wav"))
 	hit_sounds.append(preload("res://audio/baal_hit_1.wav"))
 	hit_sounds.append(preload("res://audio/baal_hit_2.wav"))
 	audio_player = get_node("AudioStreamPlayer3D")
+	speedEffect = 1
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if(multiplayer.is_server()):
+	if(multiplayer.is_server()&&is_active):
 		loop_counter += delta*speedEffect
 		if(loop_counter >= 90):
 			loop_counter = -90
 		position.x = sin(loop_counter)*1.8
-		position.y = cos(4*loop_counter)/6
-		rotation.y = cos(loop_counter)/2
+		position.y = cos(4*loop_counter)/6 + start_position.y/2
+		rotation.y = cos(loop_counter)/2 + start_position.y/2
 		rotation.x = cos(loop_counter*2)/4
-	if(health <= 0 && visible):
-		set_visible(false)
+		if(health <= 0 && is_active):
+			ran_out_of_health.emit()
+			baal_died.rpc()
+			is_active = false
+
+
+@rpc
+func baal_died():
+	set_visible(false)
+	health = 0
+	is_active = false
 
 @rpc
 func update_healthbar(index):
@@ -64,7 +89,7 @@ func decrease_client_health(amount):
 	health -= amount
 
 func decrease_health(amount, index):
-	if(multiplayer.is_server()):
+	if(multiplayer.is_server()&&is_active):
 		health -= amount
 		decrease_client_health.rpc(amount) #guess we're doing it this way 
 		update_healthbar(index)
@@ -80,14 +105,6 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		index = ball.damageIndex
 		decrease_health(damage, index)
 		
-		#if camera:
-		#	camera.value -= 10
-		if(health <= 0):
-			set_visible(false)
-			#if camera:
-			#	var pm = camera.get_node("Pause Menu")
-			#	pm.set_visible(true)
-		
 		if index == 1:
 			speedEffect = 0.5
 			timerSlow.start()
@@ -97,26 +114,14 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 			speedEffect = 1
 			burnCount = BURN_DEFAULT
 			timerBurn.start()
-		
-		if(health <= 0):
-			set_visible(false)
-			pause_menu.set_visible(true)
 
 func restart() -> void:
-	pause_menu.set_visible(false)
-	health = MAX_HEALTH
-	#healthbar._init_health(health)
-	#healthbar.set_visible(true)
+	health = max_health
 	set_visible(true)
-	speedEffect = 1
 
 func _on_timer_timeout() -> void:
 	decrease_health(3,-1)
 	healthbar._set_health(health)
-	
-	if(health <= 0):
-			set_visible(false)
-			pause_menu.set_visible(true)
 	
 	if burnCount > 1:
 		burnCount -= 1
