@@ -26,17 +26,20 @@ var hit_sounds = []
 var audio_player
 
 var start_position:Vector3
+var start_rotation:Vector3
 
 signal ran_out_of_health
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	start_position = position
+	start_rotation = rotation
 	_initialize_baal()
 	
 func _prepare_baal_for_new_round() -> void:
 	_initialize_baal()
 	if multiplayer.is_server():
 		position = start_position
+		rotation = start_rotation
 
 func _initialize_baal() -> void:
 	health = max_health
@@ -60,8 +63,8 @@ func _process(delta: float) -> void:
 		if(loop_counter >= 90):
 			loop_counter = -90
 		position.x = sin(loop_counter)*1.8
-		position.y = cos(4*loop_counter)/6
-		rotation.y = cos(loop_counter)/2
+		position.y = cos(4*loop_counter)/6 + start_position.y/2
+		rotation.y = cos(loop_counter)/2 + start_position.y/2
 		rotation.x = cos(loop_counter*2)/4
 		if(health <= 0 && is_active):
 			ran_out_of_health.emit()

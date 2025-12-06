@@ -3,6 +3,8 @@ extends State
 @export var baal:Baal_AI
 @export var health_bar:ProgressBar
 @export var magic_manager:MagicManager
+@export var baal_hurt_lines:Array[String]
+@export var baal_combat_lines:Array[String]
 
 func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	state_machine = state_machine_node

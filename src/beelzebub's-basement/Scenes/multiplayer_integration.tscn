@@ -305,7 +305,6 @@ one_shot = true
 
 [node name="Ba\'al" parent="Dynamic Scene" node_paths=PackedStringArray("healthbar", "pause_menu", "start_menu", "credits_menu", "ball") instance=ExtResource("8_72egd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36648083, -2.8132806)
-health = 100
 healthbar = NodePath("../../Camera3D/Healthbar")
 pause_menu = NodePath("../../Camera3D/Pause Menu")
 start_menu = NodePath("../../Camera3D/Start Menu")
@@ -334,7 +333,7 @@ no_depth_test = true
 render_priority = 5
 outline_modulate = Color(1, 1, 1, 1)
 text = "Foolish mortal..."
-font_size = 40
+font_size = 35
 horizontal_alignment = 0
 vertical_alignment = 0
 autowrap_mode = 2
@@ -380,7 +379,7 @@ script = ExtResource("20_4qbkp")
 Baal = NodePath("../../../Dynamic Scene/Ba\'al")
 baal_text = NodePath("../../TextWriteoutManager/BaalText")
 thrower_text = NodePath("../../TextWriteoutManager/InstructText")
-baal_intro_lines = Array[String](["Yo.", "This is sample text.", "I'd hate to be hit with a ball."])
+baal_intro_lines = Array[String](["Yo.", "Cool necronomicon.", "Used it to ", "summon me, right?", "Well, ain't that something.", "The name's Ba'al.", "I happen to be a demon.", "Say, did you read -", "the fine print?", "It says:", "\"The summoned demon is -", "free to make any demand -", "- of their mortal summoner.\"", "Yes, well, see...", "I sorta want your soul.", "So, you are going to -", "join me in hell.", "My teleportation spell -", "is ready in two minutes.", "Say your goodbyes <3"])
 thrower_intro_lines = Array[String](["It seems your idiot friend has once again attempted to -", "summon a demon.", "Only, this time, they might have actually succeeded.", "Sort of worried for their well being if they are taken to hell -", "you decide on the optimal solution:", "violence.", "You have some conveniently placed cabbage to throw. ", "But you can't see the demon...", "Maybe your useless pal can make themselves useful...?"])
 
 [node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager")]
@@ -405,15 +404,15 @@ credits_menu = NodePath("../../../Camera3D/Credits Menu")
 script = ExtResource("25_j4v58")
 TextHolder = NodePath("../../../Dynamic Scene/Ba\'al/Baalbubbla")
 TextLabel = NodePath("../../../Dynamic Scene/Ba\'al/Baalbubbla/Label3D")
-seconds_per_character = 0.0
-wait_before_continue = 0.0
+seconds_per_character = 0.05
+wait_before_continue = 0.5
 
 [node name="InstructText" type="Node" parent="Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
 script = ExtResource("25_j4v58")
 TextHolder = NodePath("../../../Static Scene/ThrowerMonologue")
 TextLabel = NodePath("../../../Static Scene/ThrowerMonologue/Label3D")
-seconds_per_character = 0.0
-wait_before_continue = 0.0
+seconds_per_character = 0.05
+wait_before_continue = 0.5
 
 [node name="Position Markers" type="Node" parent="."]
 
