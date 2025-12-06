@@ -14,7 +14,7 @@ class_name Baal_AI
 @export var ball:RigidBody3D
 @export var is_active = false
 
-const MAX_HEALTH = 100
+@export var max_health = 100
 const BURN_DEFAULT = 5
 var loop_counter = 0
 var damage
@@ -39,7 +39,7 @@ func _prepare_baal_for_new_round() -> void:
 		position = start_position
 
 func _initialize_baal() -> void:
-	health = MAX_HEALTH
+	health = max_health
 	#$"../Camera3D/Credits Menu".set_visible(false)
 	#start_menu.set_visible(true)
 	healthbar._init_health(health)
@@ -66,6 +66,7 @@ func _process(delta: float) -> void:
 		if(health <= 0 && is_active):
 			ran_out_of_health.emit()
 			baal_died.rpc()
+			is_active = false
 
 
 @rpc
@@ -112,7 +113,7 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 			timerBurn.start()
 
 func restart() -> void:
-	health = MAX_HEALTH
+	health = max_health
 	set_visible(true)
 
 func _on_timer_timeout() -> void:

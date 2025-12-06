@@ -2,6 +2,7 @@ extends State
 
 @export var baal:Baal_AI
 @export var health_bar:ProgressBar
+@export var magic_manager:MagicManager
 
 func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	state_machine = state_machine_node
@@ -10,6 +11,7 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 		baal.set_multiplayer_authority(1)
 		baal.ran_out_of_health.connect(_baal_died)
 	health_bar.visible = false
+	magic_manager.is_active = false
 
 func _ran_out_of_time():
 	if multiplayer.is_server():
@@ -23,19 +25,23 @@ func _baal_died():
 
 func client_enter_state():
 	health_bar.visible = true
+	magic_manager.is_active = true
 	pass
 
 func server_enter_state():
 	baal.is_active = true
 	health_bar.visible = true
+	magic_manager.is_active = true
 	pass
 
 func server_exit_state():
 	health_bar.visible = false
+	magic_manager.is_active = false
 	pass
 
 func client_exit_state():
 	health_bar.visible = false
+	magic_manager.is_active = false
 	pass
 
 func server_state_update(_delta: float):

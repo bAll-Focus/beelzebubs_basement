@@ -1,6 +1,8 @@
 extends Node
 class_name MagicManager
 
+var is_active = false
+
 func set_up_magic_tracking(magic_tracker_holder) -> void: # Magic tracker holder is simply the VR player node.
 	if magic_tracker_holder == null:
 		magic_tracker_holder = $"Hittepåmagi"
@@ -13,7 +15,8 @@ func set_up_magic_tracking(magic_tracker_holder) -> void: # Magic tracker holder
 
 
 func cast_magic(i, j) -> void:
-	on_magic_cast.rpc(i, j)
+	if(is_active):
+		on_magic_cast.rpc(i, j)
 
 @rpc("any_peer")
 func on_magic_cast(m, t):

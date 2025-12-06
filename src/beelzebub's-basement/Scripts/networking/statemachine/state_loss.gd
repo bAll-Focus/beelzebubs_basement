@@ -13,6 +13,10 @@ func client_enter_state():
 	pass
 
 func server_enter_state():
+	await get_tree().create_timer(2).timeout
+	if multiplayer.is_server():
+		state_machine._change_state(1)
+		state_machine._change_state.rpc(1)
 	pass
 
 func _exit_state():

@@ -305,7 +305,7 @@ one_shot = true
 
 [node name="Ba\'al" parent="Dynamic Scene" node_paths=PackedStringArray("healthbar", "pause_menu", "start_menu", "credits_menu", "ball") instance=ExtResource("8_72egd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36648083, -2.8132806)
-health = 10
+health = 100
 healthbar = NodePath("../../Camera3D/Healthbar")
 pause_menu = NodePath("../../Camera3D/Pause Menu")
 start_menu = NodePath("../../Camera3D/Start Menu")
@@ -383,18 +383,21 @@ thrower_text = NodePath("../../TextWriteoutManager/InstructText")
 baal_intro_lines = Array[String](["Yo.", "This is sample text.", "I'd hate to be hit with a ball."])
 thrower_intro_lines = Array[String](["It seems your idiot friend has once again attempted to -", "summon a demon.", "Only, this time, they might have actually succeeded.", "Sort of worried for their well being if they are taken to hell -", "you decide on the optimal solution:", "violence.", "You have some conveniently placed cabbage to throw. ", "But you can't see the demon...", "Maybe your useless pal can make themselves useful...?"])
 
-[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar")]
+[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager")]
 script = ExtResource("21_30nck")
 baal = NodePath("../../../Dynamic Scene/Ba\'al")
 health_bar = NodePath("../../../Camera3D/Healthbar")
+magic_manager = NodePath("../../MagicManager")
 
 [node name="4_ Loss" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu")]
 script = ExtResource("22_30nck")
 pause_menu = NodePath("../../../Camera3D/Pause Menu")
 credits_menu = NodePath("../../../Camera3D/Credits Menu")
 
-[node name="5_ Win" type="Node" parent="Network Manager/StateMachine"]
+[node name="5_ Win" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu")]
 script = ExtResource("23_px6hx")
+pause_menu = NodePath("../../../Camera3D/Pause Menu")
+credits_menu = NodePath("../../../Camera3D/Credits Menu")
 
 [node name="TextWriteoutManager" type="Node" parent="Network Manager"]
 
@@ -402,15 +405,15 @@ script = ExtResource("23_px6hx")
 script = ExtResource("25_j4v58")
 TextHolder = NodePath("../../../Dynamic Scene/Ba\'al/Baalbubbla")
 TextLabel = NodePath("../../../Dynamic Scene/Ba\'al/Baalbubbla/Label3D")
-seconds_per_character = 0.06
-wait_before_continue = 1.5
+seconds_per_character = 0.0
+wait_before_continue = 0.0
 
 [node name="InstructText" type="Node" parent="Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
 script = ExtResource("25_j4v58")
 TextHolder = NodePath("../../../Static Scene/ThrowerMonologue")
 TextLabel = NodePath("../../../Static Scene/ThrowerMonologue/Label3D")
-seconds_per_character = 0.06
-wait_before_continue = 1.5
+seconds_per_character = 0.0
+wait_before_continue = 0.0
 
 [node name="Position Markers" type="Node" parent="."]
 
