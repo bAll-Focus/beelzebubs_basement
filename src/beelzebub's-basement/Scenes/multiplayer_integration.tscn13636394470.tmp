@@ -198,18 +198,16 @@ size = Vector3(17.534302, 0.609375, 16.0719)
 
 [node name="ThrowerMonologue" type="Sprite3D" parent="Static Scene"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.0024225414, 0.96868324, -1.6935592)
-visible = false
 no_depth_test = true
 texture_filter = 0
 texture = ExtResource("2_a8jg6")
 
 [node name="Label3D" type="Label3D" parent="Static Scene/ThrowerMonologue"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.81570864, 0.3267693, 0.075806856)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021497339, 0.3267693, 0.075806856)
 no_depth_test = true
 render_priority = 5
 modulate = Color(0, 0, 0, 1)
 font_size = 30
-horizontal_alignment = 0
 vertical_alignment = 0
 autowrap_mode = 2
 width = 333.905
@@ -324,26 +322,27 @@ one_shot = true
 
 [node name="Baalbubbla" type="Sprite3D" parent="Dynamic Scene/Ba\'al"]
 transform = Transform3D(1, 0, 0, 0, 0.98737514, 0.15839934, 0, -0.15839934, 0.98737514, 0.0024225414, 0.044695616, 0.7482445)
+visible = false
 no_depth_test = true
 texture_filter = 0
 texture = ExtResource("12_px6hx")
 
 [node name="Label3D" type="Label3D" parent="Dynamic Scene/Ba\'al/Baalbubbla"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85993433, 0.26, 1.1920929e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021497339, 0.26027954, 0.07580674)
 no_depth_test = true
 render_priority = 5
 outline_modulate = Color(1, 1, 1, 1)
 text = "Foolish mortal..."
 font_size = 40
-horizontal_alignment = 0
 vertical_alignment = 0
 autowrap_mode = 2
-width = 326.14
+width = 333.905
 
-[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager", "state_manager")]
+[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager", "baal_manager", "state_manager")]
 script = ExtResource("1_p5c6l")
 role_manager = NodePath("RoleManager")
 magic_manager = NodePath("MagicManager")
+baal_manager = NodePath("")
 state_manager = NodePath("StateMachine")
 debug = true
 
@@ -383,15 +382,12 @@ thrower_text = NodePath("../../TextWriteoutManager/InstructText")
 baal_intro_lines = Array[String](["Yo.", "This is sample text.", "I'd hate to be hit with a ball."])
 thrower_intro_lines = Array[String](["It seems your idiot friend has once again attempted to -", "summon a demon.", "Only, this time, they might have actually succeeded.", "Sort of worried for their well being if they are taken to hell -", "you decide on the optimal solution:", "violence.", "You have some conveniently placed cabbage to throw. ", "But you can't see the demon...", "Maybe your useless pal can make themselves useful...?"])
 
-[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar")]
+[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal")]
 script = ExtResource("21_30nck")
 baal = NodePath("../../../Dynamic Scene/Ba\'al")
-health_bar = NodePath("../../../Camera3D/Healthbar")
 
-[node name="4_ Loss" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu")]
+[node name="4_ Loss" type="Node" parent="Network Manager/StateMachine"]
 script = ExtResource("22_30nck")
-pause_menu = NodePath("../../../Camera3D/Pause Menu")
-credits_menu = NodePath("../../../Camera3D/Credits Menu")
 
 [node name="5_ Win" type="Node" parent="Network Manager/StateMachine"]
 script = ExtResource("23_px6hx")
@@ -402,15 +398,15 @@ script = ExtResource("23_px6hx")
 script = ExtResource("25_j4v58")
 TextHolder = NodePath("../../../Dynamic Scene/Ba\'al/Baalbubbla")
 TextLabel = NodePath("../../../Dynamic Scene/Ba\'al/Baalbubbla/Label3D")
-seconds_per_character = 0.06
-wait_before_continue = 1.5
+seconds_per_character = 0.045
+wait_before_continue = 3.0
 
 [node name="InstructText" type="Node" parent="Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
 script = ExtResource("25_j4v58")
 TextHolder = NodePath("../../../Static Scene/ThrowerMonologue")
 TextLabel = NodePath("../../../Static Scene/ThrowerMonologue/Label3D")
-seconds_per_character = 0.06
-wait_before_continue = 1.5
+seconds_per_character = 0.045
+wait_before_continue = 3.0
 
 [node name="Position Markers" type="Node" parent="."]
 

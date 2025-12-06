@@ -37,9 +37,8 @@ func client_enter_state():
 func finished_baal_intro ():
 	client_done = true
 
-
 func server_enter_state():
-	print("SERVER STARTED INTRO")
+	Baal._prepare_baal_for_new_round()
 	await thrower_text.write_text_set(thrower_intro_lines)
 	server_done = true
 
