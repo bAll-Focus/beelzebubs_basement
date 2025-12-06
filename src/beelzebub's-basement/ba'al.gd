@@ -12,6 +12,7 @@ class_name Baal_AI
 
 @export var camera:Camera3D
 @export var ball:RigidBody3D
+@export var can_move = false
 
 const MAX_HEALTH = 100
 const BURN_DEFAULT = 5
@@ -42,7 +43,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if(multiplayer.is_server()):
+	if(multiplayer.is_server()&&can_move):
 		loop_counter += delta*speedEffect
 		if(loop_counter >= 90):
 			loop_counter = -90

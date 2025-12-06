@@ -7,6 +7,7 @@ var peer : ENetMultiplayerPeer
 @export var role_manager: RoleManager
 @export var magic_manager: MagicManager
 @export var baal_manager: BaalManager
+@export var state_manager: NetworkStateMachine
 @export var server_mode: bool = false
 @export var debug = false
 @export var use_vr = false
@@ -23,7 +24,7 @@ func _on_peer_connected(peer_id: int):
 		role_manager.initialize_roles(false)
 		var vr_player = role_manager.VR_player if use_vr else null
 		magic_manager.set_up_magic_tracking(vr_player)
-		
+	state_manager._connected()
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
