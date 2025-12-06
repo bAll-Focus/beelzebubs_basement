@@ -36,6 +36,7 @@ func _ready() -> void:
 	_initialize_baal()
 	
 func _prepare_baal_for_new_round() -> void:
+	is_active = false
 	_initialize_baal()
 	if multiplayer.is_server():
 		position = start_position
@@ -77,6 +78,7 @@ func baal_died():
 	set_visible(false)
 	health = 0
 	is_active = false
+
 
 @rpc
 func update_healthbar(index):
