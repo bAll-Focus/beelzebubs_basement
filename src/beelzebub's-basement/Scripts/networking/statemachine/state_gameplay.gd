@@ -6,6 +6,7 @@ extends State
 @export var baal_hurt_lines:Array[String]
 @export var baal_combat_lines:Array[String]
 @export var game_timer:Timer
+@export var throw_manager = Node
 
 func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	state_machine = state_machine_node
@@ -16,6 +17,7 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	health_bar.visible = false
 	magic_manager.is_active = false
 	game_timer.timeout.connect(_ran_out_of_time)
+	throw_manager.is_active = false
 
 func _ran_out_of_time():
 	if multiplayer.is_server():
@@ -31,12 +33,14 @@ func _baal_died():
 func client_enter_state():
 	health_bar.visible = true
 	magic_manager.is_active = true
+	throw_manager.is_active = true
 	pass
 
 func server_enter_state():
 	baal.is_active = true
 	health_bar.visible = true
 	magic_manager.is_active = true
+	throw_manager.is_active = true
 	game_timer.start()
 	pass
 

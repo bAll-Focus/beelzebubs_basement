@@ -328,12 +328,12 @@ texture_filter = 0
 texture = ExtResource("12_px6hx")
 
 [node name="Label3D" type="Label3D" parent="Dynamic Scene/Ba\'al/Baalbubbla"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85993433, 0.26, 1.1920929e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85993433, 0.31105292, 0.008190274)
 no_depth_test = true
+texture_filter = 2
 render_priority = 5
 outline_modulate = Color(1, 1, 1, 1)
 text = "Foolish mortal..."
-font_size = 35
 horizontal_alignment = 0
 vertical_alignment = 0
 autowrap_mode = 2
@@ -379,15 +379,16 @@ script = ExtResource("20_4qbkp")
 Baal = NodePath("../../../Dynamic Scene/Ba\'al")
 baal_text = NodePath("../../TextWriteoutManager/BaalText")
 thrower_text = NodePath("../../TextWriteoutManager/InstructText")
-baal_intro_lines = Array[String](["Yo.", "Cool necronomicon.", "Used it to ", "summon me, right?", "Well, ain't that something.", "The name's Ba'al.", "I happen to be a demon.", "Say, did you read -", "the fine print?", "It says:", "\"The summoned demon is -", "free to make any demand -", "- of their mortal summoner.\"", "Yes, well, see...", "I sorta want your soul.", "So, you are going to -", "join me in hell.", "My teleportation spell -", "is ready in two minutes.", "Say your goodbyes <3"])
+baal_intro_lines = Array[String](["Yo.", "Cool necronomicon.", "Used it to summon me, right?", "Well, ain't that something.", "The name's Ba'al.", "I happen to be a demon.", "Say, did you read the fine print?", "It says:", "\"The summoned demon is -", "free to make any demand -", "- of their mortal summoner.\"", "Yes, well, see...", "I sorta want your soul.", "So, you are going to join me in hell.", "", "My teleportation spell -", "is ready in two minutes.", "Say your goodbyes <3"])
 thrower_intro_lines = Array[String](["It seems your idiot friend has once again attempted to -", "summon a demon.", "Only, this time, they might have actually succeeded.", "Sort of worried for their well being if they are taken to hell -", "you decide on the optimal solution:", "violence.", "You have some conveniently placed cabbage to throw. ", "But you can't see the demon...", "Maybe your useless pal can make themselves useful...?"])
 
-[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager", "game_timer")]
+[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager", "game_timer", "throw_manager")]
 script = ExtResource("21_30nck")
 baal = NodePath("../../../Dynamic Scene/Ba\'al")
 health_bar = NodePath("../../../Camera3D/Healthbar")
 magic_manager = NodePath("../../MagicManager")
 game_timer = NodePath("Timer")
+throw_manager = NodePath("../../../Dynamic Scene/BallDetection")
 
 [node name="Timer" type="Timer" parent="Network Manager/StateMachine/3_ Gameplay"]
 wait_time = 120.0

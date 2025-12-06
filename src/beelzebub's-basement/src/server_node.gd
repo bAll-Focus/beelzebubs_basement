@@ -22,6 +22,7 @@ var time_out = false
 var time_out_timer
 var server_throwing_ball = false
 
+var is_active = false
 
 func _ready():
 	server.listen(5005)
@@ -66,7 +67,7 @@ func _process(delta):
 		peers.append(peer)
 
 func _physics_process(delta):
-	if throwing_ball and multiplayer.is_server():
+	if throwing_ball and multiplayer.is_server() && is_active:
 		throw_ball_mouse()
 		throw_ball_mouse.rpc()
 		throwing_ball = false
@@ -86,9 +87,10 @@ func _physics_process(delta):
 						"y": force_vector.y = int(data[1])/2
 						"z": pass
 				print(force_vector)
-				set_force(force_vector)
-				throw_ball()
-				throw_ball.rpc()
+				if is_active:
+					set_force(force_vector)
+					throw_ball()
+					throw_ball.rpc()
 				
 
 
