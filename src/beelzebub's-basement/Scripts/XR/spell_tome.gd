@@ -21,8 +21,16 @@ var _book_model : Node3D
 # Exported properties
 @export_group("Visual")
 @export var pose_indicator_scene : PackedScene
+@export var use_pose_images : bool = true
+@export var pose_image_paths : Dictionary = {
+	"metal": "res://textures/poses/metal.png",
+	"point": "res://textures/poses/point.png",
+	"thumbs_up": "res://textures/poses/thumbs_up.png",
+	"peace_sign": "res://textures/poses/peace_sign.png",
+}
 @export var inactive_color : Color = Color(0.141, 0.145, 0.146, 1.0)
 @export var active_color : Color = Color(0.0, 0.719, 0.128, 1.0)  # Green for active/completed
+@export var image_scale : float = 0.04  # Size of pose images
 
 @export_group("Book")
 @export var book_model_path : NodePath = NodePath("Book")
@@ -311,44 +319,78 @@ func _create_pose_indicator(pose_name: String, index: int, total: int) -> Node3D
 	var indicator = Node3D.new()
 	indicator.name = "Pose_" + pose_name + "_" + str(index)
 	
-	# Create a simple box mesh as placeholder
-	var mesh_instance = MeshInstance3D.new()
-	var mesh = BoxMesh.new()
-	mesh.size = Vector3(0.04, 0.04, 0.01)  # Smaller boxes for tighter layout
-	mesh_instance.mesh = mesh
-	
-	# Create material
-	var material = StandardMaterial3D.new()
-	material.albedo_color = inactive_color
-	material.emission_enabled = true
-	material.emission = inactive_color
-	material.emission_energy_multiplier = 2.0
-	mesh_instance.material_override = material
-	
-	indicator.add_child(mesh_instance)
-	
-	# Create a label to show pose name (using Label3D if available, otherwise just store name)
-	# Note: Label3D requires Godot 4.2+, using a simple approach here
-	# You can replace this with Label3D or Sprite3D with text texture
+	if use_pose_images and pose_image_paths.has(pose_name):
+		# Use Sprite3D with pose image
+		var sprite = Sprite3D.new()
+		var image_path = pose_image_paths[pose_name]
+		
+		# Try to load the texture
+		var texture = load(image_path) as Texture2D
+		if texture:
+			sprite.texture = texture
+			sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED  # Keep fixed orientation
+			sprite.pixel_size = image_scale / texture.get_width()  # Scale based on texture size
+			sprite.modulate = inactive_color  # Start with inactive color
+			indicator.add_child(sprite)
+			
+			# Store reference for color tinting
+			indicator.set_meta("sprite", sprite)
+		else:
+			print("SpellTome: Warning - Could not load pose image: ", image_path)
+			# Fallback to box
+			_create_box_indicator(indicator, inactive_color)
+	else:
+		# Use box mesh as fallback
+		_create_box_indicator(indicator, inactive_color)
 	
 	# Position indicator horizontally along the page
 	# Since book is rotated -90 degrees on X, X axis is now horizontal on the page
 	var offset = (index - (total - 1) / 2.0) * pose_spacing
-	indicator.position = Vector3(offset, 0, 0.03)  # Raised above page surface to prevent clipping
+	indicator.position = Vector3(offset, 0, 0.05)  # Raised above page surface to prevent clipping
 	
 	# Store pose name and visual reference for reference
 	indicator.set_meta("pose_name", pose_name)
 	indicator.set_meta("pose_index", index)
-	indicator.set_meta("mesh_instance", mesh_instance)
 	
 	return indicator
+
+
+func _create_box_indicator(indicator: Node3D, color: Color) -> void:
+	# Create a simple box mesh as placeholder
+	var mesh_instance = MeshInstance3D.new()
+	var mesh = BoxMesh.new()
+	mesh.size = Vector3(0.04, 0.04, 0.02)  # Smaller boxes for tighter layout
+	mesh_instance.mesh = mesh
+	
+	# Create material
+	var material = StandardMaterial3D.new()
+	material.albedo_color = color
+	material.emission_enabled = true
+	material.emission = color
+	material.emission_energy_multiplier = 2.0
+	mesh_instance.material_override = material
+	
+	indicator.add_child(mesh_instance)
+	indicator.set_meta("mesh_instance", mesh_instance)
 
 
 func _set_indicator_color(indicator: Node3D, color: Color) -> void:
 	if not is_instance_valid(indicator):
 		return
 	
-	# Get the mesh instance from metadata or find it
+	# Check if using sprite (pose images)
+	var sprite = indicator.get_meta("sprite", null)
+	if sprite and sprite is Sprite3D:
+		# For sprites, show image as-is when inactive, bright/green when active
+		if color == active_color:
+			# Active - bright and green tinted
+			sprite.modulate = active_color * 1.5
+		else:
+			# Inactive - regular PNG
+			sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Full color, no tinting
+		return
+	
+	# Otherwise, use box mesh material
 	var mesh_instance = indicator.get_meta("mesh_instance", null)
 	if not mesh_instance:
 		# Try to find MeshInstance3D child

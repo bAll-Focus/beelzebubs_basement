@@ -762,7 +762,6 @@ tracker = &"/user/hand_pose_controller/right"
 
 [node name="SpellTome" parent="." instance=ExtResource("32_e173h")]
 transform = Transform3D(1, 0, 0, 0, 0.6739801, -0.7387495, 0, 0.7387495, 0.6739801, -0.005336374, 1.5126946, -0.46169174)
-pose_spacing = 0.07
 
 [connection signal="timeout" from="Dynamic Scene/BallDetection/Timer" to="Dynamic Scene/BallDetection" method="_on_timer_timeout"]
 [connection signal="timeout" from="Camera3D/Healthbar/Timer" to="Camera3D/Healthbar" method="_on_timer_timeout"]
