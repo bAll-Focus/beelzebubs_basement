@@ -5,6 +5,5 @@
 
 [node name="SpellTome" type="Node3D"]
 script = ExtResource("1_spell_tome")
-pose_spacing = 0.13
 
 [node name="Book" parent="." instance=ExtResource("2_book")]

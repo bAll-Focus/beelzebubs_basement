@@ -30,7 +30,7 @@ var _book_model : Node3D
 
 @export_group("Layout")
 @export var spell_spacing : float = 0.15
-@export var pose_spacing : float = 0.03
+@export var pose_spacing : float = 0.07
 
 # Page positions for each spell (relative to book or world space)
 # These can be set in the inspector or calculated automatically
