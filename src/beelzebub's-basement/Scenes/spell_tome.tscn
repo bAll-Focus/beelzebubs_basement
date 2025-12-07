@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cypsqtlu7qojp"]
-
-[ext_resource type="PackedScene" uid="uid://bv6ib52t4lvor" path="res://Models/book.glb" id="1_hfs1f"]
-
-[node name="Node3D" type="Node3D"]
-
-[node name="book" parent="." instance=ExtResource("1_hfs1f")]

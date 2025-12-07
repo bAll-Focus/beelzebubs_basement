@@ -15,20 +15,41 @@ var _spell_data : Dictionary[String, Dictionary] = {}
 # Dictionary to store pose indicators: spell_name -> [Array of Node3D indicators]
 var _pose_indicators : Dictionary[String, Array] = {}
 
+# Reference to book model
+var _book_model : Node3D
+
 # Exported properties
 @export_group("Visual")
 @export var pose_indicator_scene : PackedScene
 @export var inactive_color : Color = Color(0.141, 0.145, 0.146, 1.0)
 @export var active_color : Color = Color(0.0, 0.719, 0.128, 1.0)  # Green for active/completed
 
+@export_group("Book")
+@export var book_model_path : NodePath = NodePath("Book")
+@export var use_book_relative_positioning : bool = true
+
 @export_group("Layout")
-@export var spell_spacing : float = 0.4
-@export var pose_spacing : float = 0.3
+@export var spell_spacing : float = 0.15
+@export var pose_spacing : float = 0.03
+
+# Page positions for each spell (relative to book or world space)
+# These can be set in the inspector or calculated automatically
+@export_group("Page Positions")
+@export var left_page_center : Vector3 = Vector3(-0.12, 0, 0.01)
+@export var right_page_center : Vector3 = Vector3(0.12, 0, 0.01)
+@export var left_page_spell_positions : Array[Vector3] = []
+@export var right_page_spell_positions : Array[Vector3] = []
 
 
 func _ready() -> void:
+	# Find book model
+	_find_book_model()
+	
 	# Get spell definitions from the spell detector script
 	_load_spell_definitions()
+	
+	# Initialize page positions if not set
+	_init_page_positions()
 	
 	# Find all spell detectors in the scene and connect to them
 	_connect_to_spell_detectors()
@@ -167,6 +188,85 @@ func _update_spell_indicators(spell_name: String, current_index: int, completed:
 			_set_indicator_color(indicator, inactive_color)
 
 
+func _find_book_model() -> void:
+	if book_model_path and has_node(book_model_path):
+		_book_model = get_node(book_model_path)
+		print("SpellTome: Found book model at ", book_model_path)
+	else:
+		# Try to find book by name
+		_book_model = _find_node_by_name(self, "Book")
+		if _book_model:
+			print("SpellTome: Found book model by name")
+		else:
+			print("SpellTome: Warning - No book model found. Using world space positioning.")
+
+
+func _find_node_by_name(node: Node, name: String) -> Node:
+	if node.name == name:
+		return node
+	for child in node.get_children():
+		var result = _find_node_by_name(child, name)
+		if result:
+			return result
+	return null
+
+
+func _init_page_positions() -> void:
+	# If positions not set, calculate them automatically
+	if left_page_spell_positions.is_empty() or right_page_spell_positions.is_empty():
+		var left_spells = []
+		var right_spells = []
+		
+		# Separate spells by hand
+		for spell_name in _spell_data.keys():
+			var hand = _spell_data[spell_name]["hand"]
+			if hand == "left":
+				left_spells.append(spell_name)
+			else:
+				right_spells.append(spell_name)
+		
+		# Calculate positions for left page (left hand spells)
+		# Book is lying flat, so use Z axis for vertical spacing (up/down on the page)
+		left_page_spell_positions.clear()
+		for i in range(left_spells.size()):
+			var z_offset = (left_spells.size() - 1 - i) * spell_spacing - (left_spells.size() - 1) * spell_spacing / 2.0
+			left_page_spell_positions.append(left_page_center + Vector3(0, 0, z_offset))
+		
+		# Calculate positions for right page (right hand spells)
+		right_page_spell_positions.clear()
+		for i in range(right_spells.size()):
+			var z_offset = (right_spells.size() - 1 - i) * spell_spacing - (right_spells.size() - 1) * spell_spacing / 2.0
+			right_page_spell_positions.append(right_page_center + Vector3(0, 0, z_offset))
+
+
+func _get_spell_page_position(spell_name: String) -> Vector3:
+	var hand = _spell_data[spell_name]["hand"]
+	var spell_list = []
+	var positions_list : Array[Vector3] = []
+	
+	if hand == "left":
+		spell_list = []
+		for s in _spell_data.keys():
+			if _spell_data[s]["hand"] == "left":
+				spell_list.append(s)
+		positions_list = left_page_spell_positions
+	else:
+		spell_list = []
+		for s in _spell_data.keys():
+			if _spell_data[s]["hand"] == "right":
+				spell_list.append(s)
+		positions_list = right_page_spell_positions
+	
+	var index = spell_list.find(spell_name)
+	if index >= 0 and index < positions_list.size():
+		return positions_list[index]
+	
+	# Fallback to calculated position (book is flat, use Z axis)
+	var spell_index = _spell_data.keys().find(spell_name)
+	var z_offset = -spell_index * spell_spacing
+	return Vector3(0, 0, z_offset)
+
+
 func _create_spell_indicators(spell_name: String, sequence: Array) -> void:
 	# Skip if indicators already exist
 	if _pose_indicators.has(spell_name):
@@ -176,12 +276,20 @@ func _create_spell_indicators(spell_name: String, sequence: Array) -> void:
 	var spell_container = Node3D.new()
 	spell_container.name = spell_name + "_indicators"
 	
-	# Position spell containers vertically
-	var spell_index = _spell_data.keys().find(spell_name)
-	var y_offset = -spell_index * spell_spacing
-	spell_container.position = Vector3(0, y_offset, 0)
+	# Position spell containers on the appropriate page
+	var page_position = _get_spell_page_position(spell_name)
 	
-	add_child(spell_container)
+	if use_book_relative_positioning and _book_model:
+		# Position relative to book model
+		# Book is lying flat, so rotate container to match book's orientation
+		spell_container.position = page_position
+		# Rotate 90 degrees around X axis to align with flat book (pages face up)
+		spell_container.rotation_degrees = Vector3(-90, 0, 0)
+		_book_model.add_child(spell_container)
+	else:
+		# Position in world space (fallback)
+		spell_container.position = page_position
+		add_child(spell_container)
 	
 	# Create a label for the spell name (using a simple approach)
 	# You can enhance this with Label3D or other 3D text solutions
@@ -206,7 +314,7 @@ func _create_pose_indicator(pose_name: String, index: int, total: int) -> Node3D
 	# Create a simple box mesh as placeholder
 	var mesh_instance = MeshInstance3D.new()
 	var mesh = BoxMesh.new()
-	mesh.size = Vector3(0.12, 0.12, 0.02)  # Slightly smaller to prevent overlap
+	mesh.size = Vector3(0.04, 0.04, 0.01)  # Smaller boxes for tighter layout
 	mesh_instance.mesh = mesh
 	
 	# Create material
@@ -223,9 +331,10 @@ func _create_pose_indicator(pose_name: String, index: int, total: int) -> Node3D
 	# Note: Label3D requires Godot 4.2+, using a simple approach here
 	# You can replace this with Label3D or Sprite3D with text texture
 	
-	# Position indicator
+	# Position indicator horizontally along the page
+	# Since book is rotated -90 degrees on X, X axis is now horizontal on the page
 	var offset = (index - (total - 1) / 2.0) * pose_spacing
-	indicator.position = Vector3(offset, 0, 0)
+	indicator.position = Vector3(offset, 0, 0.03)  # Raised above page surface to prevent clipping
 	
 	# Store pose name and visual reference for reference
 	indicator.set_meta("pose_name", pose_name)
