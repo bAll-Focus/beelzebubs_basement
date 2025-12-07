@@ -39,6 +39,10 @@ var _book_model : Node3D
 @export_group("Layout")
 @export var spell_spacing : float = 0.15
 @export var pose_spacing : float = 0.07
+@export var header_text_size : float = 0.0012  # Size of page header text
+@export var spell_name_text_size : float = 0.001  # Size of spell name text
+@export var header_offset : float = 0.12  # Distance above top spell row
+@export var spell_name_offset : float = -0.08  # Distance below spell sequence
 
 # Page positions for each spell (relative to book or world space)
 # These can be set in the inspector or calculated automatically
@@ -114,6 +118,10 @@ func _find_spell_detectors(node: Node) -> Array:
 
 
 func _init_spell_progress() -> void:
+	# Create page headers first
+	_create_page_headers()
+	
+	# Initialize progress tracking for each spell
 	for spell_name in _spell_data.keys():
 		_spell_progress[spell_name] = 0
 		# Create indicators for all spells upfront so they're visible
@@ -299,9 +307,6 @@ func _create_spell_indicators(spell_name: String, sequence: Array) -> void:
 		spell_container.position = page_position
 		add_child(spell_container)
 	
-	# Create a label for the spell name (using a simple approach)
-	# You can enhance this with Label3D or other 3D text solutions
-	
 	var indicators : Array = []
 	
 	# Create an indicator for each pose in the sequence
@@ -311,7 +316,61 @@ func _create_spell_indicators(spell_name: String, sequence: Array) -> void:
 		spell_container.add_child(indicator)
 		indicators.append(indicator)
 	
+	# Create spell name label below the sequence
+	var spell_name_label = _create_text_label(spell_name, spell_name_text_size)
+	spell_name_label.position = Vector3(0, spell_name_offset, 0.035)  # Below the sequence, raised above page
+	spell_container.add_child(spell_name_label)
+	
 	_pose_indicators[spell_name] = indicators
+
+
+func _create_text_label(text: String, text_size: float) -> Label3D:
+	# Create a Label3D node for 3D text
+	var label = Label3D.new()
+	label.text = text
+	label.font_size = int(text_size * 200000)  # Convert to font size (increased multiplier for larger text)
+	label.billboard = BaseMaterial3D.BILLBOARD_DISABLED  # Keep fixed orientation
+	label.no_depth_test = true  # Always visible
+	label.modulate = Color(0, 0, 0, 1)  # Black text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR  # Smooth text rendering
+	label.pixel_size = 0.0001  # Small pixel size for crisp text
+	return label
+
+
+func _create_page_headers() -> void:
+	if not use_book_relative_positioning or not _book_model:
+		return
+	
+	# Get lists of spells for each hand
+	var left_spells : Array = []
+	var right_spells : Array = []
+	
+	for spell_name in _spell_data.keys():
+		var hand = _spell_data[spell_name]["hand"]
+		if hand == "left":
+			left_spells.append(spell_name)
+		else:
+			right_spells.append(spell_name)
+	
+	# Calculate header positions (above the top spell row)
+	# Headers should be positioned above the highest spell on each page
+	var header_z_offset = header_offset + (max(left_spells.size(), right_spells.size()) - 1) * spell_spacing / 2.0
+	
+	# Create left page header
+	if left_spells.size() > 0:
+		var left_header = _create_text_label("Left Handed Spells", header_text_size)
+		left_header.position = left_page_center + Vector3(0, 0, -header_z_offset) + Vector3(-0.01, 0.03, 0.02)  # Raised above page
+		left_header.rotation_degrees = Vector3(-90, 0, 0)  # Align with book pages
+		_book_model.add_child(left_header)
+	
+	# Create right page header
+	if right_spells.size() > 0:
+		var right_header = _create_text_label("Right Handed Spells", header_text_size)
+		right_header.position = right_page_center + Vector3(0, 0, -header_z_offset) + Vector3(0.01, 0.03, 0.02)  # Raised above page
+		right_header.rotation_degrees = Vector3(-90, 0, 0)  # Align with book pages
+		_book_model.add_child(right_header)
 
 
 func _create_pose_indicator(pose_name: String, index: int, total: int) -> Node3D:
@@ -356,7 +415,7 @@ func _create_pose_indicator(pose_name: String, index: int, total: int) -> Node3D
 	# Position indicator horizontally along the page
 	# Since book is rotated -90 degrees on X, X axis is now horizontal on the page
 	var offset = (index - (total - 1) / 2.0) * pose_spacing
-	indicator.position = Vector3(offset, 0, 0.05)  # Raised above page surface to prevent clipping
+	indicator.position = Vector3(offset, 0, 0.035)  # Raised above page surface to prevent clipping
 	
 	# Store pose name and visual reference for reference
 	indicator.set_meta("pose_name", pose_name)
