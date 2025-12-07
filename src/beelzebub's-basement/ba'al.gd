@@ -71,6 +71,9 @@ func _process(delta: float) -> void:
 			ran_out_of_health.emit()
 			baal_died.rpc()
 			is_active = false
+	elif(multiplayer.is_server()):
+		position.y = sin(Time.get_ticks_msec()/500.0)/10 + start_position.y
+		rotation.x = sin(Time.get_ticks_msec()/1000.0)/10
 
 
 @rpc

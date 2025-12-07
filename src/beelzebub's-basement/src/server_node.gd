@@ -71,6 +71,8 @@ func _physics_process(delta):
 		throw_ball_mouse()
 		throw_ball_mouse.rpc()
 		throwing_ball = false
+	else:
+		reset_ball()
 		
 	if(peers.size() > 0):
 		for i in range(0, peers.size()):
