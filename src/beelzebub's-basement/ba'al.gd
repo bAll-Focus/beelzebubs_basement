@@ -7,8 +7,9 @@ class_name Baal_AI
 @export var pause_menu:CanvasLayer
 @export var start_menu:CanvasLayer
 @export var credits_menu:CanvasLayer
-@onready var timerBurn = $TimerBurn
-@onready var timerSlow = $TimerSlow
+@onready var timerBurn:Timer = $TimerBurn
+@onready var timerSlow:Timer = $TimerSlow
+@onready var timerReveal:Timer = $TimerVisible
 
 @export var camera:Camera3D
 @export var ball:RigidBody3D
@@ -33,6 +34,7 @@ signal ran_out_of_health
 func _ready() -> void:
 	start_position = position
 	start_rotation = rotation
+	timerReveal.timeout.connect(on_reveal_ended)
 	_initialize_baal()
 	
 func _prepare_baal_for_new_round() -> void:
@@ -72,10 +74,26 @@ func _process(delta: float) -> void:
 			baal_died.rpc()
 			is_active = false
 	elif(multiplayer.is_server()):
+		position.x = start_position.x
+		rotation.y = start_rotation.y
 		position.y = sin(Time.get_ticks_msec()/500.0)/10 + start_position.y
 		rotation.x = sin(Time.get_ticks_msec()/1000.0)/10
 
-
+@rpc
+func reveal_spell():
+	if multiplayer.is_server():
+		reveal_spell.rpc() #call the client version to do something
+		timerReveal.start()
+		visible = true
+	else:
+		pass
+@rpc
+func on_reveal_ended():
+	if multiplayer.is_server(): 
+		on_reveal_ended.rpc() #call the client version to do something
+		visible = false
+	else:
+		pass
 @rpc
 func baal_died():
 	set_visible(false)
@@ -83,6 +101,10 @@ func baal_died():
 	is_active = false
 
 
+
+
+#There are a few inconsistensies here that I would like to address, given the time
+#However, the script works, so this is a certified "If I have time"-moment
 @rpc
 func update_healthbar(index):
 	healthbar._set_health(health)

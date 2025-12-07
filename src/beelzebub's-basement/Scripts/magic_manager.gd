@@ -4,6 +4,11 @@ class_name MagicManager
 var is_active = false
 var spell_effects:Array[GPUParticles3D]
 
+signal revealed_demon
+signal fireball_set
+signal iceball_set
+signal slowed_demon
+
 func set_up_magic_tracking(magic_tracker_holder) -> void: # Magic tracker holder is simply the VR player node.
 	if magic_tracker_holder == null:
 		magic_tracker_holder = $"Hittepåmagi"
@@ -24,13 +29,25 @@ func on_magic_cast(spell, hand):
 		print("SHADOW WIZARD MONEY GANG, WE LOVE CASTING SPELLS (", spell, ":", hand, ")")
 		match spell:
 			"reveal_demon":
-				pass
-			"slow_demon":
-				pass
+				reveal_demon()
+			"slow_demon": #Do we need this? Why do we have ice then?
+				slow_demon()
 			"empower_throw_fire":
-				pass
+				set_ball_on_fire()
 			"empower_throw_ice":
-				pass
+				set_ball_on_ice()
+
+func reveal_demon():
+	revealed_demon.emit()
+
+func slow_demon():
+	slowed_demon.emit()
+
+func set_ball_on_fire():
+	fireball_set.emit()
+
+func set_ball_on_ice():
+	iceball_set.emit()
 
 @rpc
 func set_ball_spell(spell_type:int):

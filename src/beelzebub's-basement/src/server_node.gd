@@ -67,12 +67,10 @@ func _process(delta):
 		peers.append(peer)
 
 func _physics_process(delta):
-	if throwing_ball and multiplayer.is_server() && is_active:
+	if throwing_ball and multiplayer.is_server() and is_active:
 		throw_ball_mouse()
 		throw_ball_mouse.rpc()
 		throwing_ball = false
-	else:
-		reset_ball()
 		
 	if(peers.size() > 0):
 		for i in range(0, peers.size()):

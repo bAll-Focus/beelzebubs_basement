@@ -2,6 +2,10 @@ extends State
 
 @export var pause_menu:CanvasLayer
 @export var credits_menu:CanvasLayer
+@export var baal_text:TextWriteOutBuffer
+@export var baal_loss_lines:Array[String]
+var server_done = false
+var client_done = false
 
 func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	state_machine = state_machine_node
@@ -10,20 +14,28 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	credits_menu.visible = false
 
 func client_enter_state():
-	pass
+	await baal_text.write_text_set(baal_loss_lines)
+	client_is_done.rpc()
 
 func server_enter_state():
-	await get_tree().create_timer(2).timeout
-	if multiplayer.is_server():
-		state_machine._change_state(1)
-		state_machine._change_state.rpc(1)
-	pass
+	server_done = false
+	client_done = false
+	server_done = true
+
+@rpc("any_peer")
+func client_is_done():
+	client_done = true
 
 func _exit_state():
 	pass
 
 func server_state_update(_delta: float):
-	pass
+	if server_done && client_done:
+		state_machine._change_state(1)
+		state_machine._change_state.rpc(1)
+		server_done = false
+		client_done = false
+	
 	
 func client_state_update(_delta: float):
 	pass

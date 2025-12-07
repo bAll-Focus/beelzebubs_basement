@@ -18,6 +18,11 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	magic_manager.is_active = false
 	game_timer.timeout.connect(_ran_out_of_time)
 	throw_manager.is_active = false
+	
+	##Connect neccessary signals here
+	magic_manager.revealed_demon.connect(baal.reveal_spell) 
+	
+	
 
 func _ran_out_of_time():
 	if multiplayer.is_server():
@@ -47,11 +52,14 @@ func server_enter_state():
 func server_exit_state():
 	health_bar.visible = false
 	magic_manager.is_active = false
+	baal.is_active = false
+	throw_manager.is_active = false
 	pass
 
 func client_exit_state():
 	health_bar.visible = false
 	magic_manager.is_active = false
+	baal.is_active = false
 	pass
 
 func server_state_update(_delta: float):
