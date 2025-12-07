@@ -30,7 +30,7 @@ var _book_model : Node3D
 }
 @export var inactive_color : Color = Color(0.141, 0.145, 0.146, 1.0)
 @export var active_color : Color = Color(0.0, 0.719, 0.128, 1.0)  # Green for active/completed
-@export var image_scale : float = 0.04  # Size of pose images
+@export var image_scale : float = 0.08 # Size of pose images
 
 @export_group("Book")
 @export var book_model_path : NodePath = NodePath("Book")
