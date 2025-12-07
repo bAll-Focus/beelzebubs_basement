@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://w2l1cq1ugbkb"
-path.s3tc="res://.godot/imported/pratbubbla_2.png-7c5fd566caeba6f2cbf1e2935f26b656.s3tc.ctex"
-path.etc2="res://.godot/imported/pratbubbla_2.png-7c5fd566caeba6f2cbf1e2935f26b656.etc2.ctex"
+path.s3tc="res://.godot/imported/pratbubbla_2.png-14a4264d206dc9db98409ae77bbfaf76.s3tc.ctex"
+path.etc2="res://.godot/imported/pratbubbla_2.png-14a4264d206dc9db98409ae77bbfaf76.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/pratbubbla_2.png"
-dest_files=["res://.godot/imported/pratbubbla_2.png-7c5fd566caeba6f2cbf1e2935f26b656.s3tc.ctex", "res://.godot/imported/pratbubbla_2.png-7c5fd566caeba6f2cbf1e2935f26b656.etc2.ctex"]
+source_file="res://textures/pratbubbla_2.png"
+dest_files=["res://.godot/imported/pratbubbla_2.png-14a4264d206dc9db98409ae77bbfaf76.s3tc.ctex", "res://.godot/imported/pratbubbla_2.png-14a4264d206dc9db98409ae77bbfaf76.etc2.ctex"]
 
 [params]
 
