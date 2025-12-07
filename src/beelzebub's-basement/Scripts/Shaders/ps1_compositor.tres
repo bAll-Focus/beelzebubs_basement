@@ -1,6 +1,6 @@
 [gd_resource type="Compositor" load_steps=3 format=3 uid="uid://r76ikc2vw5qd"]
 
-[ext_resource type="Script" uid="uid://bqxthc3qbnr0n" path="res://Scripts/PostProcessing/PS1OverlayShader.gd" id="1_n8lbn"]
+[ext_resource type="Script" uid="uid://bqxthc3qbnr0n" path="res://scripts/PostProcessing/PS1OverlayShader.gd" id="1_n8lbn"]
 
 [sub_resource type="CompositorEffect" id="CompositorEffect_qqebx"]
 resource_local_to_scene = false
