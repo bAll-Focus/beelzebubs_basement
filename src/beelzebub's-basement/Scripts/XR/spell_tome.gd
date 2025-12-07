@@ -42,7 +42,7 @@ var _book_model : Node3D
 @export var header_text_size : float = 0.0012  # Size of page header text
 @export var spell_name_text_size : float = 0.001  # Size of spell name text
 @export var header_offset : float = 0.12  # Distance above top spell row
-@export var spell_name_offset : float = -0.08  # Distance below spell sequence
+@export var spell_name_offset : float = -0.05  # Distance below spell sequence
 
 # Page positions for each spell (relative to book or world space)
 # These can be set in the inspector or calculated automatically
@@ -317,11 +317,27 @@ func _create_spell_indicators(spell_name: String, sequence: Array) -> void:
 		indicators.append(indicator)
 	
 	# Create spell name label below the sequence
-	var spell_name_label = _create_text_label(spell_name, spell_name_text_size)
+	var formatted_spell_name = _format_spell_name(spell_name)
+	var spell_name_label = _create_text_label(formatted_spell_name, spell_name_text_size)
 	spell_name_label.position = Vector3(0, spell_name_offset, 0.035)  # Below the sequence, raised above page
 	spell_container.add_child(spell_name_label)
 	
 	_pose_indicators[spell_name] = indicators
+
+
+func _format_spell_name(spell_name: String) -> String:
+	# Convert "reveal_demon" to "Reveal Demon"
+	# Split by underscores, capitalize each word, join with spaces
+	var words = spell_name.split("_")
+	var formatted_words : Array[String] = []
+	for word in words:
+		if word.length() > 0:
+			# Capitalize first letter, lowercase the rest
+			var first_char = word[0].to_upper()
+			var rest = word.substr(1).to_lower() if word.length() > 1 else ""
+			var capitalized = first_char + rest
+			formatted_words.append(capitalized)
+	return " ".join(formatted_words)
 
 
 func _create_text_label(text: String, text_size: float) -> Label3D:
@@ -361,14 +377,14 @@ func _create_page_headers() -> void:
 	# Create left page header
 	if left_spells.size() > 0:
 		var left_header = _create_text_label("Left Handed Spells", header_text_size)
-		left_header.position = left_page_center + Vector3(0, 0, -header_z_offset) + Vector3(-0.01, 0.03, 0.02)  # Raised above page
+		left_header.position = left_page_center + Vector3(0, 0, -header_z_offset) + Vector3(-0.01, 0.03, 0.02)
 		left_header.rotation_degrees = Vector3(-90, 0, 0)  # Align with book pages
 		_book_model.add_child(left_header)
 	
 	# Create right page header
 	if right_spells.size() > 0:
 		var right_header = _create_text_label("Right Handed Spells", header_text_size)
-		right_header.position = right_page_center + Vector3(0, 0, -header_z_offset) + Vector3(0.01, 0.03, 0.02)  # Raised above page
+		right_header.position = right_page_center + Vector3(0, 0, -header_z_offset) + Vector3(0.01, 0.03, 0.02)
 		right_header.rotation_degrees = Vector3(-90, 0, 0)  # Align with book pages
 		_book_model.add_child(right_header)
 
