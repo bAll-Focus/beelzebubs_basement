@@ -30,7 +30,7 @@ var _book_model : Node3D
 }
 @export var inactive_color : Color = Color(0.141, 0.145, 0.146, 1.0)
 @export var active_color : Color = Color(0.0, 0.719, 0.128, 1.0)  # Green for active/completed
-@export var image_scale : float = 0.08 # Size of pose images
+@export var image_scale : float = 0.07 # Size of pose images
 
 @export_group("Book")
 @export var book_model_path : NodePath = NodePath("Book")
@@ -320,21 +320,31 @@ func _create_pose_indicator(pose_name: String, index: int, total: int) -> Node3D
 	indicator.name = "Pose_" + pose_name + "_" + str(index)
 	
 	if use_pose_images and pose_image_paths.has(pose_name):
-		# Use Sprite3D with pose image
-		var sprite = Sprite3D.new()
+		# Use QuadMesh with texture for consistent sizing
 		var image_path = pose_image_paths[pose_name]
-		
-		# Try to load the texture
 		var texture = load(image_path) as Texture2D
+		
 		if texture:
-			sprite.texture = texture
-			sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED  # Keep fixed orientation
-			sprite.pixel_size = image_scale / texture.get_width()  # Scale based on texture size
-			sprite.modulate = inactive_color  # Start with inactive color
-			indicator.add_child(sprite)
+			# Create a QuadMesh with fixed size to ensure all images are the same size
+			var mesh_instance = MeshInstance3D.new()
+			var quad_mesh = QuadMesh.new()
+			quad_mesh.size = Vector2(image_scale, image_scale)  # Fixed size for all images
+			mesh_instance.mesh = quad_mesh
+			
+			# Create material with texture
+			var material = StandardMaterial3D.new()
+			material.albedo_texture = texture
+			material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST  # Keep crisp pixels
+			material.flags_transparent = true  # Support transparency
+			material.flags_unshaded = true  # No lighting
+			material.albedo_color = Color(1.0, 1.0, 1.0, 1.0)  # Start with full color (inactive)
+			mesh_instance.material_override = material
+			
+			indicator.add_child(mesh_instance)
 			
 			# Store reference for color tinting
-			indicator.set_meta("sprite", sprite)
+			indicator.set_meta("mesh_instance", mesh_instance)
+			indicator.set_meta("is_image", true)
 		else:
 			print("SpellTome: Warning - Could not load pose image: ", image_path)
 			# Fallback to box
@@ -378,20 +388,10 @@ func _set_indicator_color(indicator: Node3D, color: Color) -> void:
 	if not is_instance_valid(indicator):
 		return
 	
-	# Check if using sprite (pose images)
-	var sprite = indicator.get_meta("sprite", null)
-	if sprite and sprite is Sprite3D:
-		# For sprites, show image as-is when inactive, bright/green when active
-		if color == active_color:
-			# Active - bright and green tinted
-			sprite.modulate = active_color * 1.5
-		else:
-			# Inactive - regular PNG
-			sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Full color, no tinting
-		return
-	
-	# Otherwise, use box mesh material
+	# Check if using image (pose images)
+	var is_image = indicator.get_meta("is_image", false)
 	var mesh_instance = indicator.get_meta("mesh_instance", null)
+	
 	if not mesh_instance:
 		# Try to find MeshInstance3D child
 		for child in indicator.get_children():
@@ -402,13 +402,27 @@ func _set_indicator_color(indicator: Node3D, color: Color) -> void:
 	if mesh_instance and mesh_instance.material_override:
 		var material = mesh_instance.material_override as StandardMaterial3D
 		if material:
-			material.albedo_color = color
-			material.emission = color
-			# Increase emission when active (green)
-			if color == active_color:
-				material.emission_energy_multiplier = 3.0
+			if is_image:
+				# For images, modulate the albedo color to tint the texture
+				if color == active_color:
+					# Active - bright and green tinted
+					material.albedo_color = active_color * 1.5
+					material.emission_enabled = true
+					material.emission = active_color * 1.5
+					material.emission_energy_multiplier = 2.0
+				else:
+					# Inactive - show PNG as-is (white, no tinting)
+					material.albedo_color = Color(1.0, 1.0, 1.0, 1.0)
+					material.emission_enabled = false
 			else:
-				material.emission_energy_multiplier = 1.0
+				# For boxes, use standard material coloring
+				material.albedo_color = color
+				material.emission = color
+				# Increase emission when active (green)
+				if color == active_color:
+					material.emission_energy_multiplier = 3.0
+				else:
+					material.emission_energy_multiplier = 1.0
 
 
 ## Public API: Get current progress for a spell
