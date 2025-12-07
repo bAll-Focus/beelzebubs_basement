@@ -31,6 +31,7 @@ var _book_model : Node3D
 @export var inactive_color : Color = Color(0.141, 0.145, 0.146, 1.0)
 @export var active_color : Color = Color(0.0, 0.719, 0.128, 1.0)  # Green for active/completed
 @export var image_scale : float = 0.07 # Size of pose images
+@export var text_font : Font  # Custom font for text labels (optional)
 
 @export_group("Book")
 @export var book_model_path : NodePath = NodePath("Book")
@@ -39,10 +40,10 @@ var _book_model : Node3D
 @export_group("Layout")
 @export var spell_spacing : float = 0.15
 @export var pose_spacing : float = 0.07
-@export var header_text_size : float = 0.0012  # Size of page header text
-@export var spell_name_text_size : float = 0.001  # Size of spell name text
+@export var header_text_size : float = 0.0014  # Size of page header text
+@export var spell_name_text_size : float = 0.0013  # Size of spell name text
 @export var header_offset : float = 0.12  # Distance above top spell row
-@export var spell_name_offset : float = -0.05  # Distance below spell sequence
+@export var spell_name_offset : float = -0.065  # Distance below spell sequence
 
 # Page positions for each spell (relative to book or world space)
 # These can be set in the inspector or calculated automatically
@@ -345,6 +346,11 @@ func _create_text_label(text: String, text_size: float) -> Label3D:
 	var label = Label3D.new()
 	label.text = text
 	label.font_size = int(text_size * 200000)  # Convert to font size (increased multiplier for larger text)
+	
+	# Set custom font if provided
+	if text_font:
+		label.font = text_font
+	
 	label.billboard = BaseMaterial3D.BILLBOARD_DISABLED  # Keep fixed orientation
 	label.no_depth_test = true  # Always visible
 	label.modulate = Color(0, 0, 0, 1)  # Black text

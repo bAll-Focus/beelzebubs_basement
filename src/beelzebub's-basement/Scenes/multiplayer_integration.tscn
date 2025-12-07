@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=53 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://scenes/mp_basement.tscn" id="1_syryq"]
@@ -31,22 +31,6 @@
 [ext_resource type="Script" uid="uid://dded44tmkxslp" path="res://scripts/networking/statemachine/state_loss.gd" id="22_30nck"]
 [ext_resource type="Script" uid="uid://oyo0utvrbxn1" path="res://scripts/networking/statemachine/state_win.gd" id="23_px6hx"]
 [ext_resource type="Script" uid="uid://bh5n44vcla4it" path="res://scripts/textwriteoutbuffer.gd" id="25_j4v58"]
-[ext_resource type="PackedScene" uid="uid://ec6g1m4ojh12" path="res://scenes/XR/spell_tome.tscn" id="32_e173h"]
-[ext_resource type="Script" uid="uid://cjnyuu47lxfwb" path="res://scripts/XR/start_xr.gd" id="33_dfubx"]
-[ext_resource type="PackedScene" uid="uid://c5ldiblddq4yn" path="res://scenes/spell_detector.tscn" id="34_ha2vq"]
-[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="34_t4ojg"]
-[ext_resource type="PackedScene" uid="uid://cjcehqrfoxav3" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="35_3legq"]
-[ext_resource type="PackedScene" uid="uid://df5hynbooj1uj" path="res://addons/hand_pose_detector/hand_pose_detector.tscn" id="36_4h8jx"]
-[ext_resource type="Script" uid="uid://dv177q16qr3m1" path="res://addons/hand_pose_detector/hand_pose.gd" id="37_kxv1r"]
-[ext_resource type="Resource" uid="uid://c5pg3bqcsep5y" path="res://addons/hand_pose_detector/poses/metal.tres" id="38_kiv3q"]
-[ext_resource type="Resource" uid="uid://ceofxcl7q122" path="res://addons/hand_pose_detector/poses/point.tres" id="39_o0f22"]
-[ext_resource type="Resource" uid="uid://sy66yqr1xila" path="res://addons/hand_pose_detector/poses/thumbs_up.tres" id="40_1it5d"]
-[ext_resource type="Resource" uid="uid://dgl2b6ftbpnrx" path="res://addons/hand_pose_detector/poses/peace_sign.tres" id="41_3kifh"]
-[ext_resource type="Script" uid="uid://bye1dl8t10v61" path="res://addons/hand_pose_detector/hand_pose_set.gd" id="42_oq18v"]
-[ext_resource type="PackedScene" uid="uid://bh8isvqs258cp" path="res://addons/hand_pose_detector/hand_pose_controller.tscn" id="43_ya1ns"]
-[ext_resource type="Script" uid="uid://bbv4ooupljm5b" path="res://addons/hand_pose_detector/hand_pose_action.gd" id="44_b7wfg"]
-[ext_resource type="Script" uid="uid://c2hh8l62cludw" path="res://addons/hand_pose_detector/hand_pose_action_map.gd" id="45_pcglg"]
-[ext_resource type="PackedScene" uid="uid://dabmoo0spa6vg" path="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf" id="46_sqtf8"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnf6l"]
 properties/0/path = NodePath("head:position")
@@ -201,43 +185,6 @@ cache/0/40/0/scale = 1.0
 font = SubResource("FontFile_dtmh4")
 font_size = 30
 font_color = Color(0.39607844, 0, 0, 1)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mxbqu"]
-
-[sub_resource type="Resource" id="Resource_0l2yj"]
-script = ExtResource("42_oq18v")
-poses = Array[ExtResource("37_kxv1r")]([ExtResource("38_kiv3q"), ExtResource("39_o0f22"), ExtResource("40_1it5d"), ExtResource("41_3kifh")])
-metadata/_custom_type_script = "uid://bye1dl8t10v61"
-
-[sub_resource type="Resource" id="Resource_f1ej7"]
-script = ExtResource("44_b7wfg")
-pose = ExtResource("38_kiv3q")
-action_type = 1
-action_name = "metal"
-metadata/_custom_type_script = "uid://bbv4ooupljm5b"
-
-[sub_resource type="Resource" id="Resource_5j8jl"]
-script = ExtResource("44_b7wfg")
-pose = ExtResource("39_o0f22")
-action_name = "point"
-metadata/_custom_type_script = "uid://bbv4ooupljm5b"
-
-[sub_resource type="Resource" id="Resource_c5vcu"]
-script = ExtResource("44_b7wfg")
-pose = ExtResource("40_1it5d")
-action_name = "thumbs_up"
-metadata/_custom_type_script = "uid://bbv4ooupljm5b"
-
-[sub_resource type="Resource" id="Resource_6lwow"]
-script = ExtResource("44_b7wfg")
-pose = ExtResource("41_3kifh")
-action_name = "peace_sign"
-metadata/_custom_type_script = "uid://bbv4ooupljm5b"
-
-[sub_resource type="Resource" id="Resource_x8cua"]
-script = ExtResource("45_pcglg")
-actions = Array[ExtResource("44_b7wfg")]([SubResource("Resource_f1ej7"), SubResource("Resource_5j8jl"), SubResource("Resource_c5vcu"), SubResource("Resource_6lwow")])
-metadata/_custom_type_script = "uid://c2hh8l62cludw"
 
 [node name="MultiplayerIntegration" type="Node3D"]
 
@@ -699,70 +646,6 @@ custom_minimum_size = Vector2(20, 30)
 layout_mode = 2
 text = "Back"
 
-[node name="Player_2" type="XROrigin3D" parent="."]
-script = ExtResource("33_dfubx")
-
-[node name="XRCamera3D" type="XRCamera3D" parent="Player_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
-compositor = ExtResource("6_wnf6l")
-current = true
-script = ExtResource("33_dfubx")
-
-[node name="PlayerBody" parent="Player_2" instance=ExtResource("34_t4ojg")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player_2/PlayerBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_mxbqu")
-
-[node name="LeftTrackedHand" type="XRNode3D" parent="Player_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
-tracker = &"/user/hand_tracker/left"
-
-[node name="LeftHandHumanoid2" parent="Player_2/LeftTrackedHand" instance=ExtResource("35_3legq")]
-
-[node name="XRHandModifier3D" type="XRHandModifier3D" parent="Player_2/LeftTrackedHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" index="1"]
-
-[node name="HandPoseDetector" parent="Player_2/LeftTrackedHand" instance=ExtResource("36_4h8jx")]
-hand_pose_set = SubResource("Resource_0l2yj")
-
-[node name="HandPoseController" parent="Player_2/LeftTrackedHand/HandPoseDetector" instance=ExtResource("43_ya1ns")]
-controller_pose_type = 0
-controller_action_map = SubResource("Resource_x8cua")
-
-[node name="RightTrackedHand" type="XRNode3D" parent="Player_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
-tracker = &"/user/hand_tracker/right"
-
-[node name="RightHandHumanoid2" parent="Player_2/RightTrackedHand" instance=ExtResource("46_sqtf8")]
-
-[node name="XRHandModifier3D" type="XRHandModifier3D" parent="Player_2/RightTrackedHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" index="1"]
-hand_tracker = &"/user/hand_tracker/right"
-
-[node name="HandPoseDetector" parent="Player_2/RightTrackedHand" instance=ExtResource("36_4h8jx")]
-hand_tracker_name = "/user/hand_tracker/right"
-hand_pose_set = SubResource("Resource_0l2yj")
-
-[node name="HandPoseController" parent="Player_2/RightTrackedHand/HandPoseDetector" instance=ExtResource("43_ya1ns")]
-controller_tracker_name = "/user/hand_pose_controller/right"
-controller_pose_type = 0
-controller_action_map = SubResource("Resource_x8cua")
-hand_tracker_name = "/user/hand_tracker/right"
-
-[node name="LeftController" type="XRController3D" parent="Player_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
-tracker = &"/user/hand_pose_controller/left"
-
-[node name="SpellDetector" parent="Player_2/LeftController" instance=ExtResource("34_ha2vq")]
-
-[node name="RightController" type="XRController3D" parent="Player_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
-tracker = &"/user/hand_pose_controller/right"
-
-[node name="SpellDetector" parent="Player_2/RightController" instance=ExtResource("34_ha2vq")]
-
-[node name="SpellTome" parent="." instance=ExtResource("32_e173h")]
-transform = Transform3D(1, 0, 0, 0, 0.6739801, -0.7387495, 0, 0.7387495, 0.6739801, -0.005336374, 1.5126946, -0.46169174)
-
 [connection signal="timeout" from="Dynamic Scene/BallDetection/Timer" to="Dynamic Scene/BallDetection" method="_on_timer_timeout"]
 [connection signal="timeout" from="Camera3D/Healthbar/Timer" to="Camera3D/Healthbar" method="_on_timer_timeout"]
 [connection signal="pressed" from="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="Camera3D/Pause Menu/Control" method="_on_restart_button_pressed"]
@@ -771,6 +654,3 @@ transform = Transform3D(1, 0, 0, 0, 0.6739801, -0.7387495, 0, 0.7387495, 0.67398
 [connection signal="pressed" from="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/CreditsButton" to="Camera3D/Start Menu/Menu" method="_on_credits_button_pressed"]
 [connection signal="pressed" from="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Camera3D/Start Menu/Menu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer/BackButton" to="Camera3D/Credits Menu" method="_on_back_button_pressed"]
-
-[editable path="Player_2/LeftTrackedHand/LeftHandHumanoid2"]
-[editable path="Player_2/RightTrackedHand/RightHandHumanoid2"]

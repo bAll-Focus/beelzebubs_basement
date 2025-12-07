@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ec6g1m4ojh12"]
+[gd_scene load_steps=4 format=3 uid="uid://ec6g1m4ojh12"]
 
 [ext_resource type="Script" uid="uid://bxxy2y1hb7yg5" path="res://scripts/XR/spell_tome.gd" id="1_spell_tome"]
 [ext_resource type="PackedScene" uid="uid://bv6ib52t4lvor" path="res://Models/book.glb" id="2_book"]
+[ext_resource type="FontFile" uid="uid://1m74g6ukx8rh" path="res://textures/fonts/StraightToHellBB.ttf" id="2_yfdwd"]
 
 [node name="SpellTome" type="Node3D"]
 script = ExtResource("1_spell_tome")
+text_font = ExtResource("2_yfdwd")
 
 [node name="Book" parent="." instance=ExtResource("2_book")]
