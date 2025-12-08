@@ -99,9 +99,9 @@ func decrease_health(amount, index):
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
 	if body.name == "Ball" && multiplayer.is_server():
-		#var val = randi_range(0, 2) 
-		#audio_player.stream = hit_sounds[val]
-		#audio_player.play()
+		var val = randi_range(0, 2) 
+		audio_player.stream = hit_sounds[val]
+		audio_player.play()
 		
 		damage = ball.damage
 		index = ball.damageIndex
