@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yacaohsfm6au"
-path="res://.godot/imported/thumbs_up.png-5996ea8f406c1edae6e7af73e0207dad.ctex"
+path="res://.godot/imported/thumbs_up.png-110c612d2e2d0f7dbb5912117a0a1421.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/poses/thumbs_up.png"
-dest_files=["res://.godot/imported/thumbs_up.png-5996ea8f406c1edae6e7af73e0207dad.ctex"]
+source_file="res://Textures/poses/thumbs_up.png"
+dest_files=["res://.godot/imported/thumbs_up.png-110c612d2e2d0f7dbb5912117a0a1421.ctex"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://1m74g6ukx8rh"
-path="res://.godot/imported/StraightToHellBB.ttf-6ae0f1b47809b9312ca15ad55b5ca02e.fontdata"
+path="res://.godot/imported/StraightToHellBB.ttf-49433da6d9059da120d2faece61ff1b0.fontdata"
 
 [deps]
 
-source_file="res://textures/fonts/StraightToHellBB.ttf"
-dest_files=["res://.godot/imported/StraightToHellBB.ttf-6ae0f1b47809b9312ca15ad55b5ca02e.fontdata"]
+source_file="res://Textures/fonts/StraightToHellBB.ttf"
+dest_files=["res://.godot/imported/StraightToHellBB.ttf-49433da6d9059da120d2faece61ff1b0.fontdata"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://ie1wf3552k88"
-path="res://.godot/imported/Frost Scream.otf-baa8dea43160abcb791f4b3746665360.fontdata"
+path="res://.godot/imported/Frost Scream.otf-0b389c5bab8313fd8b9e1beddf439fa4.fontdata"
 
 [deps]
 
-source_file="res://textures/fonts/Frost Scream.otf"
-dest_files=["res://.godot/imported/Frost Scream.otf-baa8dea43160abcb791f4b3746665360.fontdata"]
+source_file="res://Textures/fonts/Frost Scream.otf"
+dest_files=["res://.godot/imported/Frost Scream.otf-0b389c5bab8313fd8b9e1beddf439fa4.fontdata"]
 
 [params]
 

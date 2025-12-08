@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8ajjtf56ugjw"
-path="res://.godot/imported/pratbubbla_1.png-787be326fb044c6c29094cb9eb87402f.ctex"
+path="res://.godot/imported/pratbubbla_1.png-345b986a9ab5fc4515cb45847af0dda7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/pratbubbla_1.png"
-dest_files=["res://.godot/imported/pratbubbla_1.png-787be326fb044c6c29094cb9eb87402f.ctex"]
+source_file="res://Textures/pratbubbla_1.png"
+dest_files=["res://.godot/imported/pratbubbla_1.png-345b986a9ab5fc4515cb45847af0dda7.ctex"]
 
 [params]
 

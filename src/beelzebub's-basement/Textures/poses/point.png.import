@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwgjuaiqatlpv"
-path="res://.godot/imported/point.png-26ccd58bded9683c11e3b89a7b405de7.ctex"
+path="res://.godot/imported/point.png-37293c743a23900e74b59abd1d2a63e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/poses/point.png"
-dest_files=["res://.godot/imported/point.png-26ccd58bded9683c11e3b89a7b405de7.ctex"]
+source_file="res://Textures/poses/point.png"
+dest_files=["res://.godot/imported/point.png-37293c743a23900e74b59abd1d2a63e6.ctex"]
 
 [params]
 

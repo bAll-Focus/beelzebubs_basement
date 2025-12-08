@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhxrsmgrsusl0"
-path.s3tc="res://.godot/imported/4K-wall_random_1-diffuse.jpg-6dcd046c5e2d0055f0f1f1dabc9c8c14.s3tc.ctex"
-path.etc2="res://.godot/imported/4K-wall_random_1-diffuse.jpg-6dcd046c5e2d0055f0f1f1dabc9c8c14.etc2.ctex"
+path.s3tc="res://.godot/imported/4K-wall_random_1-diffuse.jpg-e6406d4b518ee2f666319a552b8a73cc.s3tc.ctex"
+path.etc2="res://.godot/imported/4K-wall_random_1-diffuse.jpg-e6406d4b518ee2f666319a552b8a73cc.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/grunge_wall_1-4K/4K-wall_random_1-diffuse.jpg"
-dest_files=["res://.godot/imported/4K-wall_random_1-diffuse.jpg-6dcd046c5e2d0055f0f1f1dabc9c8c14.s3tc.ctex", "res://.godot/imported/4K-wall_random_1-diffuse.jpg-6dcd046c5e2d0055f0f1f1dabc9c8c14.etc2.ctex"]
+source_file="res://Textures/grunge_wall_1-4K/4K-wall_random_1-diffuse.jpg"
+dest_files=["res://.godot/imported/4K-wall_random_1-diffuse.jpg-e6406d4b518ee2f666319a552b8a73cc.s3tc.ctex", "res://.godot/imported/4K-wall_random_1-diffuse.jpg-e6406d4b518ee2f666319a552b8a73cc.etc2.ctex"]
 
 [params]
 

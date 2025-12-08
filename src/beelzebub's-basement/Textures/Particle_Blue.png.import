@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://hquxij75wpc8"
-path.s3tc="res://.godot/imported/Particle_Blue.png-b8fcd3d82077718c09cda80eb61e16f0.s3tc.ctex"
-path.etc2="res://.godot/imported/Particle_Blue.png-b8fcd3d82077718c09cda80eb61e16f0.etc2.ctex"
+path.s3tc="res://.godot/imported/Particle_Blue.png-daf50c2572b6ab4d58f11be2ffc80838.s3tc.ctex"
+path.etc2="res://.godot/imported/Particle_Blue.png-daf50c2572b6ab4d58f11be2ffc80838.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/Particle_Blue.png"
-dest_files=["res://.godot/imported/Particle_Blue.png-b8fcd3d82077718c09cda80eb61e16f0.s3tc.ctex", "res://.godot/imported/Particle_Blue.png-b8fcd3d82077718c09cda80eb61e16f0.etc2.ctex"]
+source_file="res://Textures/Particle_Blue.png"
+dest_files=["res://.godot/imported/Particle_Blue.png-daf50c2572b6ab4d58f11be2ffc80838.s3tc.ctex", "res://.godot/imported/Particle_Blue.png-daf50c2572b6ab4d58f11be2ffc80838.etc2.ctex"]
 
 [params]
 

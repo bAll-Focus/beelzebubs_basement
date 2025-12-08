@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dy826w3yhcraf"
-path="res://.godot/imported/Bloody Terror TTF Personal.ttf-6eb1b3b471606cafabceaf90a05a04c5.fontdata"
+path="res://.godot/imported/Bloody Terror TTF Personal.ttf-9b823c62e0ffcabebe09ea3e7c66927e.fontdata"
 
 [deps]
 
-source_file="res://textures/fonts/Bloody Terror TTF Personal.ttf"
-dest_files=["res://.godot/imported/Bloody Terror TTF Personal.ttf-6eb1b3b471606cafabceaf90a05a04c5.fontdata"]
+source_file="res://Textures/fonts/Bloody Terror TTF Personal.ttf"
+dest_files=["res://.godot/imported/Bloody Terror TTF Personal.ttf-9b823c62e0ffcabebe09ea3e7c66927e.fontdata"]
 
 [params]
 

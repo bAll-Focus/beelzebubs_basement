@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ttgsrf8c2to1"
-path="res://.godot/imported/French_particle.png-e0f177fbdf3f39fb5e900cbbdb3ac0ae.ctex"
+path="res://.godot/imported/French_particle.png-c6ca73d727c0b345bd5a158274b53173.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/French_particle.png"
-dest_files=["res://.godot/imported/French_particle.png-e0f177fbdf3f39fb5e900cbbdb3ac0ae.ctex"]
+source_file="res://Textures/French_particle.png"
+dest_files=["res://.godot/imported/French_particle.png-c6ca73d727c0b345bd5a158274b53173.ctex"]
 
 [params]
 

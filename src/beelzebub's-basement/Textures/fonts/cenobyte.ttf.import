@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://clava13rtkqkh"
-path="res://.godot/imported/cenobyte.ttf-c6bbd67a3014d4014b3b4d38362f824b.fontdata"
+path="res://.godot/imported/cenobyte.ttf-57888c2fa53c7c864f43d5f71e64e30c.fontdata"
 
 [deps]
 
-source_file="res://textures/fonts/cenobyte.ttf"
-dest_files=["res://.godot/imported/cenobyte.ttf-c6bbd67a3014d4014b3b4d38362f824b.fontdata"]
+source_file="res://Textures/fonts/cenobyte.ttf"
+dest_files=["res://.godot/imported/cenobyte.ttf-57888c2fa53c7c864f43d5f71e64e30c.fontdata"]
 
 [params]
 
