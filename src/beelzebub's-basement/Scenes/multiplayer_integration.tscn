@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=58 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
@@ -168,6 +168,12 @@ shadow_offset = Vector2(0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilck6"]
 bg_color = Color(0.5538976, 0.842284, 0.56015015, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6kivn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i3nx0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ie18c"]
 
 [node name="MultiplayerIntegration" type="Node3D"]
 
@@ -577,16 +583,19 @@ layout_mode = 2
 [node name="StartButton" type="Button" parent="Camera3D/Start Menu/Menu/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6kivn")
 text = "START"
 
 [node name="CreditsButton" type="Button" parent="Camera3D/Start Menu/Menu/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i3nx0")
 text = "CREDITS"
 
 [node name="QuitButton" type="Button" parent="Camera3D/Start Menu/Menu/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ie18c")
 text = "QUIT"
 
 [node name="Credits Menu" type="CanvasLayer" parent="Camera3D"]
