@@ -187,6 +187,7 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		
 		if index == 2:
 			set_on_fire()
+		body._collide()
 
 func restart() -> void:
 	health = max_health

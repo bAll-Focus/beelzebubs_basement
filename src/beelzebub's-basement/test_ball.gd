@@ -12,6 +12,24 @@ var damageIndex = 0
 const DAMAGES = [3, 10, 20]
 var damage = DAMAGES[damageIndex]
 
+@export var particle_fx_array: Array[GPUParticles3D]
+
+func _ready() -> void:
+	set_damage_type(0)
+
+func set_damage_type(damage_type):
+	if(multiplayer.is_server()):
+		damageIndex = damage_type
+		damage = DAMAGES[damageIndex]
+		set_particle_visibility.rpc()
+		set_particle_visibility()
+		print("Set damage type to: ", damageIndex)
+
+@rpc
+func set_particle_visibility():
+	for particle_index in particle_fx_array.size():
+		particle_fx_array[particle_index].visible = particle_index == damageIndex
+		print(particle_index, " : ", damageIndex)
 
 func _physics_process(delta: float) -> void:
 	# Check current damage
@@ -33,7 +51,10 @@ func _physics_process(delta: float) -> void:
 		fire.set_visible(true)
 		ice.set_visible(false)
 		cabbage.set_visible(false)
-	
+
+func _collide():
+	set_damage_type(0)
+	print("Ball: Collided with demon")
 
 	## Handle jump.
 	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():

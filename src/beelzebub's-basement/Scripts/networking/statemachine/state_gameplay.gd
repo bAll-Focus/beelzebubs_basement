@@ -21,9 +21,8 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	
 	##Connect neccessary signals here
 	magic_manager.revealed_demon.connect(baal.reveal_spell)
-	magic_manager.slowed_demon.connect(baal.slow_spell) 
-	
-	
+	magic_manager.slowed_demon.connect(baal.slow_spell)
+	magic_manager.ball_power_set.connect(throw_manager.on_set_damage_type)
 
 func _ran_out_of_time():
 	if multiplayer.is_server():

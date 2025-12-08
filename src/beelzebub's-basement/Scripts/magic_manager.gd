@@ -5,8 +5,7 @@ var is_active = false
 var spell_effects:Array[GPUParticles3D]
 
 signal revealed_demon
-signal fireball_set
-signal iceball_set
+signal ball_power_set
 signal slowed_demon
 
 func set_up_magic_tracking(magic_tracker_holder) -> void: # Magic tracker holder is simply the VR player node.
@@ -44,13 +43,7 @@ func slow_demon():
 	slowed_demon.emit()
 
 func set_ball_on_fire():
-	fireball_set.emit()
+	ball_power_set.emit(1)
 
 func set_ball_on_ice():
-	iceball_set.emit()
-
-@rpc
-func set_ball_spell(spell_type:int):
-	for i in spell_effects.size():
-		spell_effects[i].visible = spell_type == i
-	#TODO: also set spell damage type in balltracker
+	ball_power_set.emit(2)

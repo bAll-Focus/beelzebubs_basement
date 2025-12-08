@@ -32,7 +32,10 @@ func _ready():
 	throw_ready = true
 	viewport_width = get_viewport().get_visible_rect().size.x
 	set_multiplayer_authority(1)
-	
+
+func on_set_damage_type(damage_type):
+	ball.set_damage_type(damage_type)
+
 @rpc
 func throw_ball():
 	ball.apply_impulse(ball_force)
