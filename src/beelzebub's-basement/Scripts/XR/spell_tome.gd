@@ -23,10 +23,10 @@ var _book_model : Node3D
 @export var pose_indicator_scene : PackedScene
 @export var use_pose_images : bool = true
 @export var pose_image_paths : Dictionary = {
-	"metal": "res://textures/poses/metal.png",
-	"point": "res://textures/poses/point.png",
-	"thumbs_up": "res://textures/poses/thumbs_up.png",
-	"peace_sign": "res://textures/poses/peace_sign.png",
+	"metal": "res://Textures/poses/metal.png",
+	"point": "res://Textures/poses/point.png",
+	"thumbs_up": "res://Textures/poses/thumbs_up.png",
+	"peace_sign": "res://Textures/poses/peace_sign.png",
 }
 @export var inactive_color : Color = Color(0.141, 0.145, 0.146, 1.0)
 @export var active_color : Color = Color(0.0, 0.719, 0.128, 1.0)  # Green for active/completed
@@ -147,7 +147,7 @@ func _on_pose_progress(spell_name: String, pose_index: int, total_poses: int, ha
 	print("SpellTome: ", spell_name, " progress: ", pose_index, "/", total_poses, " (", hand, " hand)")
 
 
-func _on_spell_cast(spell_name: String, hand: String) -> void:
+func _on_spell_cast(spell_name: String, _hand: String) -> void:
 	# Spell completed - reset progress and show completion
 	_spell_progress[spell_name] = 0
 	_update_spell_indicators(spell_name, 0, true)
