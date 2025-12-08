@@ -300,13 +300,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35452616, -0.71772164)
 script = ExtResource("8_6v7wx")
 particle_fx_array = [NodePath("Particle_trail_cabbage"), NodePath("Particle_trail_fire"), NodePath("Particle_trail_ice")]
 
-fire = NodePath("Particle_trail_fire")
-ice = NodePath("Particle_trail_ice")
-cabbage = NodePath("Particle_trail_cabbage")
-
-
 [node name="Particle_trail_fire" type="GPUParticles3D" parent="Dynamic Scene/BallDetection/Ball"]
-visible = false
 layers = 32
 amount = 50
 lifetime = 2.0
@@ -316,7 +310,6 @@ draw_pass_1 = SubResource("PlaneMesh_i3nx0")
 draw_skin = SubResource("Skin_oo5ds")
 
 [node name="Particle_trail_ice" type="GPUParticles3D" parent="Dynamic Scene/BallDetection/Ball"]
-visible = false
 layers = 32
 amount = 50
 lifetime = 2.0

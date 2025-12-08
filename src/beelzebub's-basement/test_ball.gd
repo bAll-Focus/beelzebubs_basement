@@ -16,41 +16,31 @@ var damage = DAMAGES[damageIndex]
 
 func _ready() -> void:
 	set_damage_type(0)
+	
 
 func set_damage_type(damage_type):
 	if(multiplayer.is_server()):
 		damageIndex = damage_type
 		damage = DAMAGES[damageIndex]
-		set_particle_visibility.rpc()
-		set_particle_visibility()
-		print("Set damage type to: ", damageIndex)
+		set_particle_visibility.rpc(damageIndex)
+		set_particle_visibility(damageIndex)
 
 @rpc
-func set_particle_visibility():
+func set_particle_visibility(damage_type):
+	print("Called on ", multiplayer.get_unique_id())
 	for particle_index in particle_fx_array.size():
-		particle_fx_array[particle_index].visible = particle_index == damageIndex
-		print(particle_index, " : ", damageIndex)
+		particle_fx_array[particle_index].emitting = particle_index == damage_type
+		print(particle_index, " : ", damage_type)
 
 func _physics_process(delta: float) -> void:
 	# Check current damage
 	if Input.is_action_just_pressed("one"):
-		damageIndex = 0
-		damage = DAMAGES[damageIndex]
-		cabbage.set_visible(true)
-		fire.set_visible(false)
-		ice.set_visible(false)
+		set_damage_type(0)
 	if Input.is_action_just_pressed("two"):
-		damageIndex = 1
-		damage = DAMAGES[damageIndex]
-		ice.set_visible(true)
-		fire.set_visible(false)
-		cabbage.set_visible(false)
+		set_damage_type(1)
 	if Input.is_action_just_pressed("three"):
-		damageIndex = 2
-		damage = DAMAGES[damageIndex]
-		fire.set_visible(true)
-		ice.set_visible(false)
-		cabbage.set_visible(false)
+		set_damage_type(2)
+		
 
 func _collide():
 	set_damage_type(0)
