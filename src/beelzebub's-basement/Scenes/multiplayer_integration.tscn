@@ -104,19 +104,6 @@ collision_mode = 1
 collision_friction = 0.15
 collision_bounce = 0.32
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o60u8"]
-transparency = 1
-shading_mode = 0
-albedo_texture = ExtResource("10_ncu23")
-texture_filter = 0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_oo5ds"]
-material = SubResource("StandardMaterial3D_o60u8")
-size = Vector2(0.1, 0.1)
-orientation = 2
-
-[sub_resource type="Skin" id="Skin_oo5ds"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kivn"]
 transparency = 1
 shading_mode = 0
@@ -125,6 +112,19 @@ texture_filter = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_i3nx0"]
 material = SubResource("StandardMaterial3D_6kivn")
+size = Vector2(0.1, 0.1)
+orientation = 2
+
+[sub_resource type="Skin" id="Skin_oo5ds"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o60u8"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("10_ncu23")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oo5ds"]
+material = SubResource("StandardMaterial3D_o60u8")
 size = Vector2(0.1, 0.1)
 orientation = 2
 
@@ -295,26 +295,31 @@ potato = ExtResource("4_wnf6l")
 [node name="BallDetection" type="Node" parent="Dynamic Scene"]
 script = ExtResource("7_6o25v")
 
-[node name="Ball" type="RigidBody3D" parent="Dynamic Scene/BallDetection"]
+[node name="Ball" type="RigidBody3D" parent="Dynamic Scene/BallDetection" node_paths=PackedStringArray("fire", "ice", "cabbage")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35452616, -0.71772164)
 script = ExtResource("8_6v7wx")
-
-[node name="Particle_trail_ice" type="GPUParticles3D" parent="Dynamic Scene/BallDetection/Ball"]
-layers = 32
-amount = 50
-lifetime = 2.0
-transform_align = 1
-process_material = SubResource("ParticleProcessMaterial_k23m1")
-draw_pass_1 = SubResource("PlaneMesh_oo5ds")
-draw_skin = SubResource("Skin_oo5ds")
+fire = NodePath("Particle_trail_fire")
+ice = NodePath("Particle_trail_ice")
+cabbage = NodePath("Particle_trail_cabbage")
 
 [node name="Particle_trail_fire" type="GPUParticles3D" parent="Dynamic Scene/BallDetection/Ball"]
+visible = false
 layers = 32
 amount = 50
 lifetime = 2.0
 transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_k23m1")
 draw_pass_1 = SubResource("PlaneMesh_i3nx0")
+draw_skin = SubResource("Skin_oo5ds")
+
+[node name="Particle_trail_ice" type="GPUParticles3D" parent="Dynamic Scene/BallDetection/Ball"]
+visible = false
+layers = 32
+amount = 50
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_k23m1")
+draw_pass_1 = SubResource("PlaneMesh_oo5ds")
 draw_skin = SubResource("Skin_oo5ds")
 
 [node name="Particle_trail_cabbage" type="GPUParticles3D" parent="Dynamic Scene/BallDetection/Ball"]

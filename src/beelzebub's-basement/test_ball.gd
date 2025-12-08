@@ -1,5 +1,8 @@
 extends RigidBody3D
 
+@export var fire:GPUParticles3D
+@export var ice:GPUParticles3D
+@export var cabbage:GPUParticles3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -15,12 +18,21 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("one"):
 		damageIndex = 0
 		damage = DAMAGES[damageIndex]
+		cabbage.set_visible(true)
+		fire.set_visible(false)
+		ice.set_visible(false)
 	if Input.is_action_just_pressed("two"):
 		damageIndex = 1
 		damage = DAMAGES[damageIndex]
+		ice.set_visible(true)
+		fire.set_visible(false)
+		cabbage.set_visible(false)
 	if Input.is_action_just_pressed("three"):
 		damageIndex = 2
 		damage = DAMAGES[damageIndex]
+		fire.set_visible(true)
+		ice.set_visible(false)
+		cabbage.set_visible(false)
 	
 
 	## Handle jump.
