@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbd8p6x522wor"]
+[gd_scene load_steps=13 format=3 uid="uid://cgmomy6y7wxs6"]
 
 [ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="1_2krsy"]
-[ext_resource type="Texture2D" uid="uid://hquxij75wpc8" path="res://Textures/Particle_Blue.png" id="2_xmm2u"]
+[ext_resource type="Texture2D" uid="uid://ttgsrf8c2to1" path="res://Textures/French_particle.png" id="2_xmm2u"]
 [ext_resource type="PackedScene" uid="uid://waafnnfp8rs6" path="res://Scenes/sceneobjects/cabbage.tscn" id="3_alquj"]
 
 [sub_resource type="Gradient" id="Gradient_k23m1"]
@@ -38,8 +38,6 @@ transparency = 1
 shading_mode = 0
 albedo_texture = ExtResource("2_xmm2u")
 texture_filter = 0
-billboard_mode = 1
-billboard_keep_scale = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_oo5ds"]
 material = SubResource("StandardMaterial3D_oo5ds")
@@ -56,7 +54,18 @@ script = ExtResource("1_2krsy")
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35452616, -0.71772164)
 
-[node name="Particle_trail" type="GPUParticles3D" parent="Ball"]
+[node name="Ice_particle_trail" type="GPUParticles3D" parent="Ball"]
+visible = false
+layers = 32
+amount = 50
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_k23m1")
+draw_pass_1 = SubResource("PlaneMesh_oo5ds")
+draw_skin = SubResource("Skin_oo5ds")
+
+[node name="Fire_particle_trail" type="GPUParticles3D" parent="Ball"]
+visible = false
 layers = 32
 amount = 50
 lifetime = 2.0

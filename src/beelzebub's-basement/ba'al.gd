@@ -35,6 +35,8 @@ func _ready() -> void:
 	start_position = position
 	start_rotation = rotation
 	timerReveal.timeout.connect(on_reveal_ended)
+	timerSlow.timeout.connect(on_slow_ended)
+	timerBurn.timeout.connect(_on_timer_timeout)
 	_initialize_baal()
 	
 func _prepare_baal_for_new_round() -> void:
@@ -77,13 +79,18 @@ func _process(delta: float) -> void:
 		position.x = start_position.x
 		rotation.y = start_rotation.y
 		position.y = sin(Time.get_ticks_msec()/500.0)/10 + start_position.y
-		rotation.x = sin(Time.get_ticks_msec()/1000.0)/10
+		rotation.x = sin(Time.get_ticks_msec()/1000.0)/10 
 
 @rpc
 func reveal_spell():
 	if multiplayer.is_server():
 		reveal_spell.rpc() #call the client version to do something
 		timerReveal.start()
+		for n in 3:
+			visible = false;
+			await get_tree().create_timer(0.1).timeout
+			visible = true;
+			await get_tree().create_timer(0.1).timeout
 		visible = true
 	else:
 		pass
@@ -91,9 +98,52 @@ func reveal_spell():
 func on_reveal_ended():
 	if multiplayer.is_server(): 
 		on_reveal_ended.rpc() #call the client version to do something
-		visible = false
+		for n in 3:
+			visible = true;
+			await get_tree().create_timer(0.1).timeout
+			visible = false;
+			await get_tree().create_timer(0.1).timeout
 	else:
 		pass
+
+const SLOW_SPEED_STEPS = 20
+const SLOW_SPEED_STEP_TIMER = 0.01
+
+@rpc
+func slow_spell():
+	if multiplayer.is_server():
+		slow_spell.rpc() #call the client version to do something
+		for n in SLOW_SPEED_STEPS:
+			await get_tree().create_timer(SLOW_SPEED_STEP_TIMER).timeout
+			speedEffect -= 0.5/SLOW_SPEED_STEPS
+		timerSlow.start()
+	else:
+		pass
+@rpc
+func on_slow_ended():
+	if multiplayer.is_server():
+		on_slow_ended.rpc() #call the client version to do something
+		for n in SLOW_SPEED_STEPS:
+			await get_tree().create_timer(SLOW_SPEED_STEP_TIMER).timeout
+			speedEffect += 0.5/SLOW_SPEED_STEPS
+	else:
+		pass
+
+@rpc func set_on_fire():
+	if multiplayer.is_server():
+		set_on_fire.rpc()
+	else:
+		pass 
+
+@rpc func put_out_fire():
+	if multiplayer.is_server():
+		put_out_fire.rpc()
+		speedEffect = 1
+		burnCount = BURN_DEFAULT
+		timerBurn.start()
+	else:
+		pass 
+
 @rpc
 func baal_died():
 	set_visible(false)
@@ -133,14 +183,10 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		decrease_health(damage, index)
 		
 		if index == 1:
-			speedEffect = 0.5
-			timerSlow.start()
-			timerBurn.stop()
+			slow_spell()
 		
 		if index == 2:
-			speedEffect = 1
-			burnCount = BURN_DEFAULT
-			timerBurn.start()
+			set_on_fire()
 
 func restart() -> void:
 	health = max_health
@@ -154,7 +200,5 @@ func _on_timer_timeout() -> void:
 		burnCount -= 1
 		print(burnCount)
 		timerBurn.start()
-
-
-func _on_timer_2_timeout() -> void:
-	speedEffect = 1
+	else:
+		put_out_fire()

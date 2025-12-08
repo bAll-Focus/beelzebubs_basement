@@ -20,7 +20,8 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	throw_manager.is_active = false
 	
 	##Connect neccessary signals here
-	magic_manager.revealed_demon.connect(baal.reveal_spell) 
+	magic_manager.revealed_demon.connect(baal.reveal_spell)
+	magic_manager.slowed_demon.connect(baal.slow_spell) 
 	
 	
 
