@@ -17,19 +17,19 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	thrower_text.hide()
 
 func client_enter_state():
-	Baal.visible = true;
+	Baal.set_visibility(true)
 	await get_tree().create_timer(0.1).timeout
-	Baal.visible = false;
+	Baal.set_visibility(false)
 	await get_tree().create_timer(0.3).timeout
-	Baal.visible = true;
+	Baal.set_visibility(true)
 	await get_tree().create_timer(0.2).timeout
-	Baal.visible = false;
+	Baal.set_visibility(false)
 	await get_tree().create_timer(0.2).timeout
-	Baal.visible = true;
+	Baal.set_visibility(true)
 	await get_tree().create_timer(0.2).timeout
-	Baal.visible = false;
+	Baal.set_visibility(false)
 	await get_tree().create_timer(0.2).timeout
-	Baal.visible = true;
+	Baal.set_visibility(true)
 	await baal_text.write_text_set(baal_intro_lines)
 	finished_baal_intro.rpc()
 
