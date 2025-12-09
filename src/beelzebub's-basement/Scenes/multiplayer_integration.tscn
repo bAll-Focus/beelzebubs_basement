@@ -18,8 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://dw7io8b1ocso0" path="res://Textures/ice_particle.png" id="10_ncu23"]
 [ext_resource type="Texture2D" uid="uid://c2c45vsypqmsj" path="res://Textures/cabbade_particles.png" id="12_o60u8"]
 [ext_resource type="Texture2D" uid="uid://w2l1cq1ugbkb" path="res://Textures/pratbubbla_2.png" id="12_px6hx"]
-[ext_resource type="Script" path="res://Scenes/baalbubbla.gd" id="14_a8jg6"]
-[ext_resource type="Script" path="res://Scenes/hittepåmagi.gd" id="14_r0fya"]
+[ext_resource type="Script" uid="uid://csxq3bvsobc72" path="res://Scenes/baalbubbla.gd" id="14_a8jg6"]
+[ext_resource type="Script" uid="uid://tsiv215yj7wk" path="res://Scenes/hittepåmagi.gd" id="14_r0fya"]
 [ext_resource type="Script" uid="uid://dpcwmo7fhqo03" path="res://progress_bar.gd" id="17_0j58h"]
 [ext_resource type="Script" uid="uid://ppa1ftud8wsl" path="res://Scripts/networking/statemachine/NetworkStateMachine.gd" id="17_fs88u"]
 [ext_resource type="Script" uid="uid://cxmumh82b5u3l" path="res://Scripts/networking/statemachine/state_connect.gd" id="18_t44h5"]
@@ -178,10 +178,10 @@ properties/2/replication_mode = 1
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1v5t1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bngtt"]
-bg_color = Color(0.5228682, 0.031814367, 0.09505046, 1)
+bg_color = Color(0.77585125, 0.35497653, 0.32607624, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv041"]
-bg_color = Color(0.14767182, 0.14767182, 0.14767176, 1)
+bg_color = Color(0.43541485, 0.17005616, 0.15237549, 1)
 expand_margin_left = 1.0
 expand_margin_top = 1.0
 expand_margin_right = 1.0
@@ -286,10 +286,13 @@ potato = ExtResource("4_wnf6l")
 [node name="BallDetection" type="Node" parent="Dynamic Scene"]
 script = ExtResource("7_6o25v")
 
-[node name="Ball" type="RigidBody3D" parent="Dynamic Scene/BallDetection" node_paths=PackedStringArray("particle_fx_array")]
+[node name="Ball" type="RigidBody3D" parent="Dynamic Scene/BallDetection" node_paths=PackedStringArray("fire", "ice", "cabbage", "particle_fx_array")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35452616, -0.71772164)
 script = ExtResource("8_6v7wx")
-particle_fx_array = [NodePath("Particle_trail_cabbage"), NodePath("Particle_trail_fire"), NodePath("Particle_trail_ice")]
+fire = NodePath("Particle_trail_fire")
+ice = NodePath("Particle_trail_ice")
+cabbage = NodePath("Particle_trail_cabbage")
+particle_fx_array = [NodePath("Particle_trail_cabbage"), NodePath("Particle_trail_ice"), NodePath("Particle_trail_fire")]
 
 [node name="Particle_trail_fire" type="GPUParticles3D" parent="Dynamic Scene/BallDetection/Ball"]
 layers = 32
@@ -359,7 +362,7 @@ autowrap_mode = 2
 width = 326.14
 
 [node name="Ba\'al" parent="Dynamic Scene" node_paths=PackedStringArray("healthbar", "pause_menu", "start_menu", "credits_menu", "ball") instance=ExtResource("8_72egd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36648083, -2.8132806)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62950873, -2.443976)
 healthbar = NodePath("../../Camera3D/Healthbar")
 pause_menu = NodePath("../../Camera3D/Pause Menu")
 start_menu = NodePath("../../Camera3D/Start Menu")

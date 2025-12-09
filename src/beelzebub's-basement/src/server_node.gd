@@ -2,7 +2,7 @@ class_name CameraServerNode
 extends Node
 
 @export var ball_force = Vector3(0,0,0)
-var reset_position = Vector3(0,0,0)
+var reset_position = Vector3(0,0.8,-0.1)
 
 var server = UDPServer.new()
 var peers = []
@@ -38,17 +38,17 @@ func on_set_damage_type(damage_type):
 
 @rpc
 func throw_ball():
+	reset_ball()
 	ball.apply_impulse(ball_force)
-	timer.start()
 	throw_ready = false
 		
 func set_force(coords):
-	var norm_y = ((screen_height - coords.y)/screen_height) * 0.2
-	ball.position.y = 0.5
-	ball.position.z = 1.318
+	#var norm_y = ((screen_height - coords.y)/screen_height) * 0.2
+	#ball.position.y = 0.5
+	#ball.position.z = 1.318
 	if(throw_ready):
 		var norm_x = (coords.x/screen_width) * 5
-		ball_force = Vector3(norm_x,3,-8)
+		ball_force = Vector3(norm_x,2.8,-8)
 
 @rpc
 func throw_ball_mouse():
@@ -72,7 +72,7 @@ func _process(delta):
 func _physics_process(delta):
 	if throwing_ball and multiplayer.is_server() and is_active:
 		throw_ball_mouse()
-		throw_ball_mouse.rpc()
+		#throw_ball_mouse.rpc()
 		throwing_ball = false
 		
 	if(peers.size() > 0):
@@ -93,7 +93,7 @@ func _physics_process(delta):
 				if is_active:
 					set_force(force_vector)
 					throw_ball()
-					throw_ball.rpc()
+					#throw_ball.rpc()
 				
 
 
@@ -107,15 +107,13 @@ func _input(event):
 			var x =  (event.position.x - (viewport_width/2))/viewport_width
 			throw_x = x
 			var norm_x = x * 10
-			ball_force = Vector3(norm_x,3,-8)
+			ball_force = Vector3(norm_x,2.8,-8)
 			throwing_ball = true
 			resetting_ball = true
 			server_throwing_ball = true
 
 func reset_ball():
-	ball.position.x = 0
-	ball.position.y = 0.5
-	ball.position.z = 1.318
+	ball.position = reset_position
 	ball.linear_velocity = Vector3.ZERO 
 	ball.angular_velocity = Vector3.ZERO  
 	ball.rotation = Vector3(0,0,0)
