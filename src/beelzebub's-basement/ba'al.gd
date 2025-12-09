@@ -30,6 +30,12 @@ var start_position:Vector3
 var start_rotation:Vector3
 
 signal ran_out_of_health
+
+var is_slowed = false
+var is_thawing = false
+var thawing_rate = 0.005
+var thawing_counter = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	start_position = position
@@ -64,7 +70,14 @@ func _initialize_baal() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(multiplayer.is_server()&&is_active):
-		loop_counter += delta*speedEffect
+		if(is_slowed):loop_counter += delta*speedEffect/2
+		elif(is_thawing): 
+			loop_counter += delta*speedEffect/2 + (delta*speedEffect/2)*thawing_counter
+			thawing_counter += thawing_rate
+			if(thawing_counter >= 1):
+				is_thawing = false
+				thawing_counter = 0
+		else:loop_counter += delta*speedEffect
 		position.x = sin(loop_counter)*1.8
 		position.y = cos(4*loop_counter)/6 + start_position.y/2
 		rotation.y = cos(loop_counter)/2 + start_position.y/2
@@ -110,20 +123,23 @@ const SLOW_SPEED_STEP_TIMER = 0.01
 @rpc
 func slow_spell():
 	if multiplayer.is_server():
+		is_slowed = true
 		slow_spell.rpc() #call the client version to do something
-		for n in SLOW_SPEED_STEPS:
-			await get_tree().create_timer(SLOW_SPEED_STEP_TIMER).timeout
-			speedEffect -= 0.5/SLOW_SPEED_STEPS
+		#for n in SLOW_SPEED_STEPS:
+			#await get_tree().create_timer(SLOW_SPEED_STEP_TIMER).timeout
+			#speedEffect -= 0.5/SLOW_SPEED_STEPS
 		timerSlow.start()
 	else:
 		pass
 @rpc
 func on_slow_ended():
 	if multiplayer.is_server():
+		is_slowed = false
+		is_thawing = true
 		on_slow_ended.rpc() #call the client version to do something
-		for n in SLOW_SPEED_STEPS:
-			await get_tree().create_timer(SLOW_SPEED_STEP_TIMER).timeout
-			speedEffect += 0.5/SLOW_SPEED_STEPS
+		#for n in SLOW_SPEED_STEPS:
+			#await get_tree().create_timer(SLOW_SPEED_STEP_TIMER).timeout
+			#speedEffect += 0.5/SLOW_SPEED_STEPS
 	else:
 		pass
 
