@@ -305,6 +305,7 @@ width = 600.0
 
 [node name="Thrower body parts" type="Node3D" parent="Dynamic Scene/Dynamic_objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39692843, 0.32473063, -2.340984)
+visible = false
 script = ExtResource("2_5k5hp")
 
 [node name="head" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
@@ -491,7 +492,6 @@ IP_ADDRESS = "192.168.0.1"
 role_manager = NodePath("RoleManager")
 magic_manager = NodePath("MagicManager")
 state_manager = NodePath("StateMachine")
-use_vr = true
 
 [node name="RoleManager" type="Node" parent="Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
 script = ExtResource("2_yb5jp")
