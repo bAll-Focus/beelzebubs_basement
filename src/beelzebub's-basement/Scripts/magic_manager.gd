@@ -43,7 +43,7 @@ func slow_demon():
 	slowed_demon.emit()
 
 func set_ball_on_fire():
-	ball_power_set.emit(1)
+	ball_power_set.emit(2)
 
 func set_ball_on_ice():
-	ball_power_set.emit(2)
+	ball_power_set.emit(1)
