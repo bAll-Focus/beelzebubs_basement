@@ -65,8 +65,6 @@ func _initialize_baal() -> void:
 func _process(delta: float) -> void:
 	if(multiplayer.is_server()&&is_active):
 		loop_counter += delta*speedEffect
-		if(loop_counter >= 90):
-			loop_counter = -90
 		position.x = sin(loop_counter)*1.8
 		position.y = cos(4*loop_counter)/6 + start_position.y/2
 		rotation.y = cos(loop_counter)/2 + start_position.y/2
