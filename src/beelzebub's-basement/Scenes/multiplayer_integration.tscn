@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=80 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
