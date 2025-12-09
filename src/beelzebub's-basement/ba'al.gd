@@ -17,6 +17,8 @@ class_name Baal_AI
 
 @export var max_health = 100
 const BURN_DEFAULT = 5
+const BURN_MIN = 2
+const BURN_MAX = 6
 var loop_counter = 0
 var damage
 var index
@@ -146,15 +148,19 @@ func on_slow_ended():
 @rpc func set_on_fire():
 	if multiplayer.is_server():
 		set_on_fire.rpc()
+		timerBurn.start()
+		burnCount = randi_range(BURN_MIN, BURN_MAX) 
+		
+		# Stop cooling of ba'al, but also ensure thawing
+		timerSlow.stop()
+		on_slow_ended()
 	else:
 		pass 
 
 @rpc func put_out_fire():
 	if multiplayer.is_server():
 		put_out_fire.rpc()
-		speedEffect = 1
-		burnCount = BURN_DEFAULT
-		timerBurn.start()
+		timerBurn.stop()
 	else:
 		pass 
 
@@ -163,9 +169,6 @@ func baal_died():
 	set_visible(false)
 	health = 0
 	is_active = false
-
-
-
 
 #There are a few inconsistensies here that I would like to address, given the time
 #However, the script works, so this is a certified "If I have time"-moment
@@ -207,13 +210,10 @@ func restart() -> void:
 	health = max_health
 	set_visible(true)
 
+# burn timer
 func _on_timer_timeout() -> void:
-	decrease_health(3,-1)
-	healthbar._set_health(health)
+	decrease_health(randi_range(1, 3), 2)
 	
 	if burnCount > 1:
 		burnCount -= 1
-		print(burnCount)
 		timerBurn.start()
-	else:
-		put_out_fire()

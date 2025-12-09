@@ -9,7 +9,7 @@ const JUMP_VELOCITY = 4.5
 var attacked = false
 var init_position = position
 var damageIndex = 0
-const DAMAGES = [3, 10, 20]
+const DAMAGES = [3, 10, 10]
 var damage = DAMAGES[damageIndex]
 
 @export var particle_fx_array: Array[GPUParticles3D]
