@@ -2,21 +2,18 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qpmohskkhf5v"
-path.s3tc="res://.godot/imported/book_Image.png-9424dd244ea56c08f586aaf370145e4b.s3tc.ctex"
-path.etc2="res://.godot/imported/book_Image.png-9424dd244ea56c08f586aaf370145e4b.etc2.ctex"
+uid="uid://dwx8ut0dt7tq"
+path.s3tc="res://.godot/imported/pratbubbla_4.png-6bfd8e4afb25d12f7bd4d85aabe6ba9e.s3tc.ctex"
+path.etc2="res://.godot/imported/pratbubbla_4.png-6bfd8e4afb25d12f7bd4d85aabe6ba9e.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "8597d4e7e65352a302b63e07bc01a7da"
-}
 
 [deps]
 
-source_file="res://Models/book_Image.png"
-dest_files=["res://.godot/imported/book_Image.png-9424dd244ea56c08f586aaf370145e4b.s3tc.ctex", "res://.godot/imported/book_Image.png-9424dd244ea56c08f586aaf370145e4b.etc2.ctex"]
+source_file="res://Textures/pratbubbla_4.png"
+dest_files=["res://.godot/imported/pratbubbla_4.png-6bfd8e4afb25d12f7bd4d85aabe6ba9e.s3tc.ctex", "res://.godot/imported/pratbubbla_4.png-6bfd8e4afb25d12f7bd4d85aabe6ba9e.etc2.ctex"]
 
 [params]
 

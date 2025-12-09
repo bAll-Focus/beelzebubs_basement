@@ -1,0 +1,666 @@
+[gd_scene load_steps=54 format=3 uid="uid://cfxrxbkpibaof"]
+
+[ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
+[ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
+[ext_resource type="Script" uid="uid://dn7vn1nfba61f" path="res://Scenes/multiplayer_body_tracker.gd" id="2_5k5hp"]
+[ext_resource type="Script" uid="uid://gor780jiujbd" path="res://Scripts/role_manager.gd" id="2_yb5jp"]
+[ext_resource type="Script" uid="uid://mudxphotgg88" path="res://Scenes/move_on_keypress.gd" id="3_om2n4"]
+[ext_resource type="Script" uid="uid://5cmt6rsonw2y" path="res://Scripts/multiplayer_spawner.gd" id="3_syryq"]
+[ext_resource type="Material" uid="uid://bxi6nqhqkjgfn" path="res://Materials/cabbage_material.tres" id="4_25340"]
+[ext_resource type="PackedScene" uid="uid://c5kajcas17a5l" path="res://Scenes/sceneobjects/potato.tscn" id="4_wnf6l"]
+[ext_resource type="Compositor" uid="uid://r76ikc2vw5qd" path="res://Scripts/Shaders/ps1_compositor.tres" id="6_wnf6l"]
+[ext_resource type="Script" uid="uid://c3rjqih7r6816" path="res://src/server_node.gd" id="7_6o25v"]
+[ext_resource type="Script" uid="uid://br86dcf4f8lyi" path="res://test_ball.gd" id="8_6v7wx"]
+[ext_resource type="PackedScene" uid="uid://c884h61x6qh2u" path="res://Scenes/ba'al.tscn" id="8_72egd"]
+[ext_resource type="Texture2D" uid="uid://hquxij75wpc8" path="res://Textures/Particle_Blue.png" id="8_r0fya"]
+[ext_resource type="PackedScene" uid="uid://waafnnfp8rs6" path="res://Scenes/sceneobjects/cabbage.tscn" id="9_6v7wx"]
+[ext_resource type="Script" uid="uid://co7lf7ekfjxi3" path="res://Scripts/magic_manager.gd" id="10_j01qd"]
+[ext_resource type="Texture2D" uid="uid://w2l1cq1ugbkb" path="res://Textures/pratbubbla_2.png" id="12_px6hx"]
+[ext_resource type="Script" uid="uid://tsiv215yj7wk" path="res://Scenes/hittepåmagi.gd" id="14_r0fya"]
+[ext_resource type="Script" uid="uid://dpcwmo7fhqo03" path="res://progress_bar.gd" id="17_0j58h"]
+[ext_resource type="Script" uid="uid://ppa1ftud8wsl" path="res://Scripts/networking/statemachine/NetworkStateMachine.gd" id="17_fs88u"]
+[ext_resource type="Script" uid="uid://cxmumh82b5u3l" path="res://Scripts/networking/statemachine/state_connect.gd" id="18_t44h5"]
+[ext_resource type="Script" uid="uid://dgn8l4uqfiiy2" path="res://Scripts/menu.gd" id="19_iw0w0"]
+[ext_resource type="Script" uid="uid://bxs2k8p4c7j51" path="res://Scenes/control.gd" id="19_pf8y3"]
+[ext_resource type="Script" uid="uid://bddo0wwo2o1y3" path="res://Scripts/networking/statemachine/state_wait.gd" id="19_rhlsr"]
+[ext_resource type="Script" uid="uid://db6onewuxx36y" path="res://Scripts/networking/statemachine/state_intro.gd" id="20_4qbkp"]
+[ext_resource type="Texture2D" uid="uid://cyxddk2q47nyv" path="res://Textures/ba'al.png" id="20_pf8y3"]
+[ext_resource type="Script" uid="uid://ctr1q3lplpktq" path="res://Scripts/networking/statemachine/state_gameplay.gd" id="21_30nck"]
+[ext_resource type="Script" uid="uid://cmumdnyq8i07x" path="res://Scenes/credits.gd" id="21_pf8y3"]
+[ext_resource type="Script" uid="uid://dded44tmkxslp" path="res://Scripts/networking/statemachine/state_loss.gd" id="22_30nck"]
+[ext_resource type="Script" uid="uid://oyo0utvrbxn1" path="res://Scripts/networking/statemachine/state_win.gd" id="23_px6hx"]
+[ext_resource type="Script" uid="uid://bh5n44vcla4it" path="res://Scripts/textwriteoutbuffer.gd" id="25_j4v58"]
+
+[sub_resource type="Gradient" id="Gradient_px6hx"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j4v58"]
+gradient = SubResource("Gradient_px6hx")
+width = 900
+height = 600
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnf6l"]
+properties/0/path = NodePath("head:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("head:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("hand_l:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("hand_l:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("hand_r:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("hand_r:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_om2n4"]
+properties/0/path = NodePath("head:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("head:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("hand_l:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("hand_l:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("hand_r:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("hand_r:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_k23m1"]
+offsets = PackedFloat32Array(0, 0.64285713, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 1, 1, 1, 0.1393333, 0, 0.19, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xmm2u"]
+gradient = SubResource("Gradient_k23m1")
+
+[sub_resource type="Curve" id="Curve_xmm2u"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.06427504, 0.9507042), -14.268177, -14.268177, 0, 0, Vector2(0.14798206, 0.9507042), -4.1676617, -4.1676617, 0, 0, Vector2(0.16741404, 0.57042253), 0.0, 0.0, 0, 0, Vector2(0.3109118, 0.93309855), 0.0, 0.0, 0, 0, Vector2(0.40807176, 0.48943663), 0.0, 0.0, 0, 0, Vector2(0.5530643, 0.9507042), 0.0, 0.0, 0, 0, Vector2(0.66816145, 0.48591548), 0.0, 0.0, 0, 0, Vector2(0.7892377, 0.89788735), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="CurveTexture" id="CurveTexture_oo5ds"]
+curve = SubResource("Curve_xmm2u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k23m1"]
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+initial_velocity_min = -0.9
+initial_velocity_max = 0.9
+gravity = Vector3(0, -2, 0)
+scale_min = 0.9
+scale_max = 1.1
+scale_curve = SubResource("CurveTexture_oo5ds")
+color_ramp = SubResource("GradientTexture1D_xmm2u")
+collision_mode = 1
+collision_friction = 0.15
+collision_bounce = 0.32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oo5ds"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("8_r0fya")
+texture_filter = 0
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oo5ds"]
+material = SubResource("StandardMaterial3D_oo5ds")
+size = Vector2(0.1, 0.1)
+orientation = 2
+
+[sub_resource type="Skin" id="Skin_oo5ds"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fxttx"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_j01qd"]
+properties/0/path = NodePath(".:ball_force")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("Ball:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Ball:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_72egd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:health")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1v5t1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bngtt"]
+bg_color = Color(0.5228682, 0.031814367, 0.09505046, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv041"]
+bg_color = Color(0.14767182, 0.14767182, 0.14767176, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilck6"]
+bg_color = Color(0.5538976, 0.842284, 0.56015015, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p1sj6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8l8rb"]
+
+[sub_resource type="FontFile" id="FontFile_dtmh4"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_3e6i6"]
+font = SubResource("FontFile_dtmh4")
+font_size = 30
+font_color = Color(0.39607844, 0, 0, 1)
+
+[node name="MultiplayerIntegration" type="Node3D"]
+
+[node name="Static Scene" type="Node" parent="."]
+
+[node name="Basement" parent="Static Scene" instance=ExtResource("1_syryq")]
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Static Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2549438, -0.30249542, -3.9776)
+size = Vector3(17.534302, 0.609375, 16.0719)
+
+[node name="ThrowerMonologue" type="Sprite3D" parent="Static Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0908387, 1.2816061, -1.6935592)
+visible = false
+modulate = Color(1, 1, 1, 0.32156864)
+no_depth_test = true
+texture_filter = 0
+texture = SubResource("GradientTexture2D_j4v58")
+
+[node name="Label3D" type="Label3D" parent="Static Scene/ThrowerMonologue"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6239691, 0.43544662, 0.075999975)
+no_depth_test = true
+render_priority = 5
+outline_modulate = Color(0, 0, 0, 0)
+font_size = 30
+outline_size = 0
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 2
+width = 600.0
+
+[node name="Dynamic Scene" type="Node" parent="."]
+
+[node name="Dynamic_objects" type="Node" parent="Dynamic Scene"]
+
+[node name="Thrower body parts" type="Node3D" parent="Dynamic Scene/Dynamic_objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39692843, 0.32473063, -2.340984)
+script = ExtResource("2_5k5hp")
+
+[node name="head" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
+
+[node name="hand_l" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
+script = ExtResource("3_om2n4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts/hand_l"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = ExtResource("4_25340")
+
+[node name="hand_r" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Thrower body parts/hand_r"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = ExtResource("4_25340")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Dynamic_objects/Thrower body parts"]
+replication_config = SubResource("SceneReplicationConfig_wnf6l")
+
+[node name="Victim body parts" type="Node3D" parent="Dynamic Scene/Dynamic_objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32473063, -2.340984)
+script = ExtResource("2_5k5hp")
+
+[node name="head" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+
+[node name="hand_l" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+script = ExtResource("3_om2n4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts/hand_l"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="hand_r" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts/hand_r"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+replication_config = SubResource("SceneReplicationConfig_om2n4")
+
+[node name="Spawners" type="Node" parent="Dynamic Scene"]
+
+[node name="Spawner" type="MultiplayerSpawner" parent="Dynamic Scene/Spawners"]
+_spawnable_scenes = PackedStringArray("uid://c5kajcas17a5l")
+spawn_path = NodePath("../../Dynamic_objects")
+spawn_limit = 1024
+script = ExtResource("3_syryq")
+potato = ExtResource("4_wnf6l")
+
+[node name="BallDetection" type="Node" parent="Dynamic Scene"]
+script = ExtResource("7_6o25v")
+
+[node name="Ball" type="RigidBody3D" parent="Dynamic Scene/BallDetection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35452616, -0.71772164)
+script = ExtResource("8_6v7wx")
+
+[node name="Particle_trail" type="GPUParticles3D" parent="Dynamic Scene/BallDetection/Ball"]
+layers = 32
+amount = 50
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_k23m1")
+draw_pass_1 = SubResource("PlaneMesh_oo5ds")
+draw_skin = SubResource("Skin_oo5ds")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dynamic Scene/BallDetection/Ball"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_fxttx")
+
+[node name="cabbage" parent="Dynamic Scene/BallDetection/Ball" instance=ExtResource("9_6v7wx")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="Timer" type="Timer" parent="Dynamic Scene/BallDetection"]
+wait_time = 5.0
+autostart = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/BallDetection"]
+replication_config = SubResource("SceneReplicationConfig_j01qd")
+
+[node name="TimeOutTimer" type="Timer" parent="Dynamic Scene/BallDetection"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Ba\'al" parent="Dynamic Scene" node_paths=PackedStringArray("healthbar", "pause_menu", "start_menu", "credits_menu", "ball") instance=ExtResource("8_72egd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36648083, -2.8132806)
+healthbar = NodePath("../../Camera3D/Healthbar")
+pause_menu = NodePath("../../Camera3D/Pause Menu")
+start_menu = NodePath("../../Camera3D/Start Menu")
+credits_menu = NodePath("../../Camera3D/Credits Menu")
+ball = NodePath("../BallDetection/Ball")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Ba\'al"]
+replication_config = SubResource("SceneReplicationConfig_72egd")
+
+[node name="TimerBurn" type="Timer" parent="Dynamic Scene/Ba\'al"]
+one_shot = true
+
+[node name="TimerSlow" type="Timer" parent="Dynamic Scene/Ba\'al"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Baalbubbla" type="Sprite3D" parent="Dynamic Scene/Ba\'al"]
+transform = Transform3D(1, 0, 0, 0, 0.98737514, 0.15839934, 0, -0.15839934, 0.98737514, 0.0024225414, 0.044695616, 0.7482445)
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("12_px6hx")
+
+[node name="Label3D" type="Label3D" parent="Dynamic Scene/Ba\'al/Baalbubbla"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85993433, 0.31105292, 0.008190274)
+no_depth_test = true
+texture_filter = 2
+render_priority = 5
+outline_modulate = Color(1, 1, 1, 1)
+text = "Foolish mortal..."
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 2
+width = 326.14
+
+[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager", "state_manager")]
+script = ExtResource("1_p5c6l")
+role_manager = NodePath("RoleManager")
+magic_manager = NodePath("MagicManager")
+state_manager = NodePath("StateMachine")
+debug = true
+
+[node name="RoleManager" type="Node" parent="Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
+script = ExtResource("2_yb5jp")
+victim_pos_marker = NodePath("../../Position Markers/victim_pos_marker")
+thrower_pos_marker = NodePath("../../Position Markers/thrower_pos_marker")
+victim_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Victim body parts")
+thrower_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Thrower body parts")
+
+[node name="SpawnManager" type="Node" parent="Network Manager"]
+
+[node name="MagicManager" type="Node" parent="Network Manager"]
+script = ExtResource("10_j01qd")
+
+[node name="Hittepåmagi" type="Node" parent="Network Manager/MagicManager"]
+script = ExtResource("14_r0fya")
+
+[node name="StateMachine" type="Node" parent="Network Manager" node_paths=PackedStringArray("current_state", "root", "wait_state")]
+script = ExtResource("17_fs88u")
+current_state = NodePath("0_ Connecting")
+root = NodePath("..")
+wait_state = NodePath("1_ Wait")
+
+[node name="0_ Connecting" type="Node" parent="Network Manager/StateMachine"]
+script = ExtResource("18_t44h5")
+
+[node name="1_ Wait" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("start_menu")]
+script = ExtResource("19_rhlsr")
+start_menu = NodePath("../../../Camera3D/Start Menu/Menu")
+
+[node name="2_ Intro" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("Baal", "baal_text", "thrower_text")]
+script = ExtResource("20_4qbkp")
+Baal = NodePath("../../../Dynamic Scene/Ba\'al")
+baal_text = NodePath("../../TextWriteoutManager/BaalText")
+thrower_text = NodePath("../../TextWriteoutManager/InstructText")
+baal_intro_lines = Array[String](["Yo.", "Cool necronomicon.", "Used it to summon me, right?", "Well, ain't that something.", "The name's Ba'al.", "I happen to be a demon.", "Say, did you read the fine print?", "It says:", "\"The summoned demon is -", "free to make any demand -", "- of their mortal summoner.\"", "Yes, well, see...", "I sorta want your soul.", "So, you are going to join me in hell.", "", "My teleportation spell -", "is ready in two minutes.", "Say your goodbyes <3"])
+thrower_intro_lines = Array[String](["It seems your idiot friend has once again attempted to summon a demon.", "Only, this time, they might have actually succeeded.", "Sort of worried for their well being if they are taken to hell so you decide on the optimal solution:", "violence.", "You have some conveniently placed cabbage to throw. ", "But you can't see the demon...", "Maybe your useless pal can make themselves useful...?"])
+
+[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager", "game_timer", "throw_manager")]
+script = ExtResource("21_30nck")
+baal = NodePath("../../../Dynamic Scene/Ba\'al")
+health_bar = NodePath("../../../Camera3D/Healthbar")
+magic_manager = NodePath("../../MagicManager")
+game_timer = NodePath("Timer")
+throw_manager = NodePath("../../../Dynamic Scene/BallDetection")
+
+[node name="Timer" type="Timer" parent="Network Manager/StateMachine/3_ Gameplay"]
+wait_time = 120.0
+
+[node name="4_ Loss" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu")]
+script = ExtResource("22_30nck")
+pause_menu = NodePath("../../../Camera3D/Pause Menu")
+credits_menu = NodePath("../../../Camera3D/Credits Menu")
+
+[node name="5_ Win" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu")]
+script = ExtResource("23_px6hx")
+pause_menu = NodePath("../../../Camera3D/Pause Menu")
+credits_menu = NodePath("../../../Camera3D/Credits Menu")
+
+[node name="TextWriteoutManager" type="Node" parent="Network Manager"]
+
+[node name="BaalText" type="Node" parent="Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
+script = ExtResource("25_j4v58")
+TextHolder = NodePath("../../../Dynamic Scene/Ba\'al/Baalbubbla")
+TextLabel = NodePath("../../../Dynamic Scene/Ba\'al/Baalbubbla/Label3D")
+pulsating = true
+seconds_per_character = 0.05
+wait_before_continue = 0.5
+
+[node name="InstructText" type="Node" parent="Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
+script = ExtResource("25_j4v58")
+TextHolder = NodePath("../../../Static Scene/ThrowerMonologue")
+TextLabel = NodePath("../../../Static Scene/ThrowerMonologue/Label3D")
+seconds_per_character = 0.05
+wait_before_continue = 0.5
+
+[node name="Position Markers" type="Node" parent="."]
+
+[node name="victim_pos_marker" type="Node3D" parent="Position Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.87960494, -0.7085389)
+
+[node name="thrower_pos_marker" type="Node3D" parent="Position Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.3)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+compositor = ExtResource("6_wnf6l")
+
+[node name="Healthbar" type="ProgressBar" parent="Camera3D"]
+z_index = 2
+z_as_relative = false
+offset_left = 352.0
+offset_top = 33.0
+offset_right = 827.0
+offset_bottom = 60.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_1v5t1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bngtt")
+step = 1.0
+value = 80.0
+show_percentage = false
+script = ExtResource("17_0j58h")
+
+[node name="Damagebar" type="ProgressBar" parent="Camera3D/Healthbar"]
+show_behind_parent = true
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_lv041")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ilck6")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="Camera3D/Healthbar"]
+wait_time = 0.6
+one_shot = true
+
+[node name="Pause Menu" type="CanvasLayer" parent="Camera3D"]
+
+[node name="Control" type="Control" parent="Camera3D/Pause Menu" node_paths=PackedStringArray("baal")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("19_pf8y3")
+baal = NodePath("../../../Dynamic Scene/Ba\'al")
+
+[node name="ColorRect" type="ColorRect" parent="Camera3D/Pause Menu/Control"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera3D/Pause Menu/Control/ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 220
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/Pause Menu/Control/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.10980392, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Ba'al's Basement"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+text = "Quit"
+
+[node name="Start Menu" type="CanvasLayer" parent="Camera3D"]
+
+[node name="Menu" type="Control" parent="Camera3D/Start Menu" node_paths=PackedStringArray("healthbar", "credits")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("19_iw0w0")
+healthbar = NodePath("../../Healthbar")
+credits = NodePath("../../Credits Menu")
+
+[node name="ColorRect" type="ColorRect" parent="Camera3D/Start Menu/Menu"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera3D/Start Menu/Menu/ColorRect"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer"]
+material = SubResource("CanvasItemMaterial_p1sj6")
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+texture = SubResource("CanvasTexture_8l8rb")
+region_rect = Rect2(600, 120, 0, 0)
+
+[node name="Label" type="Label" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 0
+offset_top = 4.0
+offset_right = 600.0
+offset_bottom = 27.0
+text = "Ba'al's Basement"
+label_settings = SubResource("LabelSettings_3e6i6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 260)
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(260, 260)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(260, 260)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("20_pf8y3")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 74
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Start"
+
+[node name="CreditsButton" type="Button" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Quit"
+
+[node name="Credits Menu" type="CanvasLayer" parent="Camera3D"]
+script = ExtResource("21_pf8y3")
+
+[node name="Control" type="Control" parent="Camera3D/Credits Menu"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Camera3D/Credits Menu/Control"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera3D/Credits Menu/Control/ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 220
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/Credits Menu/Control/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.10980392, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Ba'al's Basement"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font_size={26}][color=crimson]CREDITS[/color][/font_size]
+[font_size={20}][color=dark_orange]Kristin Eriksson[/color]
+[color=gold]Rej Karlander[/color]
+[color=yellow_green]Marcus Erlandsson[/color]
+[color=light_sky_blue]Jennifer Köhler[/color]
+[color=medium_purple]Kei Duke-Bergman[/color][/center]
+[/font_size]"
+fit_content = true
+
+[node name="BackButton" type="Button" parent="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(20, 30)
+layout_mode = 2
+text = "Back"
+
+[connection signal="timeout" from="Dynamic Scene/BallDetection/Timer" to="Dynamic Scene/BallDetection" method="_on_timer_timeout"]
+[connection signal="timeout" from="Camera3D/Healthbar/Timer" to="Camera3D/Healthbar" method="_on_timer_timeout"]
+[connection signal="pressed" from="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="Camera3D/Pause Menu/Control" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer/QuitButton" to="Camera3D/Pause Menu/Control" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/StartButton" to="Camera3D/Start Menu/Menu" method="_on_start_button_pressed"]
+[connection signal="pressed" from="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/CreditsButton" to="Camera3D/Start Menu/Menu" method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Camera3D/Start Menu/Menu/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Camera3D/Start Menu/Menu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Camera3D/Credits Menu/Control/ColorRect/MarginContainer/VBoxContainer/BackButton" to="Camera3D/Credits Menu" method="_on_back_button_pressed"]

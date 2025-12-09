@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b1h2b4bgo1ifd"]
+
+[ext_resource type="Shader" uid="uid://bcahr5qafa6f1" path="res://Scripts/Shaders/ps1_shader.gdshader" id="1_jas13"]
+[ext_resource type="Texture2D" uid="uid://5h5c8w6vnvkb" path="res://Models/flygoatanim_body_texture.png" id="2_cb8ur"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_jas13")
+shader_parameter/my_texture = ExtResource("2_cb8ur")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/vertex_snap = true
+shader_parameter/do_affine_mapping = false
