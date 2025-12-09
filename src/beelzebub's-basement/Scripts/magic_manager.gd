@@ -15,8 +15,8 @@ func set_up_magic_tracking(magic_tracker_holder) -> void: # Magic tracker holder
 	else:
 		var spell_tracker_1 = magic_tracker_holder.get_node("LeftController").get_child(0)
 		var spell_tracker_2 = magic_tracker_holder.get_node("RightController").get_child(0)
-		spell_tracker_1.connect(cast_magic)
-		spell_tracker_2.connect(cast_magic)
+		spell_tracker_1.spell_cast.connect(cast_magic)
+		spell_tracker_2.spell_cast.connect(cast_magic)
 
 func cast_magic(spell, hand) -> void:
 	if(is_active):

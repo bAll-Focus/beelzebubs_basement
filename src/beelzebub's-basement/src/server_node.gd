@@ -2,6 +2,7 @@ class_name CameraServerNode
 extends Node
 
 @export var ball_force = Vector3(0,0,0)
+@onready var spell_timer = $joever
 var reset_position = Vector3(0,0.8,-0.1)
 
 var server = UDPServer.new()
@@ -27,18 +28,31 @@ var is_active = false
 func _ready():
 	server.listen(5005)
 	ball = get_node("Ball")
-	timer = get_node("Timer")
-	time_out_timer = get_node("TimeOutTimer")
 	throw_ready = true
 	viewport_width = get_viewport().get_visible_rect().size.x
 	set_multiplayer_authority(1)
+	ball.collision.connect(reset_ball)
+	spell_timer.timeout.connect(reset_spell_type)
 
+@rpc 
 func on_set_damage_type(damage_type):
+	if multiplayer.is_server():
+		on_set_damage_type.rpc()
 	ball.set_damage_type(damage_type)
+	spell_timer.stop()
+	spell_timer.start()
+	
+
+@rpc
+func reset_spell_type():
+	if multiplayer.is_server():
+		reset_spell_type.rpc()
+	ball.set_damage_type(0)
 
 @rpc
 func throw_ball():
 	reset_ball()
+	ball.freeze = false
 	ball.apply_impulse(ball_force)
 	throw_ready = false
 		
@@ -53,6 +67,7 @@ func set_force(coords):
 @rpc
 func throw_ball_mouse():
 	reset_ball()
+	ball.freeze = false
 	ball.apply_impulse(ball_force)
 	throw_ready = false
 	
@@ -118,6 +133,4 @@ func reset_ball():
 	ball.angular_velocity = Vector3.ZERO  
 	ball.rotation = Vector3(0,0,0)
 	throw_ready = true
-
-func _on_timer_timeout():
-	reset_ball()
+	ball.freeze = true
