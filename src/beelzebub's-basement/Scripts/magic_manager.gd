@@ -17,6 +17,7 @@ func set_up_magic_tracking(magic_tracker_holder) -> void: # Magic tracker holder
 		var spell_tracker_2 = magic_tracker_holder.get_node("RightController").get_child(0)
 		spell_tracker_1.spell_cast.connect(cast_magic)
 		spell_tracker_2.spell_cast.connect(cast_magic)
+		$"Hittepåmagi".spell_cast.connect(cast_magic) ##failsafe
 
 func cast_magic(spell, hand) -> void:
 	if(is_active):
