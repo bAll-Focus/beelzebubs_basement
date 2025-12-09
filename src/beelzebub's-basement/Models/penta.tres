@@ -1,12 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cjya40x0rhcf3"]
 
-[ext_resource type="Shader" path="res://Scripts/Shaders/ps1_shader_transparent.gdshader" id="1_s1xye"]
+[ext_resource type="Shader" uid="uid://lgoof066l4v7" path="res://Scripts/Shaders/ps1_shader_transparent.gdshader" id="1_s1xye"]
 [ext_resource type="Texture2D" uid="uid://4cdhc0650c7" path="res://Textures/pentagram.png" id="2_q18mg"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_s1xye")
+shader_parameter/alpha_value = 1.0
 shader_parameter/my_texture = ExtResource("2_q18mg")
 shader_parameter/tint = Color(1, 1, 1, 1)
-shader_parameter/vertex_snap = true
+shader_parameter/vertex_snap = false
 shader_parameter/do_affine_mapping = false
