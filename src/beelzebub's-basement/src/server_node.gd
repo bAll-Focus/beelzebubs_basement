@@ -37,7 +37,7 @@ func _ready():
 @rpc 
 func on_set_damage_type(damage_type):
 	if multiplayer.is_server():
-		on_set_damage_type.rpc()
+		on_set_damage_type.rpc(damage_type)
 	ball.set_damage_type(damage_type)
 	spell_timer.stop()
 	spell_timer.start()
