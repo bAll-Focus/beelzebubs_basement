@@ -19,6 +19,9 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	game_timer.timeout.connect(_ran_out_of_time)
 	throw_manager.is_active = false
 	
+	baal.visible = true
+	baal.set_visibility(false)
+	
 	##Connect neccessary signals here
 	magic_manager.revealed_demon.connect(baal.reveal_spell)
 	magic_manager.slowed_demon.connect(baal.slow_spell)
@@ -39,6 +42,7 @@ func client_enter_state():
 	health_bar.visible = true
 	magic_manager.is_active = true
 	throw_manager.is_active = true
+	baal.set_visibility(true)
 	pass
 
 func server_enter_state():
@@ -46,6 +50,7 @@ func server_enter_state():
 	health_bar.visible = true
 	magic_manager.is_active = true
 	throw_manager.is_active = true
+	baal.set_visibility(false)
 	game_timer.start()
 	pass
 

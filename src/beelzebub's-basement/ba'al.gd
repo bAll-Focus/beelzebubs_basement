@@ -7,9 +7,17 @@ class_name Baal_AI
 @export var pause_menu:CanvasLayer
 @export var start_menu:CanvasLayer
 @export var credits_menu:CanvasLayer
+
 @onready var timerBurn:Timer = $TimerBurn
 @onready var timerSlow:Timer = $TimerSlow
 @onready var timerReveal:Timer = $TimerVisible
+
+@onready var particle_parent = $particles
+## Particles related to fire. 
+#Burning is active the entire duration of fire
+#Flare emits a burst of fire when Baal takes fire damage
+@export var burning_particle:GPUParticles3D
+@export var flare_particle:GPUParticles3D
 
 @export var camera:Camera3D
 @export var ball:RigidBody3D
@@ -59,7 +67,7 @@ func _initialize_baal() -> void:
 	#$"../Camera3D/Credits Menu".set_visible(false)
 	#start_menu.set_visible(true)
 	healthbar._init_health(health)
-	set_visible(false)
+	set_visibility(false)
 	set_multiplayer_authority(1)
 	hit_sounds = []
 	hit_sounds.append(preload("res://audio/baal_hit_0.wav"))
@@ -67,7 +75,12 @@ func _initialize_baal() -> void:
 	hit_sounds.append(preload("res://audio/baal_hit_2.wav"))
 	audio_player = get_node("AudioStreamPlayer3D")
 	speedEffect = 1
+	burning_particle.emitting = false
+	flare_particle.emitting = false
 
+func set_visibility(value: bool):
+	$CharacterBody3D.visible = value
+	$MeshInstance3D.visible = value
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -100,11 +113,10 @@ func reveal_spell():
 		reveal_spell.rpc() #call the client version to do something
 		timerReveal.start()
 		for n in 3:
-			visible = false;
+			set_visibility(false);
 			await get_tree().create_timer(0.1).timeout
-			visible = true;
+			set_visibility(true);
 			await get_tree().create_timer(0.1).timeout
-		visible = true
 	else:
 		pass
 @rpc
@@ -112,9 +124,9 @@ func on_reveal_ended():
 	if multiplayer.is_server(): 
 		on_reveal_ended.rpc() #call the client version to do something
 		for n in 3:
-			visible = true;
+			set_visibility(true);
 			await get_tree().create_timer(0.1).timeout
-			visible = false;
+			set_visibility(false);
 			await get_tree().create_timer(0.1).timeout
 	else:
 		pass
@@ -150,23 +162,24 @@ func on_slow_ended():
 		set_on_fire.rpc()
 		timerBurn.start()
 		burnCount = randi_range(BURN_MIN, BURN_MAX) 
-		
+		burning_particle.emitting = true
 		# Stop cooling of ba'al, but also ensure thawing
 		timerSlow.stop()
 		on_slow_ended()
 	else:
-		pass 
+		burning_particle.emitting = true
 
 @rpc func put_out_fire():
 	if multiplayer.is_server():
 		put_out_fire.rpc()
 		timerBurn.stop()
+		burning_particle.emitting = false
 	else:
-		pass 
+		burning_particle.emitting = false
 
 @rpc
 func baal_died():
-	set_visible(false)
+	set_visibility(false);
 	health = 0
 	is_active = false
 
@@ -208,7 +221,7 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 
 func restart() -> void:
 	health = max_health
-	set_visible(true)
+	set_visibility(true);
 
 # burn timer
 func _on_timer_timeout() -> void:
@@ -217,3 +230,6 @@ func _on_timer_timeout() -> void:
 	if burnCount > 1:
 		burnCount -= 1
 		timerBurn.start()
+		flare_particle.emitting = true
+	if burnCount <= 1:
+		put_out_fire()

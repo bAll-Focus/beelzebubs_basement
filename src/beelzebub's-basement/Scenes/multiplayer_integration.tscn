@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=79 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
@@ -178,6 +178,73 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:health")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_q6mps"]
+offsets = PackedFloat32Array(0, 0.64285713, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 1, 1, 1, 0.1393333, 0, 0.19, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yhdwd"]
+gradient = SubResource("Gradient_q6mps")
+
+[sub_resource type="Curve" id="Curve_2d63o"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.06427504, 0.9507042), -14.268177, -14.268177, 0, 0, Vector2(0.14798206, 0.9507042), -4.1676617, -4.1676617, 0, 0, Vector2(0.16741404, 0.57042253), 0.0, 0.0, 0, 0, Vector2(0.3109118, 0.93309855), 0.0, 0.0, 0, 0, Vector2(0.40807176, 0.48943663), 0.0, 0.0, 0, 0, Vector2(0.5530643, 0.9507042), 0.0, 0.0, 0, 0, Vector2(0.66816145, 0.48591548), 0.0, 0.0, 0, 0, Vector2(0.7892377, 0.89788735), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="CurveTexture" id="CurveTexture_gnast"]
+curve = SubResource("Curve_2d63o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ti22o"]
+emission_shape = 1
+emission_sphere_radius = 0.3
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.29999998
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.39999998
+scale_max = 0.59999996
+scale_curve = SubResource("CurveTexture_gnast")
+color_ramp = SubResource("GradientTexture1D_yhdwd")
+collision_mode = 1
+collision_friction = 0.15
+collision_bounce = 0.32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fm7h"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("10_a8jg6")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cq6a6"]
+material = SubResource("StandardMaterial3D_8fm7h")
+size = Vector2(0.1, 0.1)
+orientation = 2
+
+[sub_resource type="Curve" id="Curve_n1lbp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.08264461, 1), 0.0, 0.0, 0, 0, Vector2(0.49586776, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_uujqs"]
+curve = SubResource("Curve_n1lbp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1k4vq"]
+emission_shape = 1
+emission_sphere_radius = 0.3
+direction = Vector3(0.3, 0.3, 0.3)
+spread = 180.0
+initial_velocity_min = 0.9
+initial_velocity_max = 2.0
+gravity = Vector3(0, 1.2, 0)
+damping_min = 3.4
+damping_max = 3.4
+scale_min = 0.5
+scale_max = 0.79999995
+scale_curve = SubResource("CurveTexture_uujqs")
+color_ramp = SubResource("GradientTexture1D_yhdwd")
+collision_mode = 1
+collision_friction = 0.15
+collision_bounce = 0.32
+
+[sub_resource type="Skin" id="Skin_hku3c"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1v5t1"]
 
@@ -368,12 +435,14 @@ vertical_alignment = 0
 autowrap_mode = 2
 width = 326.14
 
-[node name="Ba\'al" parent="Dynamic Scene" node_paths=PackedStringArray("healthbar", "pause_menu", "start_menu", "credits_menu", "ball") instance=ExtResource("8_72egd")]
+[node name="Ba\'al" parent="Dynamic Scene" node_paths=PackedStringArray("healthbar", "pause_menu", "start_menu", "credits_menu", "burning_particle", "flare_particle", "ball") instance=ExtResource("8_72egd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62950873, -2.443976)
 healthbar = NodePath("../../Camera3D/Healthbar")
 pause_menu = NodePath("../../Camera3D/Pause Menu")
 start_menu = NodePath("../../Camera3D/Start Menu")
 credits_menu = NodePath("../../Camera3D/Credits Menu")
+burning_particle = NodePath("particles/fire_particles/burn")
+flare_particle = NodePath("particles/fire_particles/flare")
 ball = NodePath("../BallDetection/Ball")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Ba\'al"]
@@ -390,6 +459,31 @@ one_shot = true
 [node name="TimerVisible" type="Timer" parent="Dynamic Scene/Ba\'al"]
 wait_time = 6.0
 one_shot = true
+
+[node name="particles" type="Node3D" parent="Dynamic Scene/Ba\'al"]
+
+[node name="fire_particles" type="Node3D" parent="Dynamic Scene/Ba\'al/particles"]
+
+[node name="burn" type="GPUParticles3D" parent="Dynamic Scene/Ba\'al/particles/fire_particles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588, 0)
+emitting = false
+amount = 10
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_ti22o")
+draw_pass_1 = SubResource("PlaneMesh_cq6a6")
+
+[node name="flare" type="GPUParticles3D" parent="Dynamic Scene/Ba\'al/particles/fire_particles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5494802, 0)
+layers = 32
+emitting = false
+amount = 80
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.9
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_1k4vq")
+draw_pass_1 = SubResource("PlaneMesh_cq6a6")
+draw_skin = SubResource("Skin_hku3c")
 
 [node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager", "state_manager")]
 script = ExtResource("1_p5c6l")
