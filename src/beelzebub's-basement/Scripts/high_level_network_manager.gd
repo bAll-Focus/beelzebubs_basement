@@ -11,7 +11,7 @@ var peer : ENetMultiplayerPeer
 @export var server_mode: bool = false
 @export var debug = false
 @export var use_vr = false
-
+@export var little_vr_dude:Node3D
 var waiting_for_player = true;
 
 func _on_peer_connected(peer_id: int):
@@ -23,7 +23,7 @@ func _on_peer_connected(peer_id: int):
 	else:
 		role_manager.initialize_roles(false)
 		var vr_player = role_manager.VR_player if use_vr else null
-		magic_manager.set_up_magic_tracking(vr_player)
+		magic_manager.set_up_magic_tracking($"../Dynamic Scene/Player_2")
 	state_manager._connected()
 
 func start_server() -> void:
@@ -41,13 +41,15 @@ func start_client() -> void:
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_peer_connected)
-	server_mode = false
 	role_manager.use_vr = use_vr
 	if debug:
 		_set_node_type();
 	if server_mode:
 		start_server()
 		print("AM SERVER")
+		print("Klient: Vem är det som är server?")
+		print("Server: Auhyuck, det är ju jag som är server.")
+		little_vr_dude.queue_free()
 	else:
 		await get_tree().create_timer(4.0).timeout
 		start_client()

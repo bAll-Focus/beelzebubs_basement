@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=81 format=3 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://dgn8l4uqfiiy2" path="res://Scripts/menu.gd" id="19_iw0w0"]
 [ext_resource type="Script" uid="uid://bxs2k8p4c7j51" path="res://Scenes/control.gd" id="19_pf8y3"]
 [ext_resource type="Script" uid="uid://bddo0wwo2o1y3" path="res://Scripts/networking/statemachine/state_wait.gd" id="19_rhlsr"]
+[ext_resource type="PackedScene" uid="uid://bnj5ina8e4vpb" path="res://Scenes/player_2.tscn" id="20_2d63o"]
 [ext_resource type="Script" uid="uid://db6onewuxx36y" path="res://Scripts/networking/statemachine/state_intro.gd" id="20_4qbkp"]
 [ext_resource type="Script" uid="uid://ctr1q3lplpktq" path="res://Scripts/networking/statemachine/state_gameplay.gd" id="21_30nck"]
 [ext_resource type="Script" uid="uid://cmumdnyq8i07x" path="res://Scenes/credits.gd" id="21_pf8y3"]
@@ -301,6 +302,98 @@ width = 600.0
 
 [node name="Dynamic Scene" type="Node" parent="."]
 
+[node name="Network Manager" type="Node" parent="Dynamic Scene" node_paths=PackedStringArray("role_manager", "magic_manager", "state_manager", "little_vr_dude")]
+script = ExtResource("1_p5c6l")
+IP_ADDRESS = "192.168.0.1"
+role_manager = NodePath("RoleManager")
+magic_manager = NodePath("MagicManager")
+state_manager = NodePath("StateMachine")
+server_mode = true
+little_vr_dude = NodePath("../Player_2")
+
+[node name="RoleManager" type="Node" parent="Dynamic Scene/Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
+script = ExtResource("2_yb5jp")
+victim_pos_marker = NodePath("../../../Position Markers/victim_pos_marker")
+thrower_pos_marker = NodePath("../../../Position Markers/thrower_pos_marker")
+victim_body_parts = NodePath("../../Dynamic_objects/Victim body parts")
+thrower_body_parts = NodePath("../../Dynamic_objects/Thrower body parts")
+
+[node name="SpawnManager" type="Node" parent="Dynamic Scene/Network Manager"]
+
+[node name="MagicManager" type="Node" parent="Dynamic Scene/Network Manager"]
+script = ExtResource("10_j01qd")
+
+[node name="Hittepåmagi" type="Node" parent="Dynamic Scene/Network Manager/MagicManager"]
+script = ExtResource("14_r0fya")
+
+[node name="StateMachine" type="Node" parent="Dynamic Scene/Network Manager" node_paths=PackedStringArray("current_state", "root", "wait_state")]
+script = ExtResource("17_fs88u")
+current_state = NodePath("0_ Connecting")
+root = NodePath("..")
+wait_state = NodePath("1_ Wait")
+
+[node name="0_ Connecting" type="Node" parent="Dynamic Scene/Network Manager/StateMachine"]
+script = ExtResource("18_t44h5")
+
+[node name="1_ Wait" type="Node" parent="Dynamic Scene/Network Manager/StateMachine" node_paths=PackedStringArray("start_menu")]
+script = ExtResource("19_rhlsr")
+start_menu = NodePath("../../../../Camera3D/Start Menu/Menu")
+
+[node name="2_ Intro" type="Node" parent="Dynamic Scene/Network Manager/StateMachine" node_paths=PackedStringArray("Baal", "baal_text", "thrower_text")]
+script = ExtResource("20_4qbkp")
+Baal = NodePath("../../../Ba\'al")
+baal_text = NodePath("../../TextWriteoutManager/BaalText")
+thrower_text = NodePath("../../TextWriteoutManager/InstructText")
+baal_intro_lines = Array[String](["Yo.", "Cool necronomicon.", "Used it to summon me, right?", "Well, ain't that something.", "The name's Ba'al.", "I happen to be a demon.", "Say, did you read the fine print?", "It says:", "\"The summoned demon is free to make ", "any demand of their mortal summoner.\"", "Yes, well, see...", "I sorta want your soul.", "So, you are going to join me in hell.", "", "My teleportation spell is ready in two minutes.", "Say your goodbyes <3"])
+thrower_intro_lines = Array[String](["It seems your idiot friend has once again attempted to summon a demon.", "Only, this time, they might have actually succeeded.", "Sort of worried for their well being if they are taken to hell so you decide on the optimal solution:", "violence.", "You have some conveniently placed cabbage to throw. ", "But you can't see the demon...", "Maybe your useless pal can make themselves useful...?"])
+
+[node name="3_ Gameplay" type="Node" parent="Dynamic Scene/Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager", "game_timer", "throw_manager")]
+script = ExtResource("21_30nck")
+baal = NodePath("../../../Ba\'al")
+health_bar = NodePath("../../../../Camera3D/Healthbar")
+magic_manager = NodePath("../../MagicManager")
+game_timer = NodePath("LossTimer")
+throw_manager = NodePath("../../../BallDetection")
+
+[node name="LossTimer" type="Timer" parent="Dynamic Scene/Network Manager/StateMachine/3_ Gameplay"]
+wait_time = 120.0
+
+[node name="4_ Loss" type="Node" parent="Dynamic Scene/Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu", "baal_text")]
+script = ExtResource("22_30nck")
+pause_menu = NodePath("../../../../Camera3D/Pause Menu")
+credits_menu = NodePath("../../../../Camera3D/Credits Menu")
+baal_text = NodePath("../../TextWriteoutManager/BaalText")
+baal_loss_lines = Array[String](["Alright, alright.", "Time for our exciting roadtrip!"])
+
+[node name="5_ Win" type="Node" parent="Dynamic Scene/Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu", "baal_text")]
+script = ExtResource("23_px6hx")
+pause_menu = NodePath("../../../../Camera3D/Pause Menu")
+credits_menu = NodePath("../../../../Camera3D/Credits Menu")
+baal_text = NodePath("../../TextWriteoutManager/BaalText")
+baal_win_lines = Array[String](["Ow, that hurts...", "Ok, fine, have it your way", "I'll claim your soul when you die.", "Enjoy your mortal life."])
+
+[node name="TextWriteoutManager" type="Node" parent="Dynamic Scene/Network Manager"]
+
+[node name="BaalText" type="Node" parent="Dynamic Scene/Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
+script = ExtResource("25_j4v58")
+TextHolder = NodePath("../../../Baalbubbla")
+TextLabel = NodePath("../../../Baalbubbla/Label3D")
+pulsating = true
+voiced = true
+seconds_per_character = 0.05
+wait_before_continue = 0.5
+voice_pitch = 3.5
+
+[node name="InstructText" type="Node" parent="Dynamic Scene/Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
+script = ExtResource("25_j4v58")
+TextHolder = NodePath("../../../../Static Scene/ThrowerMonologue")
+TextLabel = NodePath("../../../../Static Scene/ThrowerMonologue/Label3D")
+seconds_per_character = 0.05
+wait_before_continue = 0.5
+
+[node name="ACVoiceBox" type="AudioStreamPlayer" parent="Dynamic Scene/Network Manager/TextWriteoutManager"]
+script = ExtResource("25_6kivn")
+
 [node name="Dynamic_objects" type="Node" parent="Dynamic Scene"]
 
 [node name="Thrower body parts" type="Node3D" parent="Dynamic Scene/Dynamic_objects"]
@@ -328,15 +421,13 @@ replication_config = SubResource("SceneReplicationConfig_wnf6l")
 
 [node name="Victim body parts" type="Node3D" parent="Dynamic Scene/Dynamic_objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32473063, -2.340984)
+visible = false
 script = ExtResource("2_5k5hp")
 
 [node name="head" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts/head"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-
-[node name="SpellTome" parent="Dynamic Scene/Dynamic_objects/Victim body parts/head" instance=ExtResource("5_yhdwd")]
-transform = Transform3D(1, 0, 0, 0, 0.94178784, -0.33620778, 0, 0.33620778, 0.94178784, -0.019740252, -0.22631732, 1.0872868)
 
 [node name="hand_l" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
 script = ExtResource("3_om2n4")
@@ -486,95 +577,11 @@ process_material = SubResource("ParticleProcessMaterial_1k4vq")
 draw_pass_1 = SubResource("PlaneMesh_cq6a6")
 draw_skin = SubResource("Skin_hku3c")
 
-[node name="Network Manager" type="Node" parent="." node_paths=PackedStringArray("role_manager", "magic_manager", "state_manager")]
-script = ExtResource("1_p5c6l")
-IP_ADDRESS = "192.168.0.1"
-role_manager = NodePath("RoleManager")
-magic_manager = NodePath("MagicManager")
-state_manager = NodePath("StateMachine")
+[node name="Player_2" parent="Dynamic Scene" instance=ExtResource("20_2d63o")]
+transform = Transform3D(0.7910741, 0, 0.6117203, 0, 1, 0, -0.6117203, 0, 0.7910741, 2.006, 0, -0.171)
 
-[node name="RoleManager" type="Node" parent="Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
-script = ExtResource("2_yb5jp")
-victim_pos_marker = NodePath("../../Position Markers/victim_pos_marker")
-thrower_pos_marker = NodePath("../../Position Markers/thrower_pos_marker")
-victim_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Victim body parts")
-thrower_body_parts = NodePath("../../Dynamic Scene/Dynamic_objects/Thrower body parts")
-
-[node name="SpawnManager" type="Node" parent="Network Manager"]
-
-[node name="MagicManager" type="Node" parent="Network Manager"]
-script = ExtResource("10_j01qd")
-
-[node name="Hittepåmagi" type="Node" parent="Network Manager/MagicManager"]
-script = ExtResource("14_r0fya")
-
-[node name="StateMachine" type="Node" parent="Network Manager" node_paths=PackedStringArray("current_state", "root", "wait_state")]
-script = ExtResource("17_fs88u")
-current_state = NodePath("0_ Connecting")
-root = NodePath("..")
-wait_state = NodePath("1_ Wait")
-
-[node name="0_ Connecting" type="Node" parent="Network Manager/StateMachine"]
-script = ExtResource("18_t44h5")
-
-[node name="1_ Wait" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("start_menu")]
-script = ExtResource("19_rhlsr")
-start_menu = NodePath("../../../Camera3D/Start Menu/Menu")
-
-[node name="2_ Intro" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("Baal", "baal_text", "thrower_text")]
-script = ExtResource("20_4qbkp")
-Baal = NodePath("../../../Dynamic Scene/Ba\'al")
-baal_text = NodePath("../../TextWriteoutManager/BaalText")
-thrower_text = NodePath("../../TextWriteoutManager/InstructText")
-baal_intro_lines = Array[String](["Yo.", "Cool necronomicon.", "Used it to summon me, right?", "Well, ain't that something.", "The name's Ba'al.", "I happen to be a demon.", "Say, did you read the fine print?", "It says:", "\"The summoned demon is free to make ", "any demand of their mortal summoner.\"", "Yes, well, see...", "I sorta want your soul.", "So, you are going to join me in hell.", "", "My teleportation spell is ready in two minutes.", "Say your goodbyes <3"])
-thrower_intro_lines = Array[String](["It seems your idiot friend has once again attempted to summon a demon.", "Only, this time, they might have actually succeeded.", "Sort of worried for their well being if they are taken to hell so you decide on the optimal solution:", "violence.", "You have some conveniently placed cabbage to throw. ", "But you can't see the demon...", "Maybe your useless pal can make themselves useful...?"])
-
-[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager", "game_timer", "throw_manager")]
-script = ExtResource("21_30nck")
-baal = NodePath("../../../Dynamic Scene/Ba\'al")
-health_bar = NodePath("../../../Camera3D/Healthbar")
-magic_manager = NodePath("../../MagicManager")
-game_timer = NodePath("LossTimer")
-throw_manager = NodePath("../../../Dynamic Scene/BallDetection")
-
-[node name="LossTimer" type="Timer" parent="Network Manager/StateMachine/3_ Gameplay"]
-wait_time = 120.0
-
-[node name="4_ Loss" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu", "baal_text")]
-script = ExtResource("22_30nck")
-pause_menu = NodePath("../../../Camera3D/Pause Menu")
-credits_menu = NodePath("../../../Camera3D/Credits Menu")
-baal_text = NodePath("../../TextWriteoutManager/BaalText")
-baal_loss_lines = Array[String](["Alright, alright.", "Time for our exciting roadtrip!"])
-
-[node name="5_ Win" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("pause_menu", "credits_menu", "baal_text")]
-script = ExtResource("23_px6hx")
-pause_menu = NodePath("../../../Camera3D/Pause Menu")
-credits_menu = NodePath("../../../Camera3D/Credits Menu")
-baal_text = NodePath("../../TextWriteoutManager/BaalText")
-baal_win_lines = Array[String](["Ow, that hurts...", "Ok, fine, have it your way", "I'll claim your soul when you die.", "Enjoy your mortal life."])
-
-[node name="TextWriteoutManager" type="Node" parent="Network Manager"]
-
-[node name="BaalText" type="Node" parent="Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
-script = ExtResource("25_j4v58")
-TextHolder = NodePath("../../../Dynamic Scene/Baalbubbla")
-TextLabel = NodePath("../../../Dynamic Scene/Baalbubbla/Label3D")
-pulsating = true
-voiced = true
-seconds_per_character = 0.0
-wait_before_continue = 0.0
-voice_pitch = 3.5
-
-[node name="InstructText" type="Node" parent="Network Manager/TextWriteoutManager" node_paths=PackedStringArray("TextHolder", "TextLabel")]
-script = ExtResource("25_j4v58")
-TextHolder = NodePath("../../../Static Scene/ThrowerMonologue")
-TextLabel = NodePath("../../../Static Scene/ThrowerMonologue/Label3D")
-seconds_per_character = 0.0
-wait_before_continue = 0.0
-
-[node name="ACVoiceBox" type="AudioStreamPlayer" parent="Network Manager/TextWriteoutManager"]
-script = ExtResource("25_6kivn")
+[node name="SpellTome" parent="Dynamic Scene/Player_2" instance=ExtResource("5_yhdwd")]
+transform = Transform3D(0.99999994, 0.00017601252, 0.0004930198, -2.1173943e-08, 0.94178784, -0.3362078, -0.0005235672, 0.33620775, 0.9417876, 0.032420516, 0.76489234, -0.6228968)
 
 [node name="Position Markers" type="Node" parent="."]
 

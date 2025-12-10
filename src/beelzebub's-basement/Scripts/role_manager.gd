@@ -23,7 +23,8 @@ func initialize_roles(server:bool) -> void:
 		initialize_victim()
 
 func initialize_thrower() -> void:
-	#if(use_vr):
+	if(use_vr):
+		pass
 	#	VR_player = throw_player.instantiate()
 	#	$"../../Dynamic Scene".add_child(VR_player)
 	#	VR_player.position = thrower_pos_marker.position
@@ -36,13 +37,14 @@ func initialize_thrower() -> void:
 
 func initialize_victim() -> void:
 	if(use_vr): #if vr, couple hands and head
-		VR_player = victim_player.instantiate()
-		$"../../Dynamic Scene".add_child(VR_player)
-		VR_player.position = victim_pos_marker.position
-		victim_body_parts.head_target = VR_player.get_node("XRCamera3D")
-		victim_body_parts.hand_l_target = VR_player.get_node("LeftTrackedHand")
-		victim_body_parts.hand_r_target = VR_player.get_node("RightTrackedHand")
-		victim_body_parts.active = true
+		#VR_player = victim_player.instantiate()
+		#$"../../Dynamic Scene".add_child(VR_player)
+		#VR_player.position = victim_pos_marker.position
+		#victim_body_parts.head_target = VR_player.get_node("XRCamera3D")
+		#victim_body_parts.hand_l_target = VR_player.get_node("LeftTrackedHand")
+		#victim_body_parts.hand_r_target = VR_player.get_node("RightTrackedHand")
+		#victim_body_parts.active = true
+		pass
 	else:
 		$"../../Camera3D".position = victim_pos_marker.position
 
