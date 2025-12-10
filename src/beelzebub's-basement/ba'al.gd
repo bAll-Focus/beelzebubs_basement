@@ -36,6 +36,7 @@ var burnCount
 
 var stunned = false
 var stun = 0
+var turn_visible_and_back
 
 var hit_sounds = []
 var audio_player
@@ -202,6 +203,22 @@ func baal_died():
 	set_visibility(false);
 	health = 0
 	is_active = false
+	
+@rpc
+func blink_boi_blink():
+	if multiplayer.is_server(): 
+		blink_boi_blink.rpc() #call the client version to do something
+		if($CharacterBody3D.visible): turn_visible_and_back = true
+		else: turn_visible_and_back = false
+		for n in 3:
+			if(turn_visible_and_back): set_visibility(true)
+			#blink here red using shader - OBS
+			await get_tree().create_timer(0.05).timeout
+			#blink here white using shader - OBS
+			await get_tree().create_timer(0.05).timeout
+			if(turn_visible_and_back): set_visibility(false)
+	else:
+		pass
 
 #There are a few inconsistensies here that I would like to address, given the time
 #However, the script works, so this is a certified "If I have time"-moment
