@@ -23,7 +23,7 @@ func _on_peer_connected(peer_id: int):
 	else:
 		role_manager.initialize_roles(false)
 		var vr_player = role_manager.VR_player if use_vr else null
-		magic_manager.set_up_magic_tracking($"../Dynamic Scene/Player_2")
+		magic_manager.set_up_magic_tracking($"../Player_2")
 	state_manager._connected()
 
 func start_server() -> void:
