@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://cswtcyjtooayv"]
 
-[ext_resource type="PackedScene" path="res://Scenes/sceneobjects/building.tscn" id="13_q6nif"]
+[ext_resource type="PackedScene" uid="uid://bbjkaw6xawpll" path="res://Scenes/sceneobjects/building.tscn" id="13_q6nif"]
 
-[node name="Basement" type="Node"]
+[node name="Basement" type="Node3D"]
 
 [node name="Building" parent="." instance=ExtResource("13_q6nif")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5217693, 0)
