@@ -11,6 +11,7 @@ class_name Baal_AI
 @onready var timerBurn:Timer = $TimerBurn
 @onready var timerSlow:Timer = $TimerSlow
 @onready var timerReveal:Timer = $TimerVisible
+@onready var timerStun:Timer = $TimerStun
 
 @onready var particle_parent = $particles
 ## Particles related to fire. 
@@ -33,6 +34,10 @@ var index
 var speedEffect = 1
 var burnCount
 
+var stunned = false
+var stun = 0
+var turn_visible_and_back
+
 var hit_sounds = []
 var audio_player
 
@@ -53,6 +58,7 @@ func _ready() -> void:
 	timerReveal.timeout.connect(on_reveal_ended)
 	timerSlow.timeout.connect(on_slow_ended)
 	timerBurn.timeout.connect(_on_timer_timeout)
+	timerStun.timeout.connect(_on_timer_stun_timeout)
 	_initialize_baal()
 	
 func _prepare_baal_for_new_round() -> void:
@@ -90,17 +96,32 @@ func set_visibility(value: bool):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(multiplayer.is_server()&&is_active):
-		if(is_slowed):loop_counter += delta*speedEffect/2
+		if(is_slowed):
+			if(stunned):
+				stun -= 0.1
+			else:
+				loop_counter += delta*speedEffect/2
+				position.x = sin(loop_counter)*1.8
 		elif(is_thawing): 
-			loop_counter += delta*speedEffect/2 + (delta*speedEffect/2)*thawing_counter
-			thawing_counter += thawing_rate
+			if(stunned):
+				stun -= 0.15
+			else:
+				loop_counter += delta*speedEffect/2 + (delta*speedEffect/2)*thawing_counter
+				position.x = sin(loop_counter)*1.8
+				thawing_counter += thawing_rate
 			if(thawing_counter >= 1):
 				is_thawing = false
 				thawing_counter = 0
-		else:loop_counter += delta*speedEffect
-		position.x = sin(loop_counter)*1.8
+		
+		else:
+			if(stunned):
+				stun -= 0.2
+			else:
+				loop_counter += delta*speedEffect
+				position.x = sin(loop_counter)*1.8
+		
 		position.y = cos(4*loop_counter)/6 + start_position.y/2
-		rotation.y = cos(loop_counter)/2 + start_position.y/2
+		rotation.y = cos(loop_counter)/2 + start_position.y/2 + stun
 		rotation.x = cos(loop_counter*2)/4
 		if(health <= 0 && is_active):
 			ran_out_of_health.emit()
@@ -187,6 +208,22 @@ func baal_died():
 	set_visibility(false);
 	health = 0
 	is_active = false
+	
+@rpc
+func blink_boi_blink():
+	if multiplayer.is_server(): 
+		blink_boi_blink.rpc() #call the client version to do something
+		if($CharacterBody3D.visible): turn_visible_and_back = true
+		else: turn_visible_and_back = false
+		for n in 3:
+			if(turn_visible_and_back): set_visibility(true)
+			#blink here red using shader - OBS
+			await get_tree().create_timer(0.05).timeout
+			#blink here white using shader - OBS
+			await get_tree().create_timer(0.05).timeout
+			if(turn_visible_and_back): set_visibility(false)
+	else:
+		pass
 
 #There are a few inconsistensies here that I would like to address, given the time
 #However, the script works, so this is a certified "If I have time"-moment
@@ -209,6 +246,10 @@ func decrease_health(amount, index):
 	
 func _on_detection_area_body_entered(body: Node3D) -> void:
 	if body.name == "Ball" && multiplayer.is_server():
+		
+		stunned = true
+		timerStun.start()
+		
 		var val = randi_range(0, 2) 
 		audio_player.stream = hit_sounds[val]
 		audio_player.play()
@@ -238,3 +279,7 @@ func _on_timer_timeout() -> void:
 		flare_particle.emitting = true
 	if burnCount <= 1:
 		put_out_fire()
+
+func _on_timer_stun_timeout() -> void:
+	stunned = false
+	stun = 0

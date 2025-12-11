@@ -523,7 +523,7 @@ TextHolder = NodePath("../../../Baalbubbla")
 TextLabel = NodePath("../../../Baalbubbla/Label3D")
 pulsating = true
 voiced = true
-seconds_per_character = 0.05
+seconds_per_character = 0.0
 wait_before_continue = 0.5
 voice_pitch = 3.5
 
@@ -531,7 +531,7 @@ voice_pitch = 3.5
 script = ExtResource("25_j4v58")
 TextHolder = NodePath("../../../../Static Scene/ThrowerMonologue")
 TextLabel = NodePath("../../../../Static Scene/ThrowerMonologue/Label3D")
-seconds_per_character = 0.05
+seconds_per_character = 0.0
 wait_before_continue = 0.5
 
 [node name="ACVoiceBox" type="AudioStreamPlayer" parent="Dynamic Scene/Network Manager/TextWriteoutManager"]
@@ -643,7 +643,7 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 replication_config = SubResource("SceneReplicationConfig_j01qd")
 
 [node name="joever" type="Timer" parent="Dynamic Scene/BallDetection"]
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 
 [node name="Baalbubbla" type="Sprite3D" parent="Dynamic Scene" node_paths=PackedStringArray("baal", "turn_target")]
@@ -692,7 +692,11 @@ wait_time = 5.0
 one_shot = true
 
 [node name="TimerVisible" type="Timer" parent="Dynamic Scene/Ba\'al"]
-wait_time = 6.0
+wait_time = 10.0
+one_shot = true
+
+[node name="TimerStun" type="Timer" parent="Dynamic Scene/Ba\'al"]
+wait_time = 2.0
 one_shot = true
 
 [node name="particles" type="Node3D" parent="Dynamic Scene/Ba\'al"]
