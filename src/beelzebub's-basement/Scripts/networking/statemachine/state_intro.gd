@@ -6,6 +6,7 @@ extends State
 
 @export var baal_intro_lines: Array[String]
 @export var thrower_intro_lines: Array[String]
+@export var intro_music:AudioStreamPlayer3D
 
 var server_done = false
 var client_done = false
@@ -17,11 +18,16 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	thrower_text.hide()
 
 func client_enter_state():
+	Baal.set_visibility(true)
+	await get_tree().create_timer(0.3).timeout
+	Baal.set_visibility(false)
+	await get_tree().create_timer(1).timeout
 	for n in 5:
 		Baal.set_visibility(false)
 		await get_tree().create_timer(0.2).timeout
 		Baal.set_visibility(true)
 		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.9).timeout
 	await baal_text.write_text_set(baal_intro_lines)
 	finished_baal_intro.rpc()
 
@@ -30,14 +36,21 @@ func finished_baal_intro ():
 	client_done = true
 
 func server_enter_state():
+	intro_music.play()
 	Baal._prepare_baal_for_new_round()
+	Baal.set_visibility(true)
+	await get_tree().create_timer(0.3).timeout
+	Baal.set_visibility(false)
+	await get_tree().create_timer(1).timeout
 	for n in 5:
 		Baal.set_visibility(true)
 		await get_tree().create_timer(0.2).timeout
 		Baal.set_visibility(false)
 		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.9).timeout
 	await thrower_text.write_text_set(thrower_intro_lines)
 	server_done = true
+
 
 func _exit_state():
 	pass

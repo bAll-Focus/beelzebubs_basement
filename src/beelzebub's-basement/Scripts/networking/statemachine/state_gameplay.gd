@@ -7,6 +7,9 @@ extends State
 @export var baal_combat_lines:Array[String]
 @export var game_timer:Timer
 @export var throw_manager = Node
+@export var eyes:Array[Node3D]
+@export var tentacles:Array[Node3D]
+@export var fight_music:FightMusic
 
 func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	state_machine = state_machine_node
@@ -38,6 +41,7 @@ func _baal_died():
 	if multiplayer.is_server():
 		state_machine._change_state(5)
 		state_machine._change_state.rpc(5)
+		fight_music._fade_out();
 
 func client_enter_state():
 	health_bar.visible = true
@@ -53,6 +57,10 @@ func server_enter_state():
 	throw_manager.is_active = true
 	baal.set_visibility(false)
 	game_timer.start()
+	fight_music._start_music()
+	pass
+
+func start_mutual_timers():
 	pass
 
 func server_exit_state():
@@ -63,6 +71,8 @@ func server_exit_state():
 	game_timer.stop()
 	baal.stop_all_timers()
 	pass
+
+
 
 func client_exit_state():
 	health_bar.visible = false

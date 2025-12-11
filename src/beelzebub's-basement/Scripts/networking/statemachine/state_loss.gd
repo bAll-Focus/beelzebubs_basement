@@ -54,8 +54,8 @@ func client_to_hell():
 	if multiplayer.is_server():
 		return
 	if allfather_node.little_vr_dude == null:
-		$"../../../../Camera3D".position = hell_marker.position
-		$"../../../../Camera3D".position += Vector3(0, 1.3, 0)
+		$"../../../Camera3D".position = hell_marker.position
+		$"../../../Camera3D".position += Vector3(0, 1.3, 0)
 	else:
 		allfather_node.little_vr_dude.position = hell_marker.position
 
@@ -63,8 +63,8 @@ func client_to_hell():
 	if multiplayer.is_server():
 		return
 	if allfather_node.little_vr_dude == null:
-		$"../../../../Camera3D".position = victim_marker.position
-		$"../../../../Camera3D".position += Vector3(0, 1.3, 0)
+		$"../../../Camera3D".position = victim_marker.position
+		$"../../../Camera3D".position += Vector3(0, 1.3, 0)
 	else:
 		allfather_node.little_vr_dude.position = victim_marker.position
 

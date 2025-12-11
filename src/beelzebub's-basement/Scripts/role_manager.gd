@@ -35,7 +35,7 @@ func initialize_thrower() -> void:
 	#	thrower_body_parts.hand_r_target = VR_player.get_node("RightTrackedHand")
 	#	thrower_body_parts.active = true
 	#else:
-	$"../../../Camera3D".position = thrower_pos_marker.position
+	$"../../Camera3D".position = thrower_pos_marker.position
 
 func initialize_victim() -> void:
 	if(use_vr): #if vr, couple hands and head
@@ -48,8 +48,8 @@ func initialize_victim() -> void:
 		victim_body_parts.active = true
 		pass
 	else:
-		$"../../../Camera3D".position = victim_pos_marker.position
-		$"../../../Camera3D".position += Vector3(0, 1.3, 0)
+		$"../../Camera3D".position = victim_pos_marker.position
+		$"../../Camera3D".position += Vector3(0, 1.3, 0)
 
 func set_up_victim () -> void:
 	pass

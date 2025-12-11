@@ -9,12 +9,15 @@ var to_be_shown:bool = false
 
 
 func _ready():
+	end_position = position
 	position = end_position - movedistance * move_direction
 	start_position = position
 	to_be_shown = true
 
 func set_visibility(value):
 	to_be_shown = value
+func reset_position():
+	position = start_position
 	
 func _process(delta: float) -> void:
 	var pos = position
