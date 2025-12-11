@@ -518,10 +518,11 @@ width = 600.0
 
 [node name="Network Manager" type="Node" parent="Dynamic Scene" node_paths=PackedStringArray("role_manager", "magic_manager", "state_manager", "little_vr_dude")]
 script = ExtResource("1_p5c6l")
+IP_ADDRESS = "192.168.1.100"
 role_manager = NodePath("RoleManager")
 magic_manager = NodePath("MagicManager")
 state_manager = NodePath("StateMachine")
-debug = true
+use_vr = true
 little_vr_dude = NodePath("../../Player_2")
 
 [node name="RoleManager" type="Node" parent="Dynamic Scene/Network Manager" node_paths=PackedStringArray("victim_pos_marker", "thrower_pos_marker", "victim_body_parts", "thrower_body_parts")]
@@ -644,19 +645,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32473063, -2.340984)
 script = ExtResource("2_5k5hp")
 
 [node name="head" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.22666371, 1.0985967)
 
 [node name="bert" parent="Dynamic Scene/Dynamic_objects/Victim body parts/head" instance=ExtResource("20_1k4vq")]
 transform = Transform3D(-4.808253e-09, 0, -0.11, 0, 0.11, 0, 0.11, 0, -4.808253e-09, 0, 0, 0)
 
 [node name="hand_l" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29044238, 0, 0.7792541)
 
 [node name="hand" parent="Dynamic Scene/Dynamic_objects/Victim body parts/hand_l" instance=ExtResource("20_cq6a6")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 
 [node name="hand_r" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.095255226, 0, 0.7666397)
 
 [node name="hand2" parent="Dynamic Scene/Dynamic_objects/Victim body parts/hand_r" instance=ExtResource("21_1k4vq")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="bertbody" parent="Dynamic Scene/Dynamic_objects/Victim body parts" instance=ExtResource("56_3xapq")]
+transform = Transform3D(-0.004656664, 0, -0.1499277, 0, 0.15, 0, 0.1499277, 0, -0.004656664, 0.0026882887, -0.14815915, 1.117637)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Dynamic Scene/Dynamic_objects/Victim body parts"]
 replication_config = SubResource("SceneReplicationConfig_om2n4")
@@ -802,7 +809,7 @@ draw_pass_1 = SubResource("PlaneMesh_cq6a6")
 draw_skin = SubResource("Skin_hku3c")
 
 [node name="SpellTome" parent="." instance=ExtResource("5_yhdwd")]
-transform = Transform3D(0.99999994, 0.00017601252, 0.0004930198, -2.1173943e-08, 0.94178784, -0.3362078, -0.0005235672, 0.33620775, 0.9417876, 0.032420516, 0.12187779, -1.9538983)
+transform = Transform3D(0.99999994, 0.00017601252, 0.0004930198, -2.1173943e-08, 0.94178784, -0.3362078, -0.0005235672, 0.33620775, 0.9417876, -0.013977468, 0.15305418, -1.5869929)
 
 [node name="Player_2" parent="." instance=ExtResource("20_2d63o")]
 transform = Transform3D(1, 0, 5.820766e-11, -1.4551915e-11, 0.99999994, -2.9802322e-08, 0, 0, 0.99999994, 0, -0.6, -1.3310001)
@@ -1165,9 +1172,6 @@ bones/8/scale = Vector3(1, 1, 1)
 [node name="Cylinder" type="MeshInstance3D" parent="Tentacle/Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_wak7a")
 skin = SubResource("Skin_gmfrw")
-
-[node name="bertbody" parent="." instance=ExtResource("56_3xapq")]
-transform = Transform3D(-0.004656664, 0, -0.1499277, 0, 0.15, 0, 0.1499277, 0, -0.004656664, 0.0026882887, 0.17657149, -1.2233471)
 
 [connection signal="timeout" from="Camera3D/Healthbar/Timer" to="Camera3D/Healthbar" method="_on_timer_timeout"]
 [connection signal="pressed" from="Camera3D/Pause Menu/Control/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="Camera3D/Pause Menu/Control" method="_on_restart_button_pressed"]

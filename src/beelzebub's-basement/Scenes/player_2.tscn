@@ -58,7 +58,7 @@ metadata/_custom_type_script = "uid://c2hh8l62cludw"
 script = ExtResource("1_3ooxp")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
 compositor = ExtResource("1_c6poq")
 current = true
 script = ExtResource("1_3ooxp")
