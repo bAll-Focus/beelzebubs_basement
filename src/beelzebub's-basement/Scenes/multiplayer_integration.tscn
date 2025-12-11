@@ -492,7 +492,7 @@ game_timer = NodePath("LossTimer")
 throw_manager = NodePath("../../../BallDetection")
 
 [node name="LossTimer" type="Timer" parent="Dynamic Scene/Network Manager/StateMachine/3_ Gameplay"]
-wait_time = 3.0
+wait_time = 120.0
 
 [node name="4_ Loss" type="Node" parent="Dynamic Scene/Network Manager/StateMachine" node_paths=PackedStringArray("allfather_node", "baal", "pause_menu", "credits_menu", "baal_text", "victim_marker", "hell_marker")]
 script = ExtResource("22_30nck")
