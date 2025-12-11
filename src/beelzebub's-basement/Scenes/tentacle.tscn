@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://0fj8rhvjtjkp"]
+
+[ext_resource type="PackedScene" uid="uid://c778l5tfpdt8a" path="res://Models/Tentacle.glb" id="1_2j60p"]
+
+[node name="Tentacle" instance=ExtResource("1_2j60p")]

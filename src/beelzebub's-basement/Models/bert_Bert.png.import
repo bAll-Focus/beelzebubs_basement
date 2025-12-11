@@ -3,11 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvckdm71rdpv0"
-path.s3tc="res://.godot/imported/bert_Bert.png-e5ed14db66b3a29ab808f07b89a56ac7.s3tc.ctex"
-path.etc2="res://.godot/imported/bert_Bert.png-e5ed14db66b3a29ab808f07b89a56ac7.etc2.ctex"
+path="res://.godot/imported/bert_Bert.png-e5ed14db66b3a29ab808f07b89a56ac7.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "812e50ffe239a1a917cc543d31b675ca"
@@ -16,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://Models/bert_Bert.png"
-dest_files=["res://.godot/imported/bert_Bert.png-e5ed14db66b3a29ab808f07b89a56ac7.s3tc.ctex", "res://.godot/imported/bert_Bert.png-e5ed14db66b3a29ab808f07b89a56ac7.etc2.ctex"]
+dest_files=["res://.godot/imported/bert_Bert.png-e5ed14db66b3a29ab808f07b89a56ac7.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

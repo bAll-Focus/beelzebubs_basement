@@ -2,23 +2,25 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnk313qwh2pna"
-path="res://.godot/imported/EyeOfBaal_eyetexture.png-a605746b0b2a428375d713dc60539fdb.ctex"
+uid="uid://ofc0dc5qnpbw"
+path.s3tc="res://.godot/imported/Tentacle_tentacle_skin.png-1b10e2fd04f82d8aa1dad0abdcefd626.s3tc.ctex"
+path.etc2="res://.godot/imported/Tentacle_tentacle_skin.png-1b10e2fd04f82d8aa1dad0abdcefd626.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 generator_parameters={
-"md5": "29db64f5b34896940dd904e0f14dd6ca"
+"md5": "23c1977e93f212b3d831e1ff08f43b12"
 }
 
 [deps]
 
-source_file="res://Models/EyeOfBaal_eyetexture.png"
-dest_files=["res://.godot/imported/EyeOfBaal_eyetexture.png-a605746b0b2a428375d713dc60539fdb.ctex"]
+source_file="res://Models/Tentacle_tentacle_skin.png"
+dest_files=["res://.godot/imported/Tentacle_tentacle_skin.png-1b10e2fd04f82d8aa1dad0abdcefd626.s3tc.ctex", "res://.godot/imported/Tentacle_tentacle_skin.png-1b10e2fd04f82d8aa1dad0abdcefd626.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

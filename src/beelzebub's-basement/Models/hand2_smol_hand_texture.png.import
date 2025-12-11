@@ -3,11 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cm0q6r7wktq3g"
-path.s3tc="res://.godot/imported/hand2_smol_hand_texture.png-4eb701aaf29e8d0bb3980dc2b47412a9.s3tc.ctex"
-path.etc2="res://.godot/imported/hand2_smol_hand_texture.png-4eb701aaf29e8d0bb3980dc2b47412a9.etc2.ctex"
+path="res://.godot/imported/hand2_smol_hand_texture.png-4eb701aaf29e8d0bb3980dc2b47412a9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "39886bc0906ce371b5a18bc6cff425a9"
@@ -16,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://Models/hand2_smol_hand_texture.png"
-dest_files=["res://.godot/imported/hand2_smol_hand_texture.png-4eb701aaf29e8d0bb3980dc2b47412a9.s3tc.ctex", "res://.godot/imported/hand2_smol_hand_texture.png-4eb701aaf29e8d0bb3980dc2b47412a9.etc2.ctex"]
+dest_files=["res://.godot/imported/hand2_smol_hand_texture.png-4eb701aaf29e8d0bb3980dc2b47412a9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
