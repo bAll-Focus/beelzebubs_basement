@@ -84,6 +84,11 @@ func _initialize_baal() -> void:
 	burning_particle.emitting = false
 	flare_particle.emitting = false
 
+func stop_all_timers():
+	timerBurn.stop()
+	timerReveal.stop()
+	timerSlow.stop()
+
 func set_visibility(value: bool):
 	$CharacterBody3D.visible = value
 	$MeshInstance3D.visible = value

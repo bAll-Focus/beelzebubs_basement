@@ -29,6 +29,7 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 
 func _ran_out_of_time():
 	if multiplayer.is_server():
+		print("Ran out of time")
 		state_machine._change_state(4)
 		state_machine._change_state.rpc(4)
 		game_timer.stop()
@@ -59,12 +60,15 @@ func server_exit_state():
 	magic_manager.is_active = false
 	baal.is_active = false
 	throw_manager.is_active = false
+	game_timer.stop()
+	baal.stop_all_timers()
 	pass
 
 func client_exit_state():
 	health_bar.visible = false
 	magic_manager.is_active = false
 	baal.is_active = false
+	baal.stop_all_timers()
 	pass
 
 func server_state_update(_delta: float):

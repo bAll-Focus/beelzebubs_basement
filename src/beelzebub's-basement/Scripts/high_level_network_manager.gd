@@ -1,4 +1,5 @@
 extends Node
+class_name HighLevelNetworkManager
 
 @export var IP_ADDRESS : String = "localhost"
 @export var PORT : int = 42069
@@ -23,7 +24,7 @@ func _on_peer_connected(peer_id: int):
 	else:
 		role_manager.initialize_roles(false)
 		var vr_player = role_manager.VR_player if use_vr else null
-		magic_manager.set_up_magic_tracking($"../Player_2")
+		magic_manager.set_up_magic_tracking(little_vr_dude)
 	state_manager._connected()
 
 func start_server() -> void:
@@ -54,6 +55,8 @@ func _ready() -> void:
 		await get_tree().create_timer(4.0).timeout
 		start_client()
 		print("AM CLIENT")
+		if not use_vr:
+			little_vr_dude.queue_free()
 
 func _set_node_type() -> void:
 	for argument in OS.get_cmdline_args():

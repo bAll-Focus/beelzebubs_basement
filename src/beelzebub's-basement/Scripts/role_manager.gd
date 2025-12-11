@@ -19,8 +19,10 @@ func initialize_roles(server:bool) -> void:
 	is_server = server
 	if server:
 		initialize_thrower()
+		victim_body_parts.visible = true
 	else:
 		initialize_victim()
+		victim_body_parts.visible = false
 
 func initialize_thrower() -> void:
 	if(use_vr):
@@ -47,6 +49,7 @@ func initialize_victim() -> void:
 		pass
 	else:
 		$"../../../Camera3D".position = victim_pos_marker.position
+		$"../../../Camera3D".position += Vector3(0, 1.3, 0)
 
 func set_up_victim () -> void:
 	pass

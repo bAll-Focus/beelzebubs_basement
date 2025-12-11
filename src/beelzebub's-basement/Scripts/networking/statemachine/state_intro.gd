@@ -17,19 +17,11 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	thrower_text.hide()
 
 func client_enter_state():
-	Baal.set_visibility(true)
-	await get_tree().create_timer(0.1).timeout
-	Baal.set_visibility(false)
-	await get_tree().create_timer(0.3).timeout
-	Baal.set_visibility(true)
-	await get_tree().create_timer(0.2).timeout
-	Baal.set_visibility(false)
-	await get_tree().create_timer(0.2).timeout
-	Baal.set_visibility(true)
-	await get_tree().create_timer(0.2).timeout
-	Baal.set_visibility(false)
-	await get_tree().create_timer(0.2).timeout
-	Baal.set_visibility(true)
+	for n in 5:
+		Baal.set_visibility(false)
+		await get_tree().create_timer(0.2).timeout
+		Baal.set_visibility(true)
+		await get_tree().create_timer(0.2).timeout
 	await baal_text.write_text_set(baal_intro_lines)
 	finished_baal_intro.rpc()
 
@@ -39,6 +31,11 @@ func finished_baal_intro ():
 
 func server_enter_state():
 	Baal._prepare_baal_for_new_round()
+	for n in 5:
+		Baal.set_visibility(true)
+		await get_tree().create_timer(0.2).timeout
+		Baal.set_visibility(false)
+		await get_tree().create_timer(0.2).timeout
 	await thrower_text.write_text_set(thrower_intro_lines)
 	server_done = true
 
