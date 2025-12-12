@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://boj4e2ew5uqf"]
+[gd_scene load_steps=17 format=3 uid="uid://boj4e2ew5uqf"]
 
 [ext_resource type="Texture2D" uid="uid://c2c45vsypqmsj" path="res://Textures/cabbade_particles.png" id="1_2tdsg"]
 [ext_resource type="Script" uid="uid://q6ubd21sy8a2" path="res://Scenes/sceneobjects/fx/destroy_effect.gd" id="2_2tdsg"]
+[ext_resource type="AudioStream" uid="uid://bcly3ennu50x4" path="res://audio/sfx/slap-hit-104981.mp3" id="3_meiuh"]
 
 [sub_resource type="Gradient" id="Gradient_k23m1"]
 offsets = PackedFloat32Array(0, 0.64285713, 1)
@@ -102,3 +103,7 @@ explosiveness = 1.0
 transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_hx7pt")
 draw_pass_1 = SubResource("PlaneMesh_i3nx0")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_meiuh")
+autoplay = true

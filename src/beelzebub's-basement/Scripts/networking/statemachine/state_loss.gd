@@ -33,6 +33,7 @@ func server_enter_state():
 	baal.set_visibility(true)
 	await baal_text.write_text_set(baal_loss_lines_server)
 	await get_tree().create_timer(2).timeout
+	client_to_hell()
 	server_done = true
 
 @rpc("any_peer")
@@ -40,6 +41,7 @@ func client_is_done():
 	client_done = true
 
 func server_exit_state():
+	allfather_node.role_manager.victim_body_parts.visible = true
 	baal.set_visibility(false)
 	pass
 	
@@ -52,6 +54,7 @@ func client_exit_state():
 @rpc
 func client_to_hell():
 	if multiplayer.is_server():
+		allfather_node.role_manager.victim_body_parts.visible = false
 		return
 	if allfather_node.little_vr_dude == null:
 		$"../../../Camera3D".position = hell_marker.position

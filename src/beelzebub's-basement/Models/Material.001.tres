@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c23v68qclwrge"]
+
+[ext_resource type="Texture2D" uid="uid://b07gig2pagry7" path="res://Models/flesh_flesh.png" id="1_u5vfy"]
+
+[resource]
+resource_name = "Material.001"
+cull_mode = 2
+albedo_texture = ExtResource("1_u5vfy")
+roughness = 0.5
