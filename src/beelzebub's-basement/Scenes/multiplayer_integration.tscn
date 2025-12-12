@@ -38,7 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://dnlk0i0vwu7un" path="res://Models/hand.glb" id="20_cq6a6"]
 [ext_resource type="PackedScene" uid="uid://c0kuoau76adws" path="res://Models/hand2.glb" id="21_1k4vq"]
 [ext_resource type="Script" uid="uid://ctr1q3lplpktq" path="res://Scripts/networking/statemachine/state_gameplay.gd" id="21_30nck"]
-[ext_resource type="Script" uid="uid://cmumdnyq8i07x" path="res://Scenes/credits.gd" id="21_pf8y3"]
+[ext_resource type="Script" path="res://Scenes/credits.gd" id="21_pf8y3"]
 [ext_resource type="Script" uid="uid://dded44tmkxslp" path="res://Scripts/networking/statemachine/state_loss.gd" id="22_30nck"]
 [ext_resource type="Script" uid="uid://oyo0utvrbxn1" path="res://Scripts/networking/statemachine/state_win.gd" id="23_px6hx"]
 [ext_resource type="Script" uid="uid://ci5d6lfw50w12" path="res://Scenes/ACVoiceBox.gd" id="25_6kivn"]
@@ -49,7 +49,7 @@
 [ext_resource type="Material" uid="uid://cjya40x0rhcf3" path="res://Models/penta.tres" id="30_odpcd"]
 [ext_resource type="Script" uid="uid://birie85u26vf" path="res://Scenes/pentacles.gd" id="31_52yoo"]
 [ext_resource type="Texture2D" uid="uid://dvuliuy7jy5bj" path="res://Textures/baal_head.png" id="31_a8jg6"]
-[ext_resource type="Script" path="res://Scenes/baal_icon.gd" id="32_ncu23"]
+[ext_resource type="Script" uid="uid://xs246xsbhp50" path="res://Scenes/baal_icon.gd" id="32_ncu23"]
 [ext_resource type="Material" uid="uid://i6wknoklau83" path="res://Materials/Material.001.tres" id="32_v7ht3"]
 [ext_resource type="AudioStream" uid="uid://xprh2c8r6v8q" path="res://audio/sfx/Mosquito2.wav" id="47_04cfs"]
 [ext_resource type="Texture2D" uid="uid://bnk313qwh2pna" path="res://Models/EyeOfBaal_eyetexture.png" id="49_by2x0"]
@@ -587,7 +587,7 @@ TextHolder = NodePath("../../../Dynamic Scene/Baalbubbla")
 TextLabel = NodePath("../../../Dynamic Scene/Baalbubbla/Label3D")
 pulsating = true
 voiced = true
-seconds_per_character = 0.0
+seconds_per_character = 0.05
 wait_before_continue = 0.5
 voice_pitch = 3.5
 
@@ -595,7 +595,7 @@ voice_pitch = 3.5
 script = ExtResource("25_j4v58")
 TextHolder = NodePath("../../../Static Scene/ThrowerMonologue")
 TextLabel = NodePath("../../../Static Scene/ThrowerMonologue/Label3D")
-seconds_per_character = 0.0
+seconds_per_character = 0.05
 wait_before_continue = 0.5
 
 [node name="ACVoiceBox" type="AudioStreamPlayer" parent="Network Manager/TextWriteoutManager"]
