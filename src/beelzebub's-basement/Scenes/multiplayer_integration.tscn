@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=4 uid="uid://cfxrxbkpibaof"]
+[gd_scene load_steps=113 format=4 uid="uid://cfxrxbkpibaof"]
 
 [ext_resource type="Script" uid="uid://bwex0r6sp2cc8" path="res://Scripts/high_level_network_manager.gd" id="1_p5c6l"]
 [ext_resource type="PackedScene" uid="uid://cswtcyjtooayv" path="res://Scenes/mp_basement.tscn" id="1_syryq"]
@@ -46,17 +46,21 @@
 [ext_resource type="Texture2D" uid="uid://dwp8d4x823oqj" path="res://Textures/hpbar.png" id="27_o60u8"]
 [ext_resource type="Texture2D" uid="uid://d4l0j08a6webg" path="res://Textures/menu.png" id="29_j4v58"]
 [ext_resource type="Texture2D" uid="uid://rvnlhrp12hkn" path="res://Textures/baal_header.png" id="30_a8jg6"]
+[ext_resource type="Material" uid="uid://cjya40x0rhcf3" path="res://Models/penta.tres" id="30_odpcd"]
+[ext_resource type="Script" uid="uid://birie85u26vf" path="res://Scenes/pentacles.gd" id="31_52yoo"]
 [ext_resource type="Texture2D" uid="uid://dvuliuy7jy5bj" path="res://Textures/baal_head.png" id="31_a8jg6"]
 [ext_resource type="Script" path="res://Scenes/baal_icon.gd" id="32_ncu23"]
+[ext_resource type="Material" uid="uid://i6wknoklau83" path="res://Materials/Material.001.tres" id="32_v7ht3"]
+[ext_resource type="AudioStream" uid="uid://xprh2c8r6v8q" path="res://audio/sfx/Mosquito2.wav" id="47_04cfs"]
 [ext_resource type="Texture2D" uid="uid://bnk313qwh2pna" path="res://Models/EyeOfBaal_eyetexture.png" id="49_by2x0"]
 [ext_resource type="Script" uid="uid://c8hrb36gyhd8c" path="res://Scenes/baal_eye.gd" id="50_8fhsg"]
 [ext_resource type="Texture2D" uid="uid://b61pvawsbf5lk" path="res://Models/EyeOfBaal_eyestalk_smaller_flesh.png" id="51_c26k0"]
 [ext_resource type="Shader" uid="uid://xx551mwea24y" path="res://Scripts/Shaders/ps1_shader_wobble.gdshader" id="52_8fhsg"]
 [ext_resource type="Script" uid="uid://cot52rwdhxv0h" path="res://Scenes/tentacle.gd" id="54_5mv5p"]
 [ext_resource type="Texture2D" uid="uid://ofc0dc5qnpbw" path="res://Models/Tentacle_tentacle_skin.png" id="55_3xapq"]
-[ext_resource type="AudioStream" uid="uid://72x6274tasfy" path="res://audio/music/away_demon_you_will_never_take_my_friend.wav" id="55_p55ml"]
 [ext_resource type="PackedScene" uid="uid://ykodtp7sg7xp" path="res://Models/bertbody.glb" id="56_3xapq"]
-[ext_resource type="AudioStream" uid="uid://dxbp1dpio3515" path="res://audio/music/baal_appears.wav" id="58_mqtup"]
+[ext_resource type="AudioStream" uid="uid://chw1148u07e47" path="res://audio/music/baal_appears_amp.wav" id="56_mqtup"]
+[ext_resource type="AudioStream" uid="uid://dap577nmr7r4o" path="res://audio/music/away_demon_you_will_never_take_my_friend_amp.wav" id="57_mqtup"]
 [ext_resource type="Script" uid="uid://dt2xa06yp8kvb" path="res://Scenes/fight_music.gd" id="58_odpcd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cq6a6"]
@@ -264,6 +268,71 @@ bind/8/name = &"tentacle_0.008"
 bind/8/bone = -1
 bind/8/pose = Transform3D(1, 0, -2.3841858e-07, 0, 1.0000001, 0, 2.3841858e-07, 0, 1, 0, -9.816852, 0)
 
+[sub_resource type="Gradient" id="Gradient_q6mps"]
+offsets = PackedFloat32Array(0, 0.81666666, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.9282778, 0.9166667, 0.9325, 1, 0.1393333, 0, 0.19, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yhdwd"]
+gradient = SubResource("Gradient_q6mps")
+
+[sub_resource type="Curve" id="Curve_2d63o"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.06427504, 0.9507042), -14.268177, -14.268177, 0, 0, Vector2(0.14798206, 0.9507042), -4.1676617, -4.1676617, 0, 0, Vector2(0.28767124, 0.84269667), 0.0, 0.0, 0, 0, Vector2(0.43150687, 0.94382024), 0.0, 0.0, 0, 0, Vector2(0.66438353, 0.8651686), 0.0, 0.0, 0, 0, Vector2(0.7892377, 0.89788735), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 8
+
+[sub_resource type="CurveTexture" id="CurveTexture_gnast"]
+curve = SubResource("Curve_2d63o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ti22o"]
+emission_shape_scale = Vector3(3, 1, 3)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.29999998
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_gnast")
+color_ramp = SubResource("GradientTexture1D_yhdwd")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_52yoo"]
+material = ExtResource("30_odpcd")
+size = Vector2(0.1, 0.1)
+orientation = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ga00i"]
+_surfaces = [{
+"aabb": AABB(-1.7431059, -0.1, -1.7948874, 3.9485035, 0.2693521, 3.843069),
+"format": 34896613377,
+"index_count": 954,
+"index_data": PackedByteArray("PwBAAEEAAAA/AEEAAABCAD8APwBCAEAAAABBAAIAQwBCAAAAQwAAAAIARAACAEEAQwACAEUARgBDAEUARwBFAAIARwACAEQARgBFAEgASABFAEcALwBDAEYALwBGAEgALwBCAEMARABBAEkASQBBAEAASQBAAEoASwBEAEkAMwBJAEoAMwBLAEkAQAAIAEoACAAzAEoAQAABAAgAQgABAEAASwA3AEQANwBHAEQANABLADMANwBMAEcATABIAEcANQA3AEsANQBLADQANgBMADcANgA3ADUATABNAEgAOABMADYAOABNAEwATQA5AEgATgBNADgATgA5AE0ALwBIADkATwBOADgAUAA4ADYAUABPADgAMQBQADYAMQA2ADUAUQBPAFAAMgAxADUAMgA1ADQAUgBQADEAUQBQAFIAUwAxADIAUgAxAFMAVAAyADQAUwAyAFUAVQAyAFQAVAA0AFYANAAzAFYAVQBUADAAVgAzAFcACABXADMAWABUAFYAMABUAFgABABXAAgAAQAEAAgAVgBXAFkAWABWAFkAWQBXAFoABABaAFcAAwAEAAEAQgADAAEABAAHAFoAAwAFAAQAQgAFAAMABQAHAAQAWQBaAAkABwAJAFoAWwBZAAkAWwBYAFkABwBcAAkAXABbAAkABQBdAAcAXAAHAF4AXQBeAAcABQBfAF0AQgBfAAUAXQBfAF4AXABgAFsAYABcAF4AYQBYAFsAMABYAGEAYgBbAGAAYQBbAGIAYABeAGMAYgBgAGQAZABgAGMADgBhAGIAZAAOAGIAZQAwAGEADgBlAGEAXgAKAGMAXwAKAF4AZABjAAwACgAMAGMAXwAGAAoAZgBkAAwACgALAAwABgALAAoACwBmAAwAXwAQAAYABgAQAAsAXwARABAAQgARAF8AEAAPAAsACwAPAGYAEAASAA8AEAARABIAEgATAA8AEgARABMADwAUAGYADwATABQAZgBnAGQAZwAOAGQAFQBmABQAFQBnAGYAEwBoABQAaAAVABQAEwAWAGgAEQAWABMAaABpABUAagBnABUAagAOAGcAaQBqABUAFwAOAGoAFgAaAGgAGgBpAGgAFwBlAA4AGAAaABYAEQAYABYAGgBrAGkAGAAbABoAEQAbABgAawAaABwAGwAcABoAHgBpAGsAHAAeAGsAaQBsAGoAHgBsAGkAbAAXAGoAHABtAB4AbgBsAB4AbQBuAB4AbgBvAGwAbABvABcAbQBwAG4AHABxAG0AcQBwAG0AGwByABwAcgBxABwAEQByABsAcgBzAHEAcgAgAHMAEQAgAHIAcwAdAHEAcwAgAB0AdABxAB0AcQB0AHAAHQB1AHQAdQBwAHQAIAAfAB0AHQAfAHUAIAAhAB8AEQAjACAAIAAjACEAIQAiAB8AIQAjACIAHwB2AHUAHwAiAHYAdQB3AHAAdgB3AHUAcAB3AHgAcAB4AG4AeABvAG4AdwB5AHgAeAAZAG8AeQAZAHgAbwAZAHoAbwB6ABcAegBlABcAdgB7AHcAdwB7AHkAfAB7AHYAIgB8AHYAegANAGUAZQANADAADQBVADAAJQANAHoAGQAlAHoADQAsAFUAJQAsAA0ALABTAFUAGQB9ACUAeQB9ABkAfgAsACUAfQB+ACUALAB/AFMAfgB/ACwAfwBSAFMAgAB9AHkAewCAAHkAfQCBAH4AgACBAH0AggB/AH4AgQCCAH4AfwCDAFIAggCDAH8AgwBRAFIAewCEAIAAfACEAHsAJgCBAIAAhAAmAIAAgQCFAIIAJgCFAIEAhgCDAIIAhQCGAIIAhgCHAIMAgwCHAFEAhQCIAIYAKACFACYAKACIAIUAiQAoACYAhACJACYAhwCKAFEAigBPAFEAiwCHAIYAiACLAIYAhwCMAIoAiwCMAIcAigCNAE8ATwCNAE4AjACOAIoAjgCNAIoAjQA8AE4APAA5AE4AjgCPAI0AjQCPADwAPgA5ADwAPgAvADkAPQA+ADwAPQAvAD4AjwA6ADwAPQA8ADoALQCPAI4ALQA6AI8AOwA9ADoAOwA6AC0AkAA9ADsAkAAvAD0AkAA7AC0ALwARAEIAJAARAC8AJAAvAJAAEQAkACMAkQAtAI4AjACRAI4AkAAtAJIAkQCSAC0ALgCQAJIAKwCSAJEALgCSACsAkwCRAIwAKwCRAJMAkwCMAIsAlACQAC4AlAAuACsAJACQAJQAlAArAJUAJACUAJUAlgArAJMAlgCVACsAlwCTAIsAlwCWAJMAiACXAIsAKgCVAJYAKgCWAJcAJACVACoAmACXAIgAKgCXAJgAmACIACgAJwAkACoAmQCYACgAiQCZACgAKQAqAJgAJwAqACkAmQApAJgAmgAkACcAmgAnACkAmwApAJkAmgApAJsAmwCZAIkAnAAkAJoAnACaAJsAIwAkAJwAIwCcAJ0AnACbAJ4AnQCcAJ4AmwCJAJ8AngCbAJ8AnwCJAIQAnwCEAHwAoACeAJ8AnQCeAKAAoACfAHwAIwCdAKAAIgCgAHwAIwCgACIA"),
+"lods": [0.46385154, PackedByteArray("AAABAAIAAAADAAEAAwAEAAEAAAAFAAMAAwAFAAQAAAAGAAUABQAHAAQABQAGAAcAAQAEAAgAAgABAAgABwAJAAQACAAEAAkABgAKAAcACgAJAAcABgALAAoACQAKAAwACgALAAwACQANAAgADAAOAAkADgANAAkACwAPAAwADwAOAAwABgAQAAsAEAAPAAsABgARABAAAAARAAYAEAASAA8AEAARABIAEgATAA8AEgARABMADwATABQAFQAOAA8AFQAPABQAEwAWABQAFgAVABQAEQAWABMAFwAOABUAFwANAA4AEQAYABYAFQAZABcAGQANABcAGAAaABYAGgAVABYAGAAbABoAEQAbABgAGwAcABoAGgAcABUAGwAdABwAHgAVABwAHAAfAB4AHwAVAB4AHwAcAB0AGwAgAB0AIAAfAB0AEQAgABsAIAAhAB8AHwAiABUAIQAiAB8AIgAZABUAIAAjACEAEQAjACAAIQAjACIAEQAkACMAGQAiACUAJQANABkAJgAlACIAIwAnACIAIwAkACcAIgAoACYAKAAlACYAJwApACIAIgApACgAJwAqACkAJwAkACoAKgAoACkAJAArACoAKgArACgAKAAsACUAJQAsAA0AKwAtACgAKAAtACwAJAAuACsALgAtACsAJAAvAC4AJAARAC8ALwARAAAADQAsADAALwAAAAIALAAxADAALAAtADEAMAAyAA0AMQAyADAADQAyADMADQAzAAgACAAzAAIAMgA0ADMAMwA0AAIAMgAxADUAMgA1ADQAMQA2ADUANQA3ADQANAA3AAIANgA3ADUAMQA4ADYANgA4ADcANwA4AAIALQA4ADEAOAA5AAIALwACADkALQA6ADgAOgA5ADgAOwA6AC0ALgA7AC0APAA5ADoALgA9ADsAOwA9ADoALgAvAD0APQA8ADoAPgAvADkAPQAvAD4APgA5ADwAPQA+ADwA")],
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 161,
+"vertex_data": PackedByteArray("jlwAAEcBAADawRW+VBsAAF1kFb6mDAAA2sEAAPYSAAAPzRW+TTIAAA/NAAB7IQAA4/sAANVHAADi1hW+ljoAANrBFb5NMgAATMhxiq5EAAAF9BW+M1AAAEnlnIxeeQAA4NwVvl55AACJpOCWXYYAAOi74JZdhgAAhfUVvl2GAACU/wAAVFQAACX8AAD+igAAZP0AAAB+AABG9GSeXJMAAJjqZJ5ckwAAc9MVvlyTAACW8BW+258AAOeyhdFckwAA//8AAH2XAAB1tLn4258AAH3cZttLxAAAkusAAEvEAAAXz7n4Y84AACOqHKto4gAARMW5+EvEAAD5nRW+MuYAAK2xAADV5QAA+Z0AAP//AACiVQui/fQAAMFiAABc/gAACg4AAD/TAAADcRW+joQAAKNRHMQ4vgAAGhYAACDjAABtRjeXM8EAALQaFb4g4wAACg4VvgfZAAAIDhW+sZcAAANxFb6PdwAAmBQVvshkAACoAwAAsZcAAIgeAACyLAAAqX2T5ZBqAABdZIDYEl4AAANx//8SXgAAx4CFrHVIAAADcf//jVIAAF1k//+NUgAAM1iA2I1SAABdZP//sEIAAP5MFb6NUgAAVyYVvrMvAABJGBW+SVgAAAQHAADHYQAAeBYVvgIxAAB6EAAAhjwAAHgWAAACMQAANGkAAAAAAACpfRW+pgwAAANxFb5fCwAAqX0AAEkEAABkUAAAbw0AAF1k08CZFgAAM1gVvnEQAAAZOAAAlxMAADNY08CZFgAA5z8VvmsnAAADcfLblCAAAKl98tuUIAAAIXTwxnVIAAAzWIDYsEIAACowFb6zLwAAVyYVvo1SAACLRIDYS1oAAMBPgNhLWgAAi0QVvspmAADATxW+ymYAAF1kFb6QagAAqX2T5RJeAAADcYDYkGoAAKl9k+WNUgAAFr1xipY6AACzsOCW32wAABa9cYquRAAAD80VvpY6AAAPzRW+M1AAAOLWFb6uRAAA4tYAAMQpAADy3jiirkQAANHmAABRPAAA9+UVvjNQAACzsOCWXnkAAA/NFb6yXAAAB+4VvjNQAADQ1OCWXnkAALOw4JZdhgAAmOoVvl2GAACI4hW+XYYAAJjqFb7bnwAAqNW5+NufAACgyeCWXJMAABfPufhLxAAA1Mu5+NufAABExbn4Y84AAA+6ufiAygAAn8C5+NufAAAjqhW+99MAABDDFb6r1gAAbdQAAGPOAACaygAAq9YAACOqFb5A3AAA+Z0VvkDcAAByam6plNMAAPmdFb730wAA+Z0Vvt/JAACebTeXM8EAAL6mufhckwAAcmo3l0vLAADMXTeXlNMAAHJqN5d5rwAAXWQVvo6EAABdZBW+j3cAAPhgN5czwQAAzF03l3mvAAAzWBW+joQAADNYFb6PdwAAzF03l0vLAACjUTeXea8AABZEB5aOhAAA/kwVvo93AABtRjeXr7UAAKNRHMRQyAAAJinUpZBqAAAtLd2/joQAACYp1KWPdwAAVyYVvhJeAAAWIdSlkGoAAEYeFb4SXgAAlA0AAMdxAAAWIdSlj3cAAJQNFb7HcQAAthcVvrGXAAAAAAAAebwAALgRFb5mqgAAdCcVvi6wAACELxW+LrAAALQaFb4H2QAAnTFe2SDjAACHJAAAavQAAJ0xXtlo6wAA0zwAAJL6AAD8SAAAt/wAANM8Fb6Q8QAA0zwVvmjrAAD8SAuiW/UAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jq4d8"]
+resource_name = "flesh_Cylinder"
+_surfaces = [{
+"aabb": AABB(-1.7431059, -0.1, -1.7948874, 3.9485035, 0.2693521, 3.843069),
+"attribute_data": PackedByteArray("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"),
+"format": 34896613399,
+"index_count": 954,
+"index_data": PackedByteArray("lwCYAJkAlwCaAJgAmwABAJwAmwADAAEABAAFAAYABAAHAAUACAAJAAoACACdAAkAngCfAKAAngChAJ8AogAMAKMAogALAAwADQAOAA8ADQAQAA4AEQASABMAEQAUABIAFQAWABcAFQAYABYAGQAaABsAGQAcABoAHQAeAB8AHQAgAB4AIQAiACMAIQCkACIApQCmAKcApQCoAKYAqQAkAKoAqQAlACQAJgAnACgAJgApACcAKgArACwAKgAtACsALgCrADAALgCsAKsArQCuAK8ArQCwAK4AsQCyALMAsQC0ALIAtQAxALYAtQAvADEAMgAzADQAMgA1ADMANgC3ADgANgC4ALcAuQA3ALoAuQA5ADcAOgC7ADwAOgC8ALsAvQA7AL4AvQA9ADsAPgA/AEAAPgBBAD8AQgBDAEQAQgBFAEMARgBHAEgARgBJAEcASgC/AEwASgDAAL8AwQDCAMMAwQDEAMIAxQDGAMcAxQDIAMYAyQBLAMoAyQBNAEsAAADLAAIAAADMAMsAfgDNAM4AzwDNAH4AhQDPANAAhQDNAM8AzQB/AIAAzQDRAH8AfwDRANIAzQCCANEAhQCCAM0A0QCDAIEA0QCCAIMAgwCCAIQAhgCFAIcA0wCFAIYA0wCGAIkAigCFANMAigCCAIUA1ADTAIgAigDTANQA1QCKAIwA1gCKANUAiwCKANYAiwDWANcAggCKAIsAggCLAI0AjQCLAI4AggCNANgA2ACNANkAggDYAI8AggCPAJAAVwDaANsAVwDcANoAkQCTAN0AkQCSAJMA3gDfAOAA3gDhAN8A4gBdAOMAYQDkAOUA5gDnAOgA5gDpAOcA6gDrAOwA6gB9AOsA7QDuAGcA7QDvAO4A7wDwAO4A7wDxAPAA8gDzAPQA8gD1APMA9gB1AHYA9gD3AHUA+AD5APoA+AD7APkA+QD8APoA+QD9APwA/gD/AAAB/gBgAP8ATwBRAFAAUQBTAAEBAgEDAQQBAgFlAAMBBQEGAQcBBQEIAQYBCQEKAQsBCQEMAQoBDQEOAQ8BDQEQAQ4BEQESARMBEQEUARIBFQEWARcBFQEYARYBXgBfABkBXgAaAV8AXwAbARkBXwAcARsBHQEcAV8AHQEeARwBHwFWACABIAFWACEBIgEjAXsAIgEkASMBJQEmAScBKAEpASoBKAErASkBLAEtAS4BLAEvAS0BMAExATIBMAEzATEBNAE1ATYBNAE3ATUBOAE0ATYBOAE2ATkBOgE0ATgBOgE4ATsBOwE4AW8AOwFvADwBPQE+AT8BPQFAAT4BawBsAEEBbABCAUEBbABDAUIBbABEAUMBQwFEAW0AQwFtAEUBRgF5AEcBRgFIAXkASAF4AHkAeQB6AEcBRwF6AEkBSQF6AEoBRwFJAXcASwFMAU0BSwFOAUwBTwFQAVEBTwFSAVABUwFUAVUBUwFWAVQBVwFYAVkBVwFaAVgBWwFcAV0BWwFeAVwBXwFgAWEBXwFiAWABYwFkAWUBYwFmAWQBcwBnAWgBcwBpAWcBagFrAWwBagFtAWsBbgFvAXABbgFjAG8BcQFyAXMBcQF0AXIBdQF2AXcBdQF4AXYBeQF6AXsBeQF8AXoBfQF+AX8BfQGAAX4BgQGCAYMBgQGEAYIBhQGGAYcBhQGIAYYBiQFcAIoBiQGLAVwAjAFUAI0BjgGPAZABjgGRAY8BkgGTAVUAkgGUAZMBlQGWAZcBmAGZAZoBmAGbAZkBnAGdAZ4BnAGfAZ0BoAGhAaIBoAGjAaEBpAGlAaYBpAGnAaUBqAGpAaoBqAGrAakBrAGtAa4BrAGvAa0BsAGxAWIAsgGzAbQBsgG1AbMBtgG3AbgBtgG5AbcBugG7AbwBugG9AbsBvgG/AcABvgHBAb8BwgHDAWoAwgHEAcMBxQHGAccBxQHIAcYByQHKAcsByQHMAcoBzQHOAc8BaADQAdEBaADSAdAB0wHUAdUB0wHWAdQB1wHYAdkB1wHaAdgBWgDbAVkAWgBbANsB3AFmAN0B3AHeAWYA3wHgAeEB3wHiAeAB4wHkAeUB4wHmAeQBWADnAegBWADpAecB6gHrAWQA6gHsAesB7QHuAe8B7QHwAe4B8QHyAfMB8QH0AfIB9QH2AfcB9QH4AfYB+QF0APoB+QH7AXQA/AH9Af4B/AH/Af0BlAAAApYAlACVAAACAQICAgMCAQIEAgICBQIGAnIABQJxAAYCBwIIAgkCBwIKAggCCwIMAg0CCwIOAgwCbgAPAhACbgARAg8CEgITAhQCEgIVAhMCFgIXAhgCFgIZAhcCGgIbAhwCGgIdAhsCHgIfAiACHgIhAh8CfAAiAiMCfAAkAiICJQImAicCJQIoAiYCKQIqAlIAKQIrAioCLAItAi4CLAIvAi0CcAAwAjECcAAyAjACMwI0AjUCMwI2AjQCNwI4AjkCNwJpADgCOgI7AjwCPQI+Aj8CPQJAAj4CQQJCAkMCQQJEAkICRQJGAkcCSAJJAkoCSAJLAkkCTAJOAE0CTAJOAk4ATwJQAlECTwJSAlAC"),
+"lods": [0.46385154, PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkACwAMAAkADQAOAA8ADQAQAA4AEQASABMAEQAUABIAFQAWABcAFQAYABYAGQAaABsAGQAcABoAHQAeAB8AHQAgAB4AIQAiACMAIQAkACIAIQAlACQAJgAnACgAJgApACcAKgArACwAKgAtACsALgAvADAALwAxADAAMgAzADQAMgA1ADMANgA3ADgANgA5ADcAOgA7ADwAOgA9ADsAPgA/AEAAPgBBAD8AQgBDAEQAQgBFAEMARgBHAEgARgBJAEcASgBLAEwASgBNAEsATgBPAFAATwBRAFAAUABRAFIAUwBSAFEAVABSAFMAUgBUAFUAVQBWAFIAVwBWAFUAWABWAFcAWABXAFkAVwBaAFkAWgBbAFkAWwBcAFkAXQBcAFsAXQBeAFwAXwBcAF4AYABcAF8AYQBgAF8AYABhAGIAYABjAFwAZABWAFwAXABlAGQAYwBlAFwAZABmAFYAZQBmAGQAVgBmAFIAUgBmAFAAZQBjAGcAZwBmAGUAaABnAGMAZgBpAFAAYwBqAGgAagBnAGgAYwBrAGoAbABqAGsAbABtAGoAUABpAE4AbQBuAGoAagBvAGcAagBuAG8AZwBvAGYAaQBwAE4AZgBxAGkAcQBwAGkAcgBxAGYAcwBvAHIAbwB0AHIAdABxAHIAbwBuAHQAcQB0AHUAcQB1AHYAbgB3AHQAbgB4AHcAeQB6AHgAeAB6AHcAdwB6AE4AdAB3AHsAdAB7AHwAewB9AHUAewB3AH0AfQB3AE4AfAB9AHAAcAB9AE4AfgB/AIAAfgCBAH8AfgCCAIEAgQCCAIMAgwCCAIQAhQCCAH4AhgCFAIcAiACFAIYAiACGAIkAigCFAIgAigCCAIUAggCKAIsAiwCKAIwAggCLAI0AjQCLAI4AggCNAI8AggCPAJAAkQCSAJMAlACVAJYA")],
+"material": ExtResource("32_v7ht3"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 595,
+"vertex_data": PackedByteArray("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xak4q8KpOau9qTurz6kzqy6qSrAvqkqwQqpBsCaqTrCOsByqmbAVqnewKqp5rbusea27rP6sZqX8rGel+6xopQCtZaVqqO+tNagErpKo363BqeKswanirMGp4qz7qyOtBawdrfWrJq0SrBetpqxDp6WsRKekrESnp6xDp+OrC632qwGt36sNrfur/6zIqeSr1Kneq7+p6KvcqdurzauNp86rjafGq5Gn0quKp2erZKZjq2amUatwpoCrV6b2qNSl9qjUpXmrc6ywq1estqtUrHOrdqxCqwqtPasMrTarEK1IqwetI6ttqjerY6pVq1SqBqt7qsarqKTGq6ikxKuppMerp6SQq42nrKt/p2iro6csqQ2sPKkGrEapAawgqROscqpKsW6qTLG/qiexCqp5sRitVKYYrVSmGK1Upq+t46jtrb6ob60IqUqpO61AqT+tT6k5rTepQ62Aq0atdatLrZarO61cq1it8q2jrDmvgKwmr4usPK9+rMaqR6nJqkWpzapDqcSqSKkBqo6t8amVraKpuK0YqoOtmap9ptGqYaYhqrmmmrFgrZKxZa1ssX2t+asWqfqrFan5qxap+6sVqVCoDqxTqA2sZagFrDGoHKyTr3Kqmq9tqtivSKo/r6WqMag+qQ6oTalDqDapdalQrXmpTq17qU2tc6lRrfWyY6llqtqoZaraqGqq2Khdqt+o16nrp9ap66cSqKipDKiqqQmorKkVqKapX6yYp0ispadErKenY6yWp6SqLKikqi2opaosqOiomKjkqJmo7KiWqN+om6iNqBuwk6gYsIyoG7CUqBiwtahsqLaobKi0qG2ot6hrqN6kWK3dpFmtw6RirfikT60Br9yn0a75pyWvxaf0pies66YrrM+mNqwIpx+sXKpgrlmqYa5hql6u1ahlrNWoZqzaqGOs0qhnrH+xJqsjsWGr7LHfqqOnC7Ghpwyxp6cJsZ2nDbFprias/K1jrO6tbKwUriakFK4mpBSuJqR2qX2nAam1p++ovqfdqUynL6v9rC+r/awvq/2sLqv+rNuq2Kvbqtir26rYqzes6Ks4rOerNqzpqzqs5qsdqwWrI6sCqxmrCKvUpe6rn6UCrD6lJ6wWptSr")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ga00i")
+
 [sub_resource type="Gradient" id="Gradient_k23m1"]
 offsets = PackedFloat32Array(0, 0.64285713, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 1, 1, 1, 0.1393333, 0, 0.19, 1)
@@ -351,35 +420,6 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:health")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_q6mps"]
-offsets = PackedFloat32Array(0, 0.64285713, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 1, 1, 1, 0.1393333, 0, 0.19, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_yhdwd"]
-gradient = SubResource("Gradient_q6mps")
-
-[sub_resource type="Curve" id="Curve_2d63o"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.06427504, 0.9507042), -14.268177, -14.268177, 0, 0, Vector2(0.14798206, 0.9507042), -4.1676617, -4.1676617, 0, 0, Vector2(0.16741404, 0.57042253), 0.0, 0.0, 0, 0, Vector2(0.3109118, 0.93309855), 0.0, 0.0, 0, 0, Vector2(0.40807176, 0.48943663), 0.0, 0.0, 0, 0, Vector2(0.5530643, 0.9507042), 0.0, 0.0, 0, 0, Vector2(0.66816145, 0.48591548), 0.0, 0.0, 0, 0, Vector2(0.7892377, 0.89788735), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 10
-
-[sub_resource type="CurveTexture" id="CurveTexture_gnast"]
-curve = SubResource("Curve_2d63o")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ti22o"]
-emission_shape = 1
-emission_sphere_radius = 0.3
-direction = Vector3(0, 1, 0)
-initial_velocity_min = 0.29999998
-initial_velocity_max = 1.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.39999998
-scale_max = 0.59999996
-scale_curve = SubResource("CurveTexture_gnast")
-color_ramp = SubResource("GradientTexture1D_yhdwd")
-collision_mode = 1
-collision_friction = 0.15
-collision_bounce = 0.32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fm7h"]
 transparency = 1
@@ -476,9 +516,10 @@ wait_state = NodePath("1_ Wait")
 [node name="0_ Connecting" type="Node" parent="Network Manager/StateMachine"]
 script = ExtResource("18_t44h5")
 
-[node name="1_ Wait" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("start_menu")]
+[node name="1_ Wait" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("start_menu", "hellholder")]
 script = ExtResource("19_rhlsr")
 start_menu = NodePath("../../../Camera3D/Start Menu/Menu")
+hellholder = NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn")
 
 [node name="2_ Intro" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("Baal", "baal_text", "thrower_text", "intro_music")]
 script = ExtResource("20_4qbkp")
@@ -489,14 +530,21 @@ baal_intro_lines = Array[String](["Yo.", "Cool necronomicon.", "You used it to s
 thrower_intro_lines = Array[String](["It seems your idiot friend has once again attempted to summon a demon.", "Only, this time, they might have actually succeeded.", "Sort of worried for their well being if they are taken to hell so you decide on the optimal solution:", "violence.", "You have some conveniently placed cabbage to throw. ", "But you can't see the demon...", "Maybe your useless pal can make themselves useful...?"])
 intro_music = NodePath("../../../Dedicated Audio/BaalIntroMusic")
 
-[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager", "game_timer", "throw_manager", "fight_music")]
+[node name="3_ Gameplay" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("baal", "health_bar", "magic_manager", "game_timer", "throw_manager", "eyes", "tentacles", "particles", "fight_music", "tentacle_timer", "eye_timer", "particle_timer", "surr_surr")]
 script = ExtResource("21_30nck")
 baal = NodePath("../../../Dynamic Scene/Ba\'al")
 health_bar = NodePath("../../../Camera3D/Healthbar")
 magic_manager = NodePath("../../MagicManager")
 game_timer = NodePath("LossTimer")
 throw_manager = NodePath("../../../Dynamic Scene/BallDetection")
+eyes = [NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal2"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal3"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal4"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal5"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal6"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal7"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal8"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal9"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal10"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal11"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal12"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal13"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/flesh"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/flesh2"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/flesh3"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/flesh4")]
+tentacles = [NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/Tentacle"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/Tentacle2"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/Tentacle3"), NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/Tentacle4")]
+particles = [NodePath("../../../Dynamic Scene/Dynamic_objects/Hellspawn/Pentacles")]
 fight_music = NodePath("../../../Dedicated Audio/GameMusic")
+tentacle_timer = NodePath("TentacleTimer")
+eye_timer = NodePath("EyeTimer")
+particle_timer = NodePath("ParticleTimer")
+surr_surr = NodePath("../../../Dynamic Scene/Ba\'al/BaalSurr")
 
 [node name="LossTimer" type="Timer" parent="Network Manager/StateMachine/3_ Gameplay"]
 wait_time = 120.0
@@ -508,6 +556,7 @@ wait_time = 66.60000000000001
 wait_time = 50.0
 
 [node name="ParticleTimer" type="Timer" parent="Network Manager/StateMachine/3_ Gameplay"]
+wait_time = 20.0
 
 [node name="4_ Loss" type="Node" parent="Network Manager/StateMachine" node_paths=PackedStringArray("allfather_node", "baal", "pause_menu", "credits_menu", "baal_text", "victim_marker", "hell_marker")]
 script = ExtResource("22_30nck")
@@ -555,7 +604,7 @@ script = ExtResource("25_6kivn")
 [node name="Static Scene" type="Node3D" parent="."]
 
 [node name="Basement" parent="Static Scene" instance=ExtResource("1_syryq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6838826)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014559627, -0.06800145, -0.7061312)
 
 [node name="Hell" type="Node3D" parent="Static Scene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.657265, 0)
@@ -682,10 +731,10 @@ replication_config = SubResource("SceneReplicationConfig_om2n4")
 [node name="Hellspawn" type="Node" parent="Dynamic Scene/Dynamic_objects"]
 
 [node name="EyeOfBaal" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.7011797, 0.28487504, -4.0014544)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.7011797, 0.18783927, -4.0014544)
 script = ExtResource("54_5mv5p")
 end_position = Vector3(-2.701, 0.285, -4.001)
-movedistance = 3.0
+movedistance = 2.0
 move_direction = Vector3(0, 0, 1)
 movement_speed = 0.2
 
@@ -703,10 +752,10 @@ mesh = SubResource("ArrayMesh_oh80q")
 skeleton = NodePath("")
 
 [node name="EyeOfBaal2" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.051105, 0.28487504, -4.0014544)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.051105, 0.18783927, -4.0014544)
 script = ExtResource("54_5mv5p")
 end_position = Vector3(-2.051, 0.285, -4.001)
-movedistance = 3.0
+movedistance = 2.4
 move_direction = Vector3(0, 0, 1)
 movement_speed = 0.2
 
@@ -723,11 +772,242 @@ transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
 mesh = SubResource("ArrayMesh_oh80q")
 skeleton = NodePath("")
 
+[node name="EyeOfBaal3" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, -0.6294961, -0.06750253, -2.6915088)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 5.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal3" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal3"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal4" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0.57355666, -0.06750253, -2.2495549)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 8.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal4" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal4"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal5" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0.37230948, -0.06750253, -2.5979388)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 9.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal5" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal5"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal6" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0.7309947, -0.06750253, -2.4801106)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 9.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal6" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal6"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal7" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, -0.5797759, -0.06750265, -2.331213)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 10.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal7" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal7"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal8" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, -0.8169247, -0.06750265, -1.8034184)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 12.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal8" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal8"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal9" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, -0.7542567, -0.06750265, -1.3918283)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 19.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal9" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal9"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal10" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, -0.32153594, -0.06750265, -0.87112546)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 15.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal10" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal10"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal11" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0.7513802, -0.06750265, -1.7767339)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 20.0
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal11" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal11"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal12" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0.6088842, -0.06750265, -1.3858601)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 23.5
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal12" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal12"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
+[node name="EyeOfBaal13" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0.726365, -0.06750265, -1.1189235)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.051, 0.285, -4.001)
+movedistance = 25.5
+move_direction = Vector3(0, 1, 1)
+movement_speed = 0.2
+
+[node name="Sphere" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal13" node_paths=PackedStringArray("turn_target", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.28440285)
+mesh = SubResource("ArrayMesh_o1q7a")
+skeleton = NodePath("")
+script = ExtResource("50_8fhsg")
+turn_target = NodePath("../../../../../Player_2")
+camera = NodePath("../../../../../Camera3D")
+
+[node name="Cube" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/EyeOfBaal13"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, -0.9480853)
+mesh = SubResource("ArrayMesh_oh80q")
+skeleton = NodePath("")
+
 [node name="Tentacle" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
 transform = Transform3D(-0.14109397, -2.967512e-09, -0.05091657, 0, -0.1, 1.3113416e-08, -0.05091657, 8.223218e-09, 0.14109397, 2.0348568, 2.4734666, -3.7351544)
 script = ExtResource("54_5mv5p")
 end_position = Vector3(-2.348, 2.473, -4.069)
-movedistance = 10.0
+movedistance = 1.5
 move_direction = Vector3(0, -1, 0)
 movement_speed = 0.1
 
@@ -806,7 +1086,7 @@ skin = SubResource("Skin_gmfrw")
 transform = Transform3D(-0.09406263, 2.6278526e-09, -0.05770545, -8.742278e-09, -0.05000001, 1.48618735e-08, -0.033944387, 5.595364e-09, 0.15990648, 2.4387362, 2.4734666, -3.4649954)
 script = ExtResource("54_5mv5p")
 end_position = Vector3(-2.348, 2.473, -4.069)
-movedistance = 10.0
+movedistance = 1.5
 move_direction = Vector3(0, -1, 0)
 movement_speed = 0.1
 
@@ -885,7 +1165,7 @@ skin = SubResource("Skin_gmfrw")
 transform = Transform3D(-0.0837013, 4.2077266e-09, -0.093021214, -1.5099582e-08, -0.053568102, 1.48618735e-08, -0.054718338, 8.345715e-09, 0.14229216, 1.8963178, 2.4734666, -3.3632207)
 script = ExtResource("54_5mv5p")
 end_position = Vector3(-2.348, 2.473, -4.069)
-movedistance = 10.0
+movedistance = 1.5
 move_direction = Vector3(0, -1, 0)
 movement_speed = 0.1
 
@@ -959,6 +1239,143 @@ bones/8/scale = Vector3(1, 1, 1)
 [node name="Cylinder" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/Tentacle3/Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_wak7a")
 skin = SubResource("Skin_gmfrw")
+
+[node name="Tentacle4" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(-0.09073231, 9.307861e-09, 0.07147385, -1.5099584e-08, -0.05356811, 1.4861879e-08, 0.042043444, 8.483527e-10, 0.1542449, -0.8855132, 2.4734666, -2.2685783)
+script = ExtResource("54_5mv5p")
+end_position = Vector3(-2.348, 2.473, -4.069)
+movedistance = 1.5
+move_direction = Vector3(0, -1, 0)
+movement_speed = 0.1
+
+[node name="Armature" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/Tentacle4"]
+
+[node name="Skeleton3D" type="Skeleton3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/Tentacle4/Armature"]
+bones/0/name = "tentacle_0"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13685173, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, -0.13685173, 0)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "tentacle_0.001"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5448306, 0)
+bones/1/enabled = true
+bones/1/position = Vector3(0, 1.5448306, 0)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "tentacle_0.002"
+bones/2/parent = 1
+bones/2/rest = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 0, 1.1513083, 0)
+bones/2/enabled = true
+bones/2/position = Vector3(0, 1.1513083, 0)
+bones/2/rotation = Quaternion(0, 1.1920929e-07, 0, 1)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/name = "tentacle_0.003"
+bones/3/parent = 2
+bones/3/rest = Transform3D(1, 0, -2.3841858e-07, 0, 1, 0, 2.3841858e-07, 0, 1, 0, 1.5285287, 0)
+bones/3/enabled = true
+bones/3/position = Vector3(0, 1.5285287, 0)
+bones/3/rotation = Quaternion(0, -1.1920929e-07, 0, 1)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/name = "tentacle_0.004"
+bones/4/parent = 3
+bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+bones/4/enabled = true
+bones/4/position = Vector3(0, 0, 0)
+bones/4/rotation = Quaternion(0, 0, 0, 1)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/name = "tentacle_0.005"
+bones/5/parent = 4
+bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9521155, 0)
+bones/5/enabled = true
+bones/5/position = Vector3(0, 1.9521155, 0)
+bones/5/rotation = Quaternion(0, 0, 0, 1)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/name = "tentacle_0.006"
+bones/6/parent = 5
+bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1882439, 0)
+bones/6/enabled = true
+bones/6/position = Vector3(0, 1.1882439, 0)
+bones/6/rotation = Quaternion(0, 0, 0, 1)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/name = "tentacle_0.007"
+bones/7/parent = 6
+bones/7/rest = Transform3D(1, 0, 2.3841855e-07, 0, 0.99999994, 0, -2.3841855e-07, 0, 1, 0, 1.1646681, 0)
+bones/7/enabled = true
+bones/7/position = Vector3(0, 1.1646681, 0)
+bones/7/rotation = Quaternion(0, 1.19209275e-07, 0, 1)
+bones/7/scale = Vector3(1, 0.99999994, 1)
+bones/8/name = "tentacle_0.008"
+bones/8/parent = 7
+bones/8/rest = Transform3D(1, 0, 2.842171e-14, 0, 1, 0, -2.842171e-14, 0, 1, 0, 1.4240074, 0)
+bones/8/enabled = true
+bones/8/position = Vector3(0, 1.4240074, 0)
+bones/8/rotation = Quaternion(0, 1.4210855e-14, 0, 1)
+bones/8/scale = Vector3(1, 1, 1)
+
+[node name="Cylinder" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/Tentacle4/Armature/Skeleton3D"]
+mesh = SubResource("ArrayMesh_wak7a")
+skin = SubResource("Skin_gmfrw")
+
+[node name="Pentacles" type="GPUParticles3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65821046, -1.707705)
+emitting = false
+amount = 133
+lifetime = 5.43
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_ti22o")
+draw_pass_1 = SubResource("PlaneMesh_52yoo")
+script = ExtResource("31_52yoo")
+
+[node name="flesh" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 1.413208, 0.22706246, -2.6607518)
+script = ExtResource("54_5mv5p")
+movedistance = 1.0
+move_direction = Vector3(0, 1, 0)
+movement_speed = 0.05
+
+[node name="@MeshInstance3D@129417" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/flesh"]
+transform = Transform3D(0.9999998, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 1.0006909, -1.0558461, 1.120841)
+mesh = SubResource("ArrayMesh_jq4d8")
+skeleton = NodePath("")
+
+[node name="flesh2" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.3, 0, 0, 0, -0.3, 2.6226834e-08, 0, -2.6226834e-08, -0.3, -3.248068, 2.0414968, -4.1276264)
+script = ExtResource("54_5mv5p")
+movedistance = 1.0
+move_direction = Vector3(0, -1, 0)
+movement_speed = 0.1
+
+[node name="_MeshInstance3D_129417" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/flesh2"]
+transform = Transform3D(0.9999998, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 1.0006909, -1.0558461, 1.120841)
+mesh = SubResource("ArrayMesh_jq4d8")
+skeleton = NodePath("")
+
+[node name="flesh3" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(0.29999998, 0, 0, 0, -1.3113416e-08, -0.29999998, 0, 0.29999998, -1.3113416e-08, -3.248068, 2.470215, -4.366091)
+script = ExtResource("54_5mv5p")
+movedistance = 1.0
+move_direction = Vector3(0, 0, 1)
+movement_speed = 0.1
+
+[node name="_MeshInstance3D_129417" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/flesh3"]
+transform = Transform3D(0.9999998, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 1.0006909, -1.0558461, 1.120841)
+mesh = SubResource("ArrayMesh_jq4d8")
+skeleton = NodePath("")
+
+[node name="flesh4" type="Node3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn"]
+transform = Transform3D(-1.3113414e-08, 0.30000004, -1.3113417e-08, -1.1464111e-15, 1.3113418e-08, 0.3, 0.29999995, 1.3113418e-08, 5.7320567e-16, -2.7213569, 1.6816773, -4.7664776)
+script = ExtResource("54_5mv5p")
+movedistance = 1.0
+move_direction = Vector3(1, 0, 0)
+movement_speed = 0.1
+
+[node name="_MeshInstance3D_129417" type="MeshInstance3D" parent="Dynamic Scene/Dynamic_objects/Hellspawn/flesh4"]
+transform = Transform3D(0.9999998, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 1.0006909, -1.0558461, 1.120841)
+mesh = SubResource("ArrayMesh_jq4d8")
+skeleton = NodePath("")
 
 [node name="Spawners" type="Node" parent="Dynamic Scene"]
 
@@ -1099,6 +1516,12 @@ transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_1k4vq")
 draw_pass_1 = SubResource("PlaneMesh_cq6a6")
 draw_skin = SubResource("Skin_hku3c")
+
+[node name="BaalFireNoise" type="AudioStreamPlayer3D" parent="Dynamic Scene/Ba\'al"]
+
+[node name="BaalSurr" type="AudioStreamPlayer3D" parent="Dynamic Scene/Ba\'al"]
+stream = ExtResource("47_04cfs")
+volume_db = -18.0
 
 [node name="SpellTome" parent="." instance=ExtResource("5_yhdwd")]
 transform = Transform3D(0.99999994, 0.00017601252, 0.0004930198, -2.1173943e-08, 0.94178784, -0.3362078, -0.0005235672, 0.33620775, 0.9417876, -0.013977468, 0.15305418, -1.5869929)
@@ -1347,14 +1770,14 @@ text = "Back"
 [node name="Dedicated Audio" type="Node" parent="."]
 
 [node name="BaalIntroMusic" type="AudioStreamPlayer3D" parent="Dedicated Audio"]
-stream = ExtResource("58_mqtup")
+stream = ExtResource("56_mqtup")
 attenuation_model = 2
-volume_db = 22.0
+volume_db = -1.0
 
 [node name="GameMusic" type="AudioStreamPlayer3D" parent="Dedicated Audio"]
-stream = ExtResource("55_p55ml")
+stream = ExtResource("57_mqtup")
 attenuation_model = 2
-volume_db = 22.0
+volume_db = -1.0
 script = ExtResource("58_odpcd")
 
 [connection signal="timeout" from="Camera3D/Healthbar/Timer" to="Camera3D/Healthbar" method="_on_timer_timeout"]

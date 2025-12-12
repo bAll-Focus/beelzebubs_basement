@@ -5,6 +5,6 @@ extends GPUParticles3D
 func _ready() -> void:
 	emitting = true
 	get_child(0).emitting = true
-	await get_tree().create_timer(existence_time).timeout
+	await get_tree().create_timer(existence_time+1).timeout
 	get_child(0).queue_free()
 	queue_free()

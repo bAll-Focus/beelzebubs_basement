@@ -1,6 +1,7 @@
 extends State
 
 @export var start_menu:Control
+@export var hellholder:Node
 
 func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 	state_machine = state_machine_node
@@ -10,9 +11,15 @@ func _initialize_state(state_machine_node:NetworkStateMachine, root_node:Node):
 
 func client_enter_state():
 	start_menu.visible = false
+	clear_hellscape()
 
 func server_enter_state():
 	start_menu.visible = true
+	clear_hellscape()
+
+func clear_hellscape():
+	for child in hellholder.get_children():
+		child.reset_properties()
 
 func _exit_state():
 	start_menu.visible = false

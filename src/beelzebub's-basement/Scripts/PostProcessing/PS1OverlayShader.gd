@@ -4,6 +4,7 @@ class_name PS1OverlayShader
 
 @export var x_size = 480
 @export var y_size = 360
+@export var redness = 0.0
 const template_shader: String = """
 #version 450
 
@@ -29,7 +30,7 @@ void main() {
 	}
 	vec4 color = vec4(uv.x, uv.y, 0.5, 1);
 	#COMPUTE_CODE
-
+	#ADDRED
 	imageStore(color_image, myuv, color);
 }
 """
@@ -62,6 +63,7 @@ func _notification(what):
 			rd.free_rid(shader)
 			
 
+
 # Check if our shader has changed and needs to be recompiled.
 func _check_shader() -> bool:
 	if not rd:
@@ -71,7 +73,8 @@ func _check_shader() -> bool:
 
 	# Check if our shader is dirty.
 	mutex.lock()
-	if shader_is_dirty:
+	if shader_is_dirty or abs(redness - RednessStatus.redness)>0.0000001:
+		redness = RednessStatus.redness
 		new_shader_code = shader_code
 		shader_is_dirty = false
 	mutex.unlock()
@@ -81,7 +84,12 @@ func _check_shader() -> bool:
 		return pipeline.is_valid()
 
 	# Apply template.
-	new_shader_code = template_shader.replace("#COMPUTE_CODE", new_shader_code);
+	var code_string:String = """color.x += """ + str(RednessStatus.redness) + """;\n"""
+
+	var red = template_shader.replace("#ADDRED", code_string);
+	new_shader_code = red.replace("#COMPUTE_CODE", new_shader_code);
+	
+	#new_shader_code = template_shader.replace("#COMPUTE_CODE", new_shader_code);
 
 	# Out with the old.
 	if shader.is_valid():

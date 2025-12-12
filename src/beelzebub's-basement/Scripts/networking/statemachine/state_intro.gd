@@ -8,6 +8,7 @@ extends State
 @export var thrower_intro_lines: Array[String]
 @export var intro_music:AudioStreamPlayer3D
 
+
 var server_done = false
 var client_done = false
 
@@ -34,6 +35,9 @@ func client_enter_state():
 @rpc("any_peer")
 func finished_baal_intro ():
 	client_done = true
+
+
+	
 
 func server_enter_state():
 	intro_music.play()

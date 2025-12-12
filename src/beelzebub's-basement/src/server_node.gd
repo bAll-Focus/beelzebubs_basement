@@ -117,7 +117,7 @@ func _physics_process(delta):
 
 func _input(event):
 	# Mouse in viewport coordinates.
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.pressed and is_active:
 		if event.button_index == MOUSE_BUTTON_LEFT :
 			var x =  (event.position.x - (viewport_width/2))/viewport_width
 			throw_x = x

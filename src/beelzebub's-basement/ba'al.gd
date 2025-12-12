@@ -205,7 +205,6 @@ func on_slow_ended():
 
 @rpc
 func baal_died():
-	set_visibility(false);
 	health = 0
 	is_active = false
 	

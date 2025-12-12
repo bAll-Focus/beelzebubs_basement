@@ -29,6 +29,7 @@ func server_enter_state():
 	client_done = false
 	baal.stop_all_timers()
 	await baal_text.write_text_set(baal_win_lines_server)
+	baal.set_visibility(true)
 	server_done = true
 
 func server_exit_state():

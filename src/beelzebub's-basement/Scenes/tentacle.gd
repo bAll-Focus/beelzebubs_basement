@@ -1,4 +1,5 @@
 extends Node3D
+class_name Hellflesh
 
 @export var end_position:Vector3
 @export var movedistance:float
@@ -12,12 +13,13 @@ func _ready():
 	end_position = position
 	position = end_position - movedistance * move_direction
 	start_position = position
-	to_be_shown = true
 
 func set_visibility(value):
 	to_be_shown = value
-func reset_position():
+	
+func reset_properties():
 	position = start_position
+	set_visibility(false)
 	
 func _process(delta: float) -> void:
 	var pos = position
