@@ -14,6 +14,8 @@ class_name Baal_AI
 @onready var timerStun:Timer = $TimerStun
 
 @onready var particle_parent = $particles
+@onready var body = $CharacterBody3D/flygoat/Armature/Skeleton3D/Body
+
 ## Particles related to fire. 
 #Burning is active the entire duration of fire
 #Flare emits a burst of fire when Baal takes fire damage
@@ -59,6 +61,7 @@ func _ready() -> void:
 	timerSlow.timeout.connect(on_slow_ended)
 	timerBurn.timeout.connect(_on_timer_timeout)
 	timerStun.timeout.connect(_on_timer_stun_timeout)
+	print("property: ", body.get_surface_override_material(0))
 	_initialize_baal()
 	
 func _prepare_baal_for_new_round() -> void:
@@ -212,15 +215,15 @@ func baal_died():
 func blink_boi_blink():
 	if multiplayer.is_server(): 
 		blink_boi_blink.rpc() #call the client version to do something
-		if($CharacterBody3D.visible): turn_visible_and_back = true
+		if(!$CharacterBody3D.visible): turn_visible_and_back = true
 		else: turn_visible_and_back = false
+		if(turn_visible_and_back): set_visibility(true)
 		for n in 3:
-			if(turn_visible_and_back): set_visibility(true)
-			#blink here red using shader - OBS
-			await get_tree().create_timer(0.05).timeout
-			#blink here white using shader - OBS
-			await get_tree().create_timer(0.05).timeout
-			if(turn_visible_and_back): set_visibility(false)
+			_set_red(true)
+			await get_tree().create_timer(0.1).timeout
+			_set_red(false)
+			await get_tree().create_timer(0.1).timeout
+		if(turn_visible_and_back): set_visibility(false)
 	else:
 		pass
 
@@ -248,6 +251,7 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		
 		stunned = true
 		timerStun.start()
+		blink_boi_blink()
 		
 		var val = randi_range(0, 2) 
 		audio_player.stream = hit_sounds[val]
@@ -282,3 +286,11 @@ func _on_timer_timeout() -> void:
 func _on_timer_stun_timeout() -> void:
 	stunned = false
 	stun = 0
+
+func _set_red(flash):
+	if(flash):
+		body.get_surface_override_material(0).shading_mode = 0
+		body.get_surface_override_material(0).albedo_color = Color(1, 0, 0)
+	else:
+		body.get_surface_override_material(0).albedo_color = Color(1, 1, 1)
+		body.get_surface_override_material(0).shading_mode = 1
