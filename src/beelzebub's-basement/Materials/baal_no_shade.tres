@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bals7iqumthuh"]
+
+[ext_resource type="Texture2D" uid="uid://5h5c8w6vnvkb" path="res://Models/flygoatanim_body_texture.png" id="1_0aamv"]
+
+[resource]
+resource_name = "Material"
+cull_mode = 2
+albedo_texture = ExtResource("1_0aamv")
+roughness = 0.5
