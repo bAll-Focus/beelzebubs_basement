@@ -51,7 +51,3 @@ src/
 - [Godot XR Tools](https://github.com/GodotVR/godot-xr-tools)
 - [Godot OpenXR Vendors](https://github.com/GodotVR/godot_openxr_vendors)
 - Hand Pose Detector
-
-## License
-
-TBD
